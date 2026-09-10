@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
+      - main
       - v0.4-release-final
     paths:
       - '.github/workflows/finalize-v0.4.yml'
@@ -63,5 +64,5 @@ jobs:
             echo 'No generated changes to commit.'
           else
             git commit -m 'release: finalize Web Presentation V0.4 artifacts'
-            git push origin HEAD:v0.4-release-final
+            git push origin HEAD:${GITHUB_REF_NAME}
           fi
