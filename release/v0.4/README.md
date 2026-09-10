@@ -1,10 +1,9 @@
 # 数智健康 OPC 国际人才社区 Web Presentation V0.4
 
-本目录为 V0.4 正式交付包。
+本目录为 V0.4 正式发布基线。
 
-- `数智健康OPC国际人才社区_Web_Presentation_V0.4.html`：单文件离线版，可直接浏览器打开。
-- `Web-Presentation-V0.4.zip`：完整打包版本，包含模块化源码、QA、规格与设计系统。
-- `qa/contact-sheet-v0.4.jpg`：20屏全量视觉预览。
-- `modular/`：模块化开发源文件。
+- 单文件 HTML：可离线直接打开，20 屏，样式、交互与揭牌图片均内嵌。
+- ZIP：包含正式 HTML、README 与包内 HTML 校验值。
+- SHA256SUMS.txt：记录正式 HTML、ZIP 及 QA Contact Sheet 的校验值。
 
-关键页 Screen 01 / 06 / 08 / 12 沿用确认通过的设计基线；其余 16 屏在同一设计系统下增强图片 / 图形化表达。
+关键基线页 Screen 01 / 06 / 08 / 12 保持用户确认版本。
