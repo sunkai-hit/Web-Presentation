@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-10T08:43:22Z",
+  "generated_at_utc": "2026-09-10T08:45:46Z",
   "html": {
     "path": "release/v0.4/数智健康OPC国际人才社区_Web_Presentation_V0.4.html",
     "bytes": 137059,
@@ -8,11 +8,11 @@
   "zip": {
     "path": "release/v0.4/数智健康OPC国际人才社区_Web_Presentation_V0.4.zip",
     "bytes": 43850,
-    "sha256": "c0ebf79ceb05a9f8ba9662391f083023f66f308431f1749dffdbf32a454a0de4"
+    "sha256": "bb4e0886a7e970bb8329f542c7e7a4e02bed959e4c907e63e629321e63d1d08c"
   },
   "contact_sheet": {
     "path": "qa/contact-sheet-v0.4.jpg",
-    "bytes": 135055,
-    "sha256": "0112c6bd3c1b940032783f76680c86b61ec09cb49742246f76d6ae6d59761486"
+    "bytes": 130254,
+    "sha256": "30e1e4d32aa875892d3d08288d361ff98549110b9eae190e7b84325942840879"
   }
 }
