@@ -1,5 +1,17 @@
 // V0.4.1 incremental DOM patch
 (() => {
+  // Screen 02 photo compatibility: prefer PNG generated from the same unveiling photo.
+  // Standalone builds inline this path as a data:image/png;base64 URI.
+  const revealPhoto=document.querySelector('#s02 .reveal-photo img');
+  if(revealPhoto){
+    revealPhoto.src='assets/opc-reveal.png';
+    revealPhoto.onerror=()=>{
+      if(revealPhoto.dataset.fallback==='1') return;
+      revealPhoto.dataset.fallback='1';
+      revealPhoto.src='assets/opc-reveal.jpg';
+    };
+  }
+
   const s16=document.getElementById('s16');
   if(!s16) return;
   const metrics=s16.querySelectorAll('.ops-metrics .om');
