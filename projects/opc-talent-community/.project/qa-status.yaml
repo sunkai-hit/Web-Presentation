@@ -1,0 +1,15 @@
+version: v0.4.1
+status: passed
+viewport:
+  width: 1920
+  height: 1080
+checks:
+  full_page_render: passed
+  overflow: passed
+  source_reference_audit: passed
+  release_build_audit: passed
+  contact_sheet: generated
+release_ready: true
+migration_verification:
+  directory_copy: pending
+  release_identity_check: pending
