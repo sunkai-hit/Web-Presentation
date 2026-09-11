@@ -8,7 +8,7 @@
 - 当前稳定版本：`v0.4.1`
 - 当前阶段：`Released`
 - 页面数量：20
-- 迁移状态：项目内容与历史工具已归位；当前等待 3-5 参数化 GitHub Actions 与回归验证。
+- 迁移状态：项目内容、历史工具、公共工具链和参数化 GitHub Actions 均已完成验证；下一步仅剩旧根目录清理。
 
 ## 目录说明
 
@@ -31,6 +31,13 @@ python tools/web-presentation/finalize_release.py projects/opc-talent-community/
 
 当前配置默认写入 `release/_staging/v0.4.1/`，不会覆盖 `release/v0.4.1/` 稳定发布物。
 
+## GitHub Actions
+
+- 自动回归：`.github/workflows/validate-web-presentation.yml`
+- 参数化发布：`.github/workflows/finalize-web-presentation.yml`
+
+OPC V0.4.1 已完成完整 staging 回归，GitHub Actions Run `34574105229` 为 `success`。
+
 ## 稳定基线
 
-`release/v0.4.1/` 仍是正式稳定基线。根目录历史路径暂时保留，待 3-5 回归通过后再进入清理阶段。
+`release/v0.4.1/` 仍是正式稳定基线。根目录历史路径目前仅为兼容保留，已经满足进入清理阶段的条件。

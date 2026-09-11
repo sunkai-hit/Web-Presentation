@@ -1,1 +1,1 @@
-Next action: execute 3-5. Parameterize GitHub Actions around `project + version`, run regression against the project-local OPC workspace, compare staging output with the stable v0.4.1 release, and only then permit legacy-root cleanup.
+Next action: remove the validated legacy root-level OPC paths and version-specific workflows, then run final repository integrity verification.

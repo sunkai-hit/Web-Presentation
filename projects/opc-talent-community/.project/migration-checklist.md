@@ -12,5 +12,6 @@
 - [x] Legacy workflows copied for archival reference
 - [x] Root project index prepared for migration status update
 - [x] Source/destination trees reused by Git tree SHA where possible
-- [ ] Parameterized GitHub Actions validated
+- [x] Parameterized GitHub Actions created and validated
+- [x] Shared pipeline full staging regression passed on GitHub Actions
 - [ ] Legacy root paths removed after final regression
