@@ -1,0 +1,8 @@
+pages:
+  - id: "01"
+    title: Cover
+    status: draft
+    locked: false
+    source: null
+
+# Add one entry per presentation screen.
