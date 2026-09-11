@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-11T00:13:32Z",
+  "generated_at_utc": "2026-09-11T00:52:28Z",
   "standalone": {
     "path": "release/v0.4.1/数智健康OPC国际人才社区_Web_Presentation_V0.4.1_Standalone.html",
     "bytes": 420332,
@@ -8,12 +8,12 @@
   "zip": {
     "path": "release/v0.4.1/数智健康OPC国际人才社区_Web_Presentation_V0.4.1.zip",
     "bytes": 256997,
-    "sha256": "e89b9523905902e4d887528bd7b68638920f598ea02a69e00b3b0560b10ac785"
+    "sha256": "a1bd449d7d376458671509acf52e57be5c20fb85cb0d6ad0af07938be418486f"
   },
   "contact_sheet": {
     "path": "qa/contact-sheet-v0.4.1.jpg",
-    "bytes": 138562,
-    "sha256": "cb18e9a2b9b4d699e3cb4757596b67f7e544995aaffa09fe74e2761a7363eb67"
+    "bytes": 150460,
+    "sha256": "0e4bc0d61f82b83724bba0a497e343881ef7ea2e349366f4fa53f67819bb7559"
   },
   "screen02_photo": {
     "source_path": "prototype/full-v0.4.1/assets/opc-reveal.jpg",
