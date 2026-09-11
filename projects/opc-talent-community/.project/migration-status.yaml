@@ -1,4 +1,4 @@
-phase: legacy-root-cleaned
+phase: final-integrity-audit
 status: completed
 target: projects/opc-talent-community
 legacy_root_retained: false
@@ -9,5 +9,8 @@ project_legacy_tools: projects/opc-talent-community/tools
 config_mode: staging-safe
 parameterized_actions: validated
 shared_pipeline_regression: passed
-regression_run_id: 34574105229
-next: final-integrity-audit
+regression_run_id: 34575058008
+final_integrity_audit: passed
+audit_report: docs/final-integrity-audit-2026-09-11.md
+repository_baseline: multi-project-v1
+next: normal-multi-project-operation

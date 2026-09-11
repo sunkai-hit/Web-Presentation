@@ -1,22 +1,51 @@
-project:
-  slug: project-slug
-  name: Project Name
-  type: web-presentation
-  owner: sunkai-hit
+project_name: Project Name
+project_slug: project-slug
+release_version: V0.1.0
 
-presentation:
-  viewport: 1920x1080
-  language: zh-CN
-  current_version: v0.1.0
+source_dir: prototype/full-v0.1.0
+entry_html: index.html
+qa_dir: qa
+release_dir: release/_staging/v0.1.0
 
-paths:
-  spec: spec
-  design: design
-  prototype: prototype
-  assets: assets
-  qa: qa
-  release: release
+viewport:
+  width: 1920
+  height: 1080
 
-workflow:
-  skill: web-presentation-builder
-  mode: New
+screen:
+  expected_count: 20
+  selector: .screen
+  ignore_overflow_selectors:
+    - .navrail
+    - .keyhint
+
+assets:
+  min_width: 640
+  min_height: 360
+  min_bytes: 10000
+
+qa:
+  min_critical_font_px: 15
+
+standalone:
+  filename: Project_Web_Presentation_V0.1.0_Standalone.html
+  inline_local_images: true
+
+render:
+  hash_navigation: true
+  hash_format: "{screen:02d}"
+  virtual_time_budget_ms: 2200
+  chrome_timeout_seconds: 60
+
+contact_sheet:
+  columns: 5
+  thumb_width: 348
+  thumb_height: 196
+  gap: 12
+
+release:
+  zip_filename: Project_Web_Presentation_V0.1.0.zip
+
+migration:
+  stable_release_dir: release/v0.1.0
+  staging_only: true
+  note: 新项目默认先输出 staging；确认 QA 通过后再形成稳定 Release。

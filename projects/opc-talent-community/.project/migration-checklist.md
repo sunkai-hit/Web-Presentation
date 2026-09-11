@@ -15,4 +15,4 @@
 - [x] Parameterized GitHub Actions validated
 - [x] Shared staging regression passed
 - [x] Legacy root OPC paths removed after regression
-- [ ] Final repository integrity audit
+- [x] Final repository integrity audit
