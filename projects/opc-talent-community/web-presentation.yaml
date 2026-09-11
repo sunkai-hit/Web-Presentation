@@ -1,0 +1,31 @@
+project:
+  slug: opc-talent-community
+  name: 数智健康 OPC 国际人才社区
+  type: leadership-presentation
+
+presentation:
+  viewport:
+    width: 1920
+    height: 1080
+  screen_count: 20
+  current_version: v0.4.1
+  status: Released
+
+paths:
+  state: .project/project-state.yaml
+  spec: spec
+  design: design
+  source: prototype/full-v0.4.1
+  qa: qa
+  release: release/v0.4.1
+
+release:
+  standalone: true
+  package_zip: true
+  contact_sheet: true
+  audit: true
+
+migration:
+  source_layout: repository-root-legacy
+  copied_to_project_workspace: true
+  legacy_root_paths_retained: true
