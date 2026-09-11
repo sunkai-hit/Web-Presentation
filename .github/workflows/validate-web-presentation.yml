@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - '.github/workflows/validate-web-presentation.yml'
+      - '.github/workflows/finalize-web-presentation.yml'
       - 'tools/web-presentation/**'
       - 'projects/**/web-presentation.yaml'
       - 'projects/**/prototype/**'
@@ -14,6 +15,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/validate-web-presentation.yml'
+      - '.github/workflows/finalize-web-presentation.yml'
       - 'tools/web-presentation/**'
       - 'projects/**/web-presentation.yaml'
       - 'projects/**/prototype/**'
@@ -51,7 +53,7 @@ jobs:
       - name: Compile shared Python tools
         run: python -m compileall -q tools/web-presentation
 
-      - name: Discover and validate project configurations
+      - name: Discover and run full staging regression
         shell: bash
         run: |
           set -euo pipefail
@@ -65,19 +67,18 @@ jobs:
           printf ' - %s\n' "${configs[@]}"
 
           for config in "${configs[@]}"; do
-            echo "::group::Validate ${config}"
-            python tools/web-presentation/audit_source.py "$config"
-            python tools/web-presentation/validate_assets.py "$config"
-            python tools/web-presentation/audit_layout.py "$config"
+            echo "::group::Finalize staging regression for ${config}"
+            python tools/web-presentation/finalize_release.py "$config"
             echo "::endgroup::"
           done
 
-      - name: Upload QA audit reports
+      - name: Upload regression QA and staging releases
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: web-presentation-validation-${{ github.run_id }}
+          name: web-presentation-regression-${{ github.run_id }}
           path: |
-            projects/**/qa/*audit*.json
+            projects/**/qa/**
+            projects/**/release/_staging/**
           if-no-files-found: warn
-          retention-days: 14
+          retention-days: 7
