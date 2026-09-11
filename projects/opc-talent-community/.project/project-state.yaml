@@ -1,0 +1,43 @@
+project:
+  slug: opc-talent-community
+  name: 数智健康 OPC 国际人才社区
+  type: leadership-presentation
+
+current:
+  version: v0.4.1
+  stage: released
+
+baseline:
+  content_confirmed: true
+  visual_confirmed: true
+
+key_screens:
+  - "01"
+  - "06"
+  - "08"
+  - "12"
+
+locked_screens:
+  - "01"
+  - "06"
+  - "08"
+  - "12"
+
+completed:
+  - content_architecture
+  - visual_baseline
+  - key_screen_prototype
+  - full_20_screens
+  - qa_refinement
+  - standalone_build
+  - release
+
+latest_release:
+  version: v0.4.1
+  status: stable
+
+migration:
+  workspace_path: projects/opc-talent-community
+  copied_from_legacy_root: true
+  legacy_root_retained: true
+  cleanup_pending: true
