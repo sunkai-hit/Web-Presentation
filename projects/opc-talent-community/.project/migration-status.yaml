@@ -1,18 +1,13 @@
-phase: parameterized-actions-validated
+phase: legacy-root-cleaned
 status: completed
 target: projects/opc-talent-community
-legacy_root_retained: true
+legacy_root_retained: false
 cleanup_allowed: true
+cleanup_completed: true
 shared_toolchain: tools/web-presentation
 project_legacy_tools: projects/opc-talent-community/tools
 config_mode: staging-safe
-workflows:
-  validate: .github/workflows/validate-web-presentation.yml
-  finalize: .github/workflows/finalize-web-presentation.yml
-regression:
-  run_id: 34574105229
-  head_sha: 4a9ec47e657c39ae703355af39fb8fc9ca004405
-  conclusion: success
-  artifact_id: 10188939414
-  artifact_sha256: 1e00871eb4a2970b2b33e6128c651c2fa8f6f824a4a907aa132b2a4b056e6ab5
-next: cleanup-legacy-root-paths
+parameterized_actions: validated
+shared_pipeline_regression: passed
+regression_run_id: 34574105229
+next: final-integrity-audit

@@ -1,3 +1,0 @@
-d44782df78b6c83e26b72e1d5d422c4dac2c2c08c9e81b5eb3896a5c1301324c  数智健康OPC国际人才社区_Web_Presentation_V0.4.1_Standalone.html
-de428ff37215ab2e349943c0ce7f4d700ff2b22cd712539a893bc233ce663daa  数智健康OPC国际人才社区_Web_Presentation_V0.4.1.zip
-6c239b992a67276dee05f9f7914bdb049842837978238ba1681e9671938e2520  qa/contact-sheet-v0.4.1.jpg

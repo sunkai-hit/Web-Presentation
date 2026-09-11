@@ -16,8 +16,5 @@ migration_verification:
   project_tooling_separated: true
   parameterized_actions: passed
   shared_pipeline_regression: passed
-  regression_run_id: 34574105229
-  regression_head_sha: 4a9ec47e657c39ae703355af39fb8fc9ca004405
-  regression_artifact_id: 10188939414
-  regression_artifact_sha256: 1e00871eb4a2970b2b33e6128c651c2fa8f6f824a4a907aa132b2a4b056e6ab5
-  layout_audit_policy: scrollable_overflow_fails_clipped_overflow_warns
+  legacy_root_cleanup: passed
+  final_integrity_audit: pending

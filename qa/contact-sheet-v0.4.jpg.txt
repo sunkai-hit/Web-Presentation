@@ -1,1 +1,0 @@
-Binary QA preview is stored in the release package; see local deliverable and release manifest.

@@ -10,8 +10,9 @@
 - [x] Legacy `release/` tree copied
 - [x] Legacy OPC tool tree copied into project-local `tools/`
 - [x] Legacy workflows copied for archival reference
-- [x] Root project index prepared for migration status update
+- [x] Root project index prepared and updated
 - [x] Source/destination trees reused by Git tree SHA where possible
-- [x] Parameterized GitHub Actions created and validated
-- [x] Shared pipeline full staging regression passed on GitHub Actions
-- [ ] Legacy root paths removed after final regression
+- [x] Parameterized GitHub Actions validated
+- [x] Shared staging regression passed
+- [x] Legacy root OPC paths removed after regression
+- [ ] Final repository integrity audit
