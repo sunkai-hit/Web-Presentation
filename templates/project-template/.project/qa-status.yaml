@@ -1,0 +1,9 @@
+qa:
+  viewport: 1920x1080
+  source_audit: pending
+  asset_validation: pending
+  layout_audit: pending
+  screenshots: pending
+  contact_sheet: pending
+  standalone: pending
+  release_audit: pending
