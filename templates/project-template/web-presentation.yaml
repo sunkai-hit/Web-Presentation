@@ -1,0 +1,22 @@
+project:
+  slug: project-slug
+  name: Project Name
+  type: web-presentation
+  owner: sunkai-hit
+
+presentation:
+  viewport: 1920x1080
+  language: zh-CN
+  current_version: v0.1.0
+
+paths:
+  spec: spec
+  design: design
+  prototype: prototype
+  assets: assets
+  qa: qa
+  release: release
+
+workflow:
+  skill: web-presentation-builder
+  mode: New
