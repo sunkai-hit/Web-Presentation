@@ -4,7 +4,7 @@
 
 | Project | Slug | Current Version | Status | Path |
 |---|---|---:|---|---|
-| 数智健康 OPC 国际人才社区 | `opc-talent-community` | `v0.4.1` | Migration pending | `projects/opc-talent-community/` |
+| 数智健康 OPC 国际人才社区 | `opc-talent-community` | `v0.4.1` | Released / Migration QA | `projects/opc-talent-community/` |
 
 ## 状态约定
 
@@ -12,7 +12,7 @@
 - `Building`：页面制作中
 - `QA`：质量检查与修订中
 - `Released`：已有稳定发布版本
-- `Migration pending`：历史项目尚未完成新结构迁移
+- `Released / Migration QA`：稳定版本已发布，多项目仓库迁移已完成主体结构，等待自动化回归验证
 - `Archived`：归档，仅保留历史版本
 
-新增项目时，需要同时：创建 `projects/<slug>/`、初始化 `.project/` 状态文件，并在本表登记。
+新增项目时，需要同时创建 `projects/<slug>/`、初始化 `.project/` 状态文件，并在本表登记。

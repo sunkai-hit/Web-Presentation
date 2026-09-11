@@ -31,13 +31,20 @@ completed:
   - qa_refinement
   - standalone_build
   - release
+  - repository_migration
+  - project_tooling_separation
 
 latest_release:
   version: v0.4.1
   status: stable
+  path: release/v0.4.1
 
 migration:
   workspace_path: projects/opc-talent-community
   copied_from_legacy_root: true
   legacy_root_retained: true
+  shared_toolchain: tools/web-presentation
+  project_tools: projects/opc-talent-community/tools
+  config_output_mode: staging-safe
   cleanup_pending: true
+  next_step: parameterize-github-actions

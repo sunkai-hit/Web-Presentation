@@ -1,17 +1,17 @@
 # OPC Project Migration
 
-This project was migrated from the repository-root single-project layout into `projects/opc-talent-community/`.
+The OPC presentation now has a formal project-local workspace under `projects/opc-talent-community/`.
 
-## Copied legacy trees
+## Preserved historical trees
 
-The following historical directories are preserved byte-for-byte by reusing their existing Git tree objects:
+The historical `spec/`, `design/`, `prototype/`, `qa/`, `release/`, OPC-only `tools/`, and legacy workflow files are preserved by reusing their existing Git tree/blob objects where possible. This avoids altering historical artifacts during migration.
 
-- `spec/`
-- `design/`
-- `prototype/`
-- `qa/`
-- `release/`
-- historical OPC-only `tools/`
-- historical project workflows under `legacy-workflows/`
+## Tooling separation
 
-The original root-level paths remain in place temporarily for compatibility. They will only be removed after the shared toolchain and parameterized repository workflows are validated.
+Repository-wide reusable build/QA logic now lives in `tools/web-presentation/`. OPC-specific historical scripts remain project-local in `projects/opc-talent-community/tools/` so their original relative path assumptions continue to work.
+
+The project `web-presentation.yaml` has been adapted to the shared toolchain schema. Its shared-pipeline output goes to `release/_staging/v0.4.1/` rather than the stable `release/v0.4.1/`, preventing accidental overwrite during regression testing.
+
+## Compatibility status
+
+Root-level legacy paths remain temporarily available. Cleanup is blocked until 3-5 completes parameterized GitHub Actions and regression verification.

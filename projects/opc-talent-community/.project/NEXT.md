@@ -1,1 +1,1 @@
-Next action: copy the legacy Git trees into this project workspace, then verify tree identity and update repository/project status.
+Next action: execute 3-5. Parameterize GitHub Actions around `project + version`, run regression against the project-local OPC workspace, compare staging output with the stable v0.4.1 release, and only then permit legacy-root cleanup.

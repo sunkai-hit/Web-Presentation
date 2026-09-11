@@ -1,31 +1,51 @@
-project:
-  slug: opc-talent-community
-  name: 数智健康 OPC 国际人才社区
-  type: leadership-presentation
+project_name: 数智健康 OPC 国际人才社区
+project_slug: opc-talent-community
+release_version: V0.4.1
 
-presentation:
-  viewport:
-    width: 1920
-    height: 1080
-  screen_count: 20
-  current_version: v0.4.1
-  status: Released
+source_dir: prototype/full-v0.4.1
+entry_html: index.html
+qa_dir: qa
+release_dir: release/_staging/v0.4.1
 
-paths:
-  state: .project/project-state.yaml
-  spec: spec
-  design: design
-  source: prototype/full-v0.4.1
-  qa: qa
-  release: release/v0.4.1
+viewport:
+  width: 1920
+  height: 1080
+
+screen:
+  expected_count: 20
+  selector: .screen
+  ignore_overflow_selectors:
+    - .navrail
+    - .keyhint
+
+assets:
+  min_width: 640
+  min_height: 360
+  min_bytes: 10000
+
+qa:
+  min_critical_font_px: 15
+
+standalone:
+  filename: 数智健康OPC国际人才社区_Web_Presentation_V0.4.1_Standalone.html
+  inline_local_images: true
+
+render:
+  hash_navigation: true
+  hash_format: "{screen:02d}"
+  virtual_time_budget_ms: 2200
+  chrome_timeout_seconds: 60
+
+contact_sheet:
+  columns: 5
+  thumb_width: 348
+  thumb_height: 196
+  gap: 12
 
 release:
-  standalone: true
-  package_zip: true
-  contact_sheet: true
-  audit: true
+  zip_filename: 数智健康OPC国际人才社区_Web_Presentation_V0.4.1.zip
 
 migration:
-  source_layout: repository-root-legacy
-  copied_to_project_workspace: true
-  legacy_root_paths_retained: true
+  stable_release_dir: release/v0.4.1
+  staging_only: true
+  note: 通用工具链默认写入 staging，避免覆盖已发布的 v0.4.1 稳定交付物。

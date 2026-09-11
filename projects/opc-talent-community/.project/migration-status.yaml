@@ -1,5 +1,9 @@
-phase: copy-legacy-trees
-status: ready
+phase: project-tooling-separated
+status: completed
 target: projects/opc-talent-community
 legacy_root_retained: true
 cleanup_allowed: false
+shared_toolchain: tools/web-presentation
+project_legacy_tools: projects/opc-talent-community/tools
+config_mode: staging-safe
+next: parameterize-github-actions

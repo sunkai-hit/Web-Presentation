@@ -11,5 +11,7 @@ checks:
   contact_sheet: generated
 release_ready: true
 migration_verification:
-  directory_copy: pending
-  release_identity_check: pending
+  directory_copy: passed_by_git_tree_reuse
+  stable_release_preserved: true
+  project_tooling_separated: true
+  shared_pipeline_regression: pending_3_5
