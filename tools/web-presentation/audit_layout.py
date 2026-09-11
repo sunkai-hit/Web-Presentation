@@ -23,6 +23,11 @@ AUDIT_SCRIPT = r'''
     const screens = [...document.querySelectorAll(selector)];
     const result = screens.map((screen, idx) => {
       const sr = screen.getBoundingClientRect();
+      const screenStyle = getComputedStyle(screen);
+      const scrollOverflowX = screen.scrollWidth > screen.clientWidth + 2;
+      const scrollOverflowY = screen.scrollHeight > screen.clientHeight + 2;
+      const clipsX = ['hidden','clip'].includes(screenStyle.overflowX);
+      const clipsY = ['hidden','clip'].includes(screenStyle.overflowY);
       let outside = [];
       let tiny = [];
       [...screen.querySelectorAll('*')].forEach(el => {
@@ -49,8 +54,12 @@ AUDIT_SCRIPT = r'''
         clientHeight: screen.clientHeight,
         scrollWidth: screen.scrollWidth,
         scrollHeight: screen.scrollHeight,
-        overflowX: screen.scrollWidth > screen.clientWidth + 2,
-        overflowY: screen.scrollHeight > screen.clientHeight + 2,
+        overflowStyleX: screenStyle.overflowX,
+        overflowStyleY: screenStyle.overflowY,
+        overflowX: scrollOverflowX && !clipsX,
+        overflowY: scrollOverflowY && !clipsY,
+        clippedOverflowX: scrollOverflowX && clipsX,
+        clippedOverflowY: scrollOverflowY && clipsY,
         outside: outside.slice(0, 100),
         tinyText: tiny.slice(0, 100)
       };
@@ -116,6 +125,15 @@ def audit(config_path: str) -> dict:
     for s in payload.get('screens', []):
         if s['overflowX'] or s['overflowY']:
             critical.append({'screen': s['id'], 'type': 'screen-overflow', 'x': s['overflowX'], 'y': s['overflowY']})
+        if s.get('clippedOverflowX') or s.get('clippedOverflowY'):
+            warnings.append({
+                'screen': s['id'],
+                'type': 'clipped-overflow',
+                'x': bool(s.get('clippedOverflowX')),
+                'y': bool(s.get('clippedOverflowY')),
+                'overflow_style_x': s.get('overflowStyleX'),
+                'overflow_style_y': s.get('overflowStyleY'),
+            })
         if s['outside']:
             warnings.append({'screen': s['id'], 'type': 'descendant-outside', 'count': len(s['outside']), 'samples': s['outside'][:8]})
         if s['tinyText']:
