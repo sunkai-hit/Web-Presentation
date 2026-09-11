@@ -42,5 +42,19 @@
     "prototype/full-v0.4.1/screens/v0.4.1-patch.js": true,
     "prototype/full-v0.4.1/app.js": true
   },
-  "photo_bytes": 9951
+  "photo_bytes": 8248,
+  "photo_source": {
+    "format": "JPEG",
+    "width": 240,
+    "height": 161,
+    "mode": "RGB"
+  },
+  "photo_png_bytes": 71670,
+  "photo_png": {
+    "format": "PNG",
+    "width": 240,
+    "height": 161,
+    "mode": "RGB"
+  },
+  "photo_source_sha256": "53f2ded8ad0c60424a130b1059d912fb4597f7e4aee7ee1f870f04948721ac3c"
 }

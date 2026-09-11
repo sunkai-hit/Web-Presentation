@@ -1,18 +1,27 @@
 {
-  "generated_at_utc": "2026-09-10T23:57:45Z",
+  "generated_at_utc": "2026-09-11T00:13:32Z",
   "standalone": {
     "path": "release/v0.4.1/数智健康OPC国际人才社区_Web_Presentation_V0.4.1_Standalone.html",
-    "bytes": 146443,
-    "sha256": "e55c92d00f77292e7eebbb45adfa380a51939e8b12440c759a2dcfbf93d3b7a2"
+    "bytes": 420332,
+    "sha256": "61008848187450254a72ab38ce22e5a83244e27300f7536fa4d0e3ac6960a09b"
   },
   "zip": {
     "path": "release/v0.4.1/数智健康OPC国际人才社区_Web_Presentation_V0.4.1.zip",
-    "bytes": 47414,
-    "sha256": "a71d4cff9a1f3379b071325a41ba3d61b5a70ac0108ee0798463ada587f66838"
+    "bytes": 256997,
+    "sha256": "e89b9523905902e4d887528bd7b68638920f598ea02a69e00b3b0560b10ac785"
   },
   "contact_sheet": {
     "path": "qa/contact-sheet-v0.4.1.jpg",
-    "bytes": 142883,
-    "sha256": "a832b32e5214d149028f0919f339ef0c751915d336d172971914147ae2ef4034"
+    "bytes": 138562,
+    "sha256": "cb18e9a2b9b4d699e3cb4757596b67f7e544995aaffa09fe74e2761a7363eb67"
+  },
+  "screen02_photo": {
+    "source_path": "prototype/full-v0.4.1/assets/opc-reveal.jpg",
+    "source_bytes": 8248,
+    "source_sha256": "53f2ded8ad0c60424a130b1059d912fb4597f7e4aee7ee1f870f04948721ac3c",
+    "png_path": "prototype/full-v0.4.1/assets/opc-reveal.png",
+    "png_bytes": 71670,
+    "png_sha256": "197d3b693bc02df8a3d2e5cdf07e534b1bf6f3cc194d2c3b015e09e51c4fb7e0",
+    "standalone_mime": "image/png"
   }
 }

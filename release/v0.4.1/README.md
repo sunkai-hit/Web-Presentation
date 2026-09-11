@@ -2,7 +2,8 @@
 
 V0.4.1 为基于 V0.4 的可读性与布局精修版本，原 V0.4 文件保持不覆盖。
 
-- Standalone HTML：20 屏单文件离线演示版，CSS、JS 与新版揭牌照片均内嵌。
+- Standalone HTML：20 屏单文件离线演示版，CSS、JS 与揭牌照片均内嵌。
+- Screen 02 照片兼容性修复：源照片在构建时先做 SHA-256 校验，模块化版生成 PNG，Standalone 内嵌经过解码校验的 PNG Data URI。
 - 模块化源码：位于 `prototype/full-v0.4.1/`。
 - 主要调整：Screen 02 / 09 / 14 / 16，以及全局字号与总分结构收拢。
 - Contact Sheet：`qa/contact-sheet-v0.4.1.jpg`。
