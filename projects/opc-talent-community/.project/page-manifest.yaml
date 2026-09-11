@@ -1,0 +1,43 @@
+version: v0.4.1
+screen_count: 20
+screens:
+  - id: "01"
+    status: locked
+  - id: "02"
+    status: stable
+  - id: "03"
+    status: stable
+  - id: "04"
+    status: stable
+  - id: "05"
+    status: stable
+  - id: "06"
+    status: locked
+  - id: "07"
+    status: stable
+  - id: "08"
+    status: locked
+  - id: "09"
+    status: stable
+  - id: "10"
+    status: stable
+  - id: "11"
+    status: stable
+  - id: "12"
+    status: locked
+  - id: "13"
+    status: stable
+  - id: "14"
+    status: stable
+  - id: "15"
+    status: stable
+  - id: "16"
+    status: stable
+  - id: "17"
+    status: stable
+  - id: "18"
+    status: stable
+  - id: "19"
+    status: stable
+  - id: "20"
+    status: stable
