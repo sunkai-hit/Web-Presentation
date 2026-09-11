@@ -1,19 +1,32 @@
 # Web-Presentation
 
-数智健康 OPC 国际人才社区 Web Presentation 的设计与实现仓库。
+统一管理多个 Web Presentation 项目的工作仓库。
 
-## 当前基线
+本仓库用于保存各项目的内容基线、视觉设计、页面源码、资源、QA 结果、发布版本与项目状态；具体的制作方法、引导流程与自动化规则由 [`web-presentation-builder`](https://github.com/sunkai-hit/skills/tree/main/web-presentation-builder) Skill 负责。
 
-- 业务基线：`《数智健康OPC国际人才社区在线平台产品功能架构 V0.1》`
-- 页面内容基线：本仓库 `spec/` 目录中的 V0.4 实施规格
-- 制作原则：**页面实施规格 → 关键页面验证 → 设计系统定版 → 全量页面 → 逐页截图 QA → 正式交付**
+## 仓库定位
 
-## 目录约定
+- `projects/`：各个 Web Presentation 项目的独立工作区
+- `templates/`：新项目初始化模板
+- `shared/`：跨项目可复用的组件、样式、资源与脚本
+- `tools/`：仓库级通用构建与 QA 工具
+- `docs/`：仓库规范、项目生命周期、命名与发布约定
+- `.github/`：GitHub Actions 与仓库自动化
 
-- `spec/`：页面内容、布局、交互与验收规格，作为唯一内容基线
-- `design/`：设计令牌、组件规范与视觉系统
-- `prototype/`：阶段性 Web 原型
-- `qa/`：一致性与视觉 QA 检查表
-- `screenshots/`：关键页面及后续全量页面的浏览器实渲染截图
+## 项目索引
 
-> 原则：后续页面不得绕过 `spec/` 自行改写业务内容；视觉迭代不得改变已确认的业务语义。
+详见 [`PROJECTS.md`](./PROJECTS.md)。
+
+## 当前迁移状态
+
+仓库正在从“单项目结构”升级为“多项目工作区”。当前根目录中的 `spec/`、`design/`、`prototype/`、`qa/`、`release/` 以及部分 `tools/`、`.github/workflows/` 仍属于历史 OPC 项目结构，暂时保留以保证现有版本可继续使用。
+
+后续迁移顺序：
+
+1. 建立多项目仓库骨架；
+2. 将现有 OPC 项目完整迁入 `projects/opc-talent-community/`；
+3. 重构公共工具与参数化 GitHub Actions；
+4. 验证后清理根目录中的旧单项目结构；
+5. 完成最终完整性审计。
+
+> 原则：迁移期间不破坏任何现有稳定 Release；先复制与验证，再清理旧路径。
