@@ -8,6 +8,7 @@ on:
     paths:
       - '.github/workflows/finalize-v0.4.1.yml'
       - 'tools/finalize_v041.py'
+      - 'tools/opc-reveal-b64/**'
       - 'prototype/full-v0.4.1/**'
 
 permissions:
@@ -31,6 +32,7 @@ jobs:
         run: |
           unzip -t 'release/v0.4.1/数智健康OPC国际人才社区_Web_Presentation_V0.4.1.zip'
           test -s 'qa/contact-sheet-v0.4.1.jpg'
+          test -s 'prototype/full-v0.4.1/assets/opc-reveal.jpg'
           test -s 'prototype/full-v0.4.1/assets/opc-reveal.png'
           test -s 'release/v0.4.1/数智健康OPC国际人才社区_Web_Presentation_V0.4.1_Standalone.html'
           cat release/v0.4.1/SHA256SUMS.txt
@@ -38,5 +40,5 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add prototype/full-v0.4.1/assets/opc-reveal.png qa/contact-sheet-v0.4.1.jpg qa/source-reference-audit-v0.4.1.json qa/release-build-audit-v0.4.1.json release/v0.4.1/README.md release/v0.4.1/HTML-SHA256.txt release/v0.4.1/SHA256SUMS.txt 'release/v0.4.1/数智健康OPC国际人才社区_Web_Presentation_V0.4.1_Standalone.html' 'release/v0.4.1/数智健康OPC国际人才社区_Web_Presentation_V0.4.1.zip'
+          git add prototype/full-v0.4.1/assets/opc-reveal.jpg prototype/full-v0.4.1/assets/opc-reveal.png qa/contact-sheet-v0.4.1.jpg qa/source-reference-audit-v0.4.1.json qa/release-build-audit-v0.4.1.json release/v0.4.1/README.md release/v0.4.1/HTML-SHA256.txt release/v0.4.1/SHA256SUMS.txt 'release/v0.4.1/数智健康OPC国际人才社区_Web_Presentation_V0.4.1_Standalone.html' 'release/v0.4.1/数智健康OPC国际人才社区_Web_Presentation_V0.4.1.zip'
           if git diff --cached --quiet; then echo 'No generated changes to commit.'; else git commit -m 'release: finalize Web Presentation V0.4.1 artifacts'; git push origin HEAD:${GITHUB_REF_NAME}; fi
