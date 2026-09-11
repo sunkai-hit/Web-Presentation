@@ -1,0 +1,5 @@
+phase: copy-legacy-trees
+status: ready
+target: projects/opc-talent-community
+legacy_root_retained: true
+cleanup_allowed: false
