@@ -1,0 +1,6 @@
+screens:
+  - id: KS-01
+    title: IBMS 智慧园区运营中心
+    objective: 验证轻量2.5D园区空间模型、楼宇楼层下钻及周边业务看板下钻交互
+    path: prototype/key-screen-v0.1.0/index.html
+    status: built
