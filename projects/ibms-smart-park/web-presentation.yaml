@@ -1,0 +1,41 @@
+project_name: IBMS 智慧园区运营中心原型
+project_slug: ibms-smart-park
+release_version: V0.1.0
+
+source_dir: prototype/key-screen-v0.1.0
+entry_html: index.html
+qa_dir: qa
+release_dir: release/_staging/v0.1.0
+
+viewport:
+  width: 1920
+  height: 1080
+
+screen:
+  expected_count: 1
+  selector: .screen
+  ignore_overflow_selectors: []
+
+assets:
+  min_width: 0
+  min_height: 0
+  min_bytes: 0
+
+qa:
+  min_critical_font_px: 10
+
+render:
+  hash_navigation: false
+  virtual_time_budget_ms: 1800
+  chrome_timeout_seconds: 60
+
+contact_sheet:
+  columns: 1
+  thumb_width: 640
+  thumb_height: 360
+  gap: 12
+
+migration:
+  stable_release_dir: release/v0.1.0
+  staging_only: true
+  note: 当前为 IBMS 关键屏交互原型 v0.1.0，待用户确认后再进入正式 Release。
