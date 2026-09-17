@@ -1,0 +1,4 @@
+version: v0.1.0
+status: pending
+summary: 已完成关键屏交互原型，待用户评审后执行仓库级截图、可视化 QA 与 standalone 构建。
+issues: []
