@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>IBMS 智慧园区运营中心</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="screen" id="screen">
+  <header class="header">
+    <div class="weather">☀ 12°C–20°C　空气质量 优　园区状态 正常</div>
+    <div class="brand">IBMS智慧园区运营中心 <small>SMART CAMPUS</small></div>
+    <div class="clock"><span id="dateText"></span><strong id="timeText">15:20:32</strong></div>
+  </header>
+
+  <main class="main">
+    <aside class="side">
+      <section class="panel drill-card" data-module="device">
+        <div class="panel-title"><span>设备运行</span><button>查看详情 ›</button></div>
+        <div class="device-body">
+          <div class="donut"><div><span>设备总数</span><b>1,568</b></div></div>
+          <div class="legend">
+            <p><i class="c1"></i><span>在线</span><b>1,412</b><em>90%</em></p>
+            <p><i class="c2"></i><span>离线</span><b>98</b><em>6%</em></p>
+            <p><i class="c3"></i><span>故障</span><b>34</b><em>2%</em></p>
+            <p><i class="c4"></i><span>维护</span><b>24</b><em>2%</em></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel drill-card" data-module="security">
+        <div class="panel-title"><span>安防监控</span><button>查看详情 ›</button></div>
+        <div class="mini-grid">
+          <div><strong>286</strong><small>摄像头 · 98%</small></div>
+          <div><strong>48</strong><small>门禁点 · 100%</small></div>
+          <div><strong>32</strong><small>周界设备 · 97%</small></div>
+        </div>
+        <div class="camera-grid">
+          <div><span>1号楼东侧</span></div><div><span>园区主入口</span></div><div><span>3号楼周界</span></div>
+        </div>
+      </section>
+
+      <section class="panel drill-card" data-module="environment">
+        <div class="panel-title"><span>环境监测</span><button>查看详情 ›</button></div>
+        <div class="env-grid">
+          <div><b>24.6°</b><small>温度</small></div><div><b>56%</b><small>湿度</small></div>
+          <div><b>28</b><small>PM2.5</small></div><div><b>优</b><small>空气质量</small></div>
+        </div>
+      </section>
+
+      <section class="panel drill-card grow" data-module="access">
+        <div class="panel-title"><span>人员通行</span><button>查看详情 ›</button></div>
+        <div class="stats-row"><div><small>今日通行人次</small><b>1,284 <i>↑8%</i></b></div><div><small>访客人数</small><b>326 <i>↑12%</i></b></div></div>
+        <svg class="spark" viewBox="0 0 280 80" preserveAspectRatio="none">
+          <path class="grid" d="M0 15H280 M0 40H280 M0 65H280"/>
+          <path class="area" d="M0 63L40 52L80 56L120 50L160 58L200 40L240 31L280 34L280 80L0 80Z"/>
+          <path class="line" d="M0 63L40 52L80 56L120 50L160 58L200 40L240 31L280 34"/>
+        </svg>
+      </section>
+    </aside>
+
+    <section class="center">
+      <div class="kpis">
+        <div class="kpi"><span>!</span><div><small>今日告警</small><b>12 <i>↓25%</i></b></div></div>
+        <div class="kpi"><span>▤</span><div><small>在线设备</small><b>1,568 <i>↑2%</i></b></div></div>
+        <div class="kpi"><span>ϟ</span><div><small>园区能耗</small><b>23,460 <em>kWh</em></b></div></div>
+        <div class="kpi"><span>●●</span><div><small>访客人数</small><b>326 <i>↑12%</i></b></div></div>
+      </div>
+
+      <section class="scene-panel">
+        <div class="scene-head">
+          <div>园区空间态势 · <strong id="themeName">综合态势</strong></div>
+          <div class="scene-actions">
+            <div class="crumb" id="crumb"><button data-level="campus" class="active">园区</button></div>
+            <button id="zoomOut">−</button><button id="resetView">⌂</button><button id="zoomIn">＋</button>
+          </div>
+        </div>
+
+        <div class="scene-canvas" id="sceneCanvas">
+          <svg viewBox="0 0 1000 650" aria-label="可交互园区模型">
+            <defs>
+              <linearGradient id="ground" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d2d3d"/><stop offset="1" stop-color="#061923"/></linearGradient>
+            </defs>
+            <g id="world">
+              <g id="campusLayer">
+                <polygon class="ground" points="112,95 820,52 938,510 230,574"/>
+                <path class="road" d="M179 451C320 420 400 380 515 365C650 348 765 350 883 385"/>
+                <path class="road" d="M310 106C330 190 343 260 365 430"/>
+                <path class="road" d="M685 92C660 174 640 246 617 365"/>
+                <ellipse class="plaza" cx="510" cy="352" rx="92" ry="48"/>
+                <ellipse class="water" cx="510" cy="350" rx="52" ry="25"/>
+                <g id="trees"></g>
+
+                <g class="building" data-building="3号楼" data-type="研发中心" data-index="3">
+                  <polygon class="top" points="205,206 342,185 388,209 252,232"/><polygon class="left" points="205,206 252,232 252,310 205,282"/><polygon class="right" points="252,232 388,209 388,287 252,310"/>
+                  <g class="label" transform="translate(294 168)"><rect x="-45" y="-18" width="90" height="37"/><text y="-3">3号楼</text><small y="11">研发中心</small></g>
+                </g>
+                <g class="building" data-building="2号楼" data-type="办公楼" data-index="2">
+                  <polygon class="top" points="426,120 557,100 607,124 474,145"/><polygon class="left" points="426,120 474,145 474,224 426,197"/><polygon class="right" points="474,145 607,124 607,204 474,224"/>
+                  <g class="label" transform="translate(510 88)"><rect x="-43" y="-18" width="86" height="37"/><text y="-3">2号楼</text><small y="11">办公楼</small></g>
+                </g>
+                <g class="building alert" data-building="1号楼" data-type="综合楼" data-index="1">
+                  <polygon class="top" points="667,170 787,150 837,176 716,197"/><polygon class="left" points="667,170 716,197 716,330 667,300"/><polygon class="right" points="716,197 837,176 837,308 716,330"/>
+                  <g class="label" transform="translate(753 138)"><rect x="-45" y="-18" width="90" height="37"/><text y="-3">1号楼</text><small y="11">综合楼</small></g>
+                </g>
+                <g class="building" data-building="4号楼" data-type="产业楼" data-index="4">
+                  <polygon class="top" points="235,360 356,341 398,362 277,383"/><polygon class="left" points="235,360 277,383 277,466 235,442"/><polygon class="right" points="277,383 398,362 398,445 277,466"/>
+                  <g class="label" transform="translate(318 329)"><rect x="-45" y="-18" width="90" height="37"/><text y="-3">4号楼</text><small y="11">产业楼</small></g>
+                </g>
+                <g class="building" data-building="5号楼" data-type="宿舍楼" data-index="5">
+                  <polygon class="top" points="625,393 755,372 801,396 670,418"/><polygon class="left" points="625,393 670,418 670,493 625,466"/><polygon class="right" points="670,418 801,396 801,470 670,493"/>
+                  <g class="label" transform="translate(707 361)"><rect x="-45" y="-18" width="90" height="37"/><text y="-3">5号楼</text><small y="11">宿舍楼</small></g>
+                </g>
+
+                <g class="marker alarm-marker" data-theme="security" data-name="消防烟感报警" transform="translate(833 232)"><circle r="13"/><text>!</text></g>
+                <g class="marker security-marker" data-theme="security" data-name="门禁正常" transform="translate(350 290)"><circle r="13"/><text>✓</text></g>
+                <g class="marker facility-marker" data-theme="facility" data-name="视频监控" transform="translate(492 460)"><circle r="13"/><text>▣</text></g>
+                <g class="marker facility-marker" data-theme="facility" data-name="停车场" transform="translate(816 450)"><circle r="13"/><text>P</text></g>
+                <g class="marker energy-marker" data-theme="energy" data-name="能耗采集" transform="translate(573 247)"><circle r="13"/><text>ϟ</text></g>
+              </g>
+              <g id="floorLayer" class="hidden"><g id="floorStacks"></g></g>
+              <g id="floorplanLayer" class="hidden"><rect class="floorbox" x="185" y="110" width="635" height="420" rx="14"/><g id="rooms"></g><g id="devices"></g></g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="info-card" id="infoCard">
+          <h3 id="infoName">1号楼</h3><p id="infoType">综合楼</p>
+          <div class="info-grid">
+            <div><small>在线设备</small><b id="infoDevices">326</b></div><div><small>当前人员</small><b id="infoPeople">218</b></div>
+            <div><small>今日能耗</small><b id="infoEnergy">5,820</b></div><div><small>活动告警</small><b id="infoAlarm">1</b></div>
+          </div>
+          <button id="enterBuilding">进入楼宇 ›</button>
+        </div>
+        <div class="status"><i></i><span id="statusText">空间模型在线 · 支持拖拽 / 缩放 / 点击建筑</span></div>
+      </section>
+
+      <div class="tabs" id="tabs">
+        <button class="active" data-theme="general">▦ 综合态势</button>
+        <button data-theme="security">⬟ 安防消防</button>
+        <button data-theme="energy">◒ 能耗环境</button>
+        <button data-theme="facility">⚙ 设备设施</button>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section class="panel drill-card" data-module="energy">
+        <div class="panel-title"><span>能耗分析</span><button>查看详情 ›</button></div>
+        <div class="bars"><i style="height:52%"></i><i style="height:58%"></i><i style="height:55%"></i><i style="height:63%"></i><i style="height:82%"></i><i style="height:75%"></i><i style="height:69%"></i></div>
+      </section>
+
+      <section class="panel drill-card" data-module="alarm">
+        <div class="panel-title"><span>告警事件</span><button>查看详情 ›</button></div>
+        <div class="alarm-list">
+          <p><i class="sev high">重大</i><span>1号楼 消防烟感报警</span><time>14:32</time></p>
+          <p><i class="sev mid">一般</i><span>3号楼 门禁异常开门</span><time>11:03</time></p>
+          <p><i class="sev mid">一般</i><span>园区东侧 周界入侵</span><time>09:27</time></p>
+          <p><i class="sev low">提示</i><span>4号楼 设备离线</span><time>昨日</time></p>
+          <p><i class="sev low">提示</i><span>5号楼 电梯维保到期</span><time>昨日</time></p>
+        </div>
+      </section>
+
+      <section class="panel drill-card" data-module="parking">
+        <div class="panel-title"><span>停车管理</span><button>查看详情 ›</button></div>
+        <div class="device-body">
+          <div class="donut parking"><div><span>车位总数</span><b>620</b></div></div>
+          <div class="legend"><p><i class="c1"></i><span>已使用</span><b>428</b><em>69%</em></p><p><i class="c2"></i><span>空闲</span><b>172</b><em>28%</em></p><p><i class="c3"></i><span>异常</span><b>20</b><em>3%</em></p></div>
+        </div>
+      </section>
+
+      <section class="panel drill-card grow" data-module="space">
+        <div class="panel-title"><span>空间利用</span><button>查看详情 ›</button></div>
+        <div class="space-list">
+          <p><span>办公区</span><i><b style="width:78%"></b></i><em>78%</em></p>
+          <p><span>会议室</span><i><b style="width:62%"></b></i><em>62%</em></p>
+          <p><span>公共区域</span><i><b style="width:54%"></b></i><em>54%</em></p>
+          <p><span>园区整体</span><i><b style="width:68%"></b></i><em>68%</em></p>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="modal-head"><h2 id="modalTitle">详情</h2><button id="closeModal">×</button></div>
+      <div class="modal-body">
+        <div><div class="modal-kpis" id="modalKpis"></div><section><h4 id="trendTitle">趋势分析</h4><svg id="modalChart" viewBox="0 0 520 220" preserveAspectRatio="none"></svg></section></div>
+        <section><h4>明细数据</h4><table><thead><tr><th>对象</th><th>状态</th><th>当前值</th></tr></thead><tbody id="modalTable"></tbody></table></section>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
