@@ -1,0 +1,22 @@
+project:
+  slug: airport-bird-heatmap
+  name: 威海机场鸟情动态热力图原型
+  type: web-presentation
+
+current:
+  version: v0.1.0
+  stage: key-screens
+
+baseline:
+  content: approved
+  visual: draft
+
+locked_screens: []
+
+latest_release:
+  version: null
+  status: none
+
+pending:
+  - review key screen interaction and visual direction
+  - run visual QA after review
