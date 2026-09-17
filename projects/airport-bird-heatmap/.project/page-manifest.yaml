@@ -1,6 +1,7 @@
 screens:
   - id: KS-01
-    title: 动态热力图演示页
-    objective: 展示鸟群热力图随时间变化及与预警信息的联动效果
-    path: prototype/key-screen-v0.1.0/index.html
+    title: 动态热力图与鸟群移动轨迹演示页
+    objective: 展示鸟群热力图、近4小时移动轨迹随时间变化及与预警信息的联动效果
+    path: prototype/key-screen-v0.1.1/index.html
+    standalone_path: prototype/key-screen-v0.1.1/Airport_Bird_Heatmap_V0.1.1_Standalone.html
     status: built

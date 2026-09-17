@@ -4,19 +4,20 @@ project:
   type: web-presentation
 
 current:
-  version: v0.1.0
+  version: v0.1.1
   stage: key-screens
 
 baseline:
   content: approved
-  visual: draft
+  visual: approved
 
-locked_screens: []
+locked_screens:
+  - KS-01
 
 latest_release:
   version: null
   status: none
 
 pending:
-  - review key screen interaction and visual direction
-  - run visual QA after review
+  - run visual QA for v0.1.1
+  - continue full-screen expansion after key-screen confirmation

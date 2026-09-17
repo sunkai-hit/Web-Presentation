@@ -5,7 +5,7 @@
 | Project | Slug | Current Version | Status | Path |
 |---|---|---:|---|---|
 | 数智健康 OPC 国际人才社区 | `opc-talent-community` | `v0.4.1` | Released / Migrated | `projects/opc-talent-community/` |
-| 威海机场鸟情动态热力图原型 | `airport-bird-heatmap` | `v0.1.0` | Building | `projects/airport-bird-heatmap/` |
+| 威海机场鸟情动态热力图原型 | `airport-bird-heatmap` | `v0.1.1` | Building | `projects/airport-bird-heatmap/` |
 
 ## 状态约定
 

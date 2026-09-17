@@ -1,11 +1,11 @@
 project_name: 威海机场鸟情动态热力图原型
 project_slug: airport-bird-heatmap
-release_version: V0.1.0
+release_version: V0.1.1
 
-source_dir: prototype/key-screen-v0.1.0
+source_dir: prototype/key-screen-v0.1.1
 entry_html: index.html
 qa_dir: qa
-release_dir: release/_staging/v0.1.0
+release_dir: release/_staging/v0.1.1
 
 viewport:
   width: 1920
@@ -25,7 +25,7 @@ qa:
   min_critical_font_px: 11
 
 standalone:
-  filename: Airport_Bird_Heatmap_V0.1.0_Standalone.html
+  filename: Airport_Bird_Heatmap_V0.1.1_Standalone.html
   inline_local_images: true
 
 render:
@@ -41,9 +41,9 @@ contact_sheet:
   gap: 12
 
 release:
-  zip_filename: Airport_Bird_Heatmap_V0.1.0.zip
+  zip_filename: Airport_Bird_Heatmap_V0.1.1.zip
 
 migration:
-  stable_release_dir: release/v0.1.0
+  stable_release_dir: release/v0.1.1
   staging_only: true
-  note: 当前仅为关键屏交互原型，确认后再进入正式 Release。
+  note: 当前为关键屏交互原型 v0.1.1，新增鸟群移动轨迹和 Standalone 文件，待视觉 QA 后再进入正式 Release。

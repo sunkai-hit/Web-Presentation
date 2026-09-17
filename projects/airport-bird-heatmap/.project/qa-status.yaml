@@ -1,4 +1,9 @@
-version: v0.1.0
-status: pending
-summary: 已完成关键屏交互原型，待用户评审后执行仓库级截图、可视化 QA 与 standalone 构建。
+version: v0.1.1
+status: pending-visual-qa
+summary: 已完成鸟群移动轨迹功能、模块化源码与单 HTML Standalone 文件；JS 语法检查及 standalone 外部依赖检查通过，待执行浏览器视觉 QA。
+checks:
+  js_syntax: passed
+  standalone_external_css: none
+  standalone_external_js: none
+  trajectory_layer: present
 issues: []
