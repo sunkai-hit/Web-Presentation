@@ -1,0 +1,60 @@
+name: Smoke IBMS V032
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ibms-v032-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify Chrome
+        run: google-chrome --version
+
+      - name: Start local server
+        shell: bash
+        run: |
+          cd projects/ibms-smart-park/prototype/key-screen-v0.3.2
+          python3 -m http.server 8088 --bind 127.0.0.1 > /tmp/ibms-http.log 2>&1 &
+          echo $! > /tmp/ibms-http.pid
+          sleep 2
+          curl --fail http://127.0.0.1:8088/index.html >/dev/null
+          curl --fail http://127.0.0.1:8088/vendor/three/build/three.module.js >/dev/null
+          curl --fail http://127.0.0.1:8088/assets/models/b_large.glb >/dev/null
+
+      - name: Run browser smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          google-chrome \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --window-size=1920,1080 \
+            --virtual-time-budget=15000 \
+            --screenshot=/tmp/ibms-v032.png \
+            --dump-dom \
+            http://127.0.0.1:8088/ > /tmp/ibms-dom.html
+
+          test -s /tmp/ibms-v032.png
+          grep -q '<canvas' /tmp/ibms-dom.html
+          if grep -q 'id="loading"' /tmp/ibms-dom.html; then
+            echo "Loading overlay still exists after virtual time budget."
+            grep -n 'id="loading"' /tmp/ibms-dom.html | head
+            exit 1
+          fi
+          echo "IBMS v0.3.2 scene initialized successfully."
+
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: ibms-v032-smoke
+          path: /tmp/ibms-v032.png
+          retention-days: 3
