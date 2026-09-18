@@ -1,6 +1,6 @@
 screens:
   - id: KS-01
     title: IBMS 智慧园区运营中心
-    objective: 验证本地CC0三维园区模型、自由旋转/聚焦交互及周边业务看板下钻
-    path: prototype/key-screen-v0.3.1/index.html
+    objective: 验证完全本地化三维运行资源、Edge-Gateway风格控件、园区自由旋转/聚焦及业务看板下钻
+    path: prototype/key-screen-v0.3.2/index.html
     status: built
