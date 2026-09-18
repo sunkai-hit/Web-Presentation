@@ -1,11 +1,11 @@
 project_name: IBMS 智慧园区运营中心原型
 project_slug: ibms-smart-park
-release_version: V0.3.0
+release_version: V0.3.1
 
-source_dir: prototype/key-screen-v0.3.0
+source_dir: prototype/key-screen-v0.3.1
 entry_html: index.html
 qa_dir: qa
-release_dir: release/_staging/v0.3.0
+release_dir: release/_staging/v0.3.1
 
 viewport:
   width: 1920
@@ -36,6 +36,6 @@ contact_sheet:
   gap: 12
 
 migration:
-  stable_release_dir: release/v0.3.0
+  stable_release_dir: release/v0.3.1
   staging_only: true
-  note: 当前为开源 CC0 GLB 模型版关键屏 v0.3.0，待用户确认视觉效果后再进行模型本地化和正式 Release。
+  note: 当前为本地 GLB 模型版 v0.3.1，模型资产已纳入仓库，待用户视觉确认后继续优化并执行正式 Release。
