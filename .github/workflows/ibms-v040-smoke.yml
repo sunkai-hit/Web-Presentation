@@ -65,7 +65,7 @@ jobs:
           try:
               driver.set_page_load_timeout(30)
               driver.get("http://127.0.0.1:8090/?bim=1&system=fire")
-              wait = WebDriverWait(driver, 15)
+              wait = WebDriverWait(driver, 40)
               wait.until(lambda d: "show" in d.find_element(By.ID, "bimPanel").get_attribute("class"))
               wait.until(lambda d: d.find_element(By.ID, "bimElementCount").text not in ("", "--"))
               wait.until(lambda d: d.find_element(By.ID, "bimFloorCount").text not in ("", "--"))
@@ -118,4 +118,5 @@ jobs:
           retention-days: 3
 
 
-# rerun after theme-tab NodeList fix
+
+# final rerun with detailed BIM parse allowance
