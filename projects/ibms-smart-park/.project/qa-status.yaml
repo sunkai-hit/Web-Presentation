@@ -1,9 +1,10 @@
-version: v0.3.0
+version: v0.3.1
 status: pending-browser-visual-qa
-summary: 已完成 Quaternius CC0 GLB 模型接入、Three.js 园区组合、旋转缩放平移、楼宇点击高亮/聚焦、主题点位联动及数据看板下钻。app.js 语法检查通过。当前运行时与模型通过 CDN 加载，需联网浏览器执行最终视觉 QA。
+summary: 已将 Quaternius CC0 GLB 模型下载并提交到项目 assets/models 目录，app.js 已改为本地模型路径；Three.js 交互逻辑保留。建议通过 start-local.bat 启动本地 HTTP 服务后进行最终视觉 QA。
 checks:
-  js_syntax: passed
-  cc0_model_assets: present
+  local_glb_assets: passed
+  model_license_file: passed
+  local_asset_path: passed
   three_scene: present
   orbit_rotate: present
   wheel_zoom: present
@@ -12,5 +13,5 @@ checks:
   building_focus: present
   dashboard_drilldown: present
 issues:
-  - final visual QA requires browser network access to jsDelivr
-  - GLB assets are still remote and should be localized after visual confirmation
+  - Three.js runtime is still loaded from jsDelivr
+  - final WebGL visual QA remains pending
