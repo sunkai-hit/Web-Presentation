@@ -175,8 +175,14 @@ async function loadAsset(file){
     return null;
   }
 }
-await Promise.all(assetFiles.map(loadAsset));
-if(failedCount===assetFiles.length){
+const directBimSmoke=new URLSearchParams(location.search).get("bim")==="1";
+if(!directBimSmoke){
+  await Promise.all(assetFiles.map(loadAsset));
+}else{
+  $("#loadingText").textContent="BIM直达测试：跳过园区LOD";
+  $("#modelState").textContent="园区LOD：测试模式跳过";
+}
+if(!directBimSmoke&&failedCount===assetFiles.length){
   $("#loading").classList.add("error");
   $("#loadingTitle").textContent="本地模型加载失败";
   $("#loadingText").textContent="7 个 GLB 模型均未能读取";
