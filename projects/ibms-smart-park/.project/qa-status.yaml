@@ -1,23 +1,40 @@
-version: v0.3.2
+version: v0.6.0
 status: browser-smoke-passed
-summary: Three.js 0.180.0、核心 Addons 和 7 个 GLB 模型均已本地化；页面增加启动 Watchdog 与模型加载超时提示；控件样式已按 Edge-Gateway 原型重新设计。GitHub Actions 已通过 Chrome headless 本地 HTTP smoke test，确认本地运行库与模型资源可访问、页面可创建 WebGL canvas 且 Loading 遮罩能够正常退出。
+summary: 已完成园区LOD→楼宇BIM→楼层→专业系统→单设备完整数字孪生链路。楼宇详细模型由 Three.js GLB 方案切换为 xeokit XKT BIM 专用运行时，XKT 模型约1.60MB。专用 GitHub Actions Chrome smoke test 已通过。
+
 checks:
-  local_glb_assets: passed
-  local_three_runtime: passed
-  local_three_addons: passed
-  import_map: passed
-  model_license_file: passed
-  load_watchdog: passed
-  model_timeout: passed
-  edge_gateway_ui_tokens: passed
-  local_http_assets: passed
-  browser_canvas_init: passed
-  loading_overlay_exit: passed
-  orbit_rotate: present
-  wheel_zoom: present
-  pan: present
-  building_pick: present
-  building_focus: present
-  dashboard_drilldown: present
+  campus_three_local: passed
+  xeokit_local_runtime: passed
+  xkt_bim_asset: passed
+  xkt_asset_bytes: 1595503
+  previous_v050_glb_bytes: 14055184
+  xkt_size_reduction: approximately_89_percent
+  building_bim_drilldown: passed
+  bim_object_pick: passed
+  bim_object_count: 3510
+  floor_storeys: 6
+  floor_drawer: passed
+  floor_explode: passed
+  system_xray: passed
+  systems:
+    - fire
+    - security
+    - hvac
+    - power
+  building_floor_scope_switch: passed
+  device_list: passed
+  device_drawer: passed
+  device_3d_locate: passed
+  alarm_simulation: passed
+  alarm_acknowledge: passed
+  workorder_action: passed
+  xkt_engine_load_seconds_headless: 2.20
+  full_hierarchy_ready_seconds_headless: 10.482
+  dedicated_smoke_run: 35297984749
+  dedicated_smoke_result: passed
+
 issues:
-  - user Windows visual review pending
+  - Linux headless runner lacks normal Chinese desktop fonts; this affects CI screenshots only, not Windows local text rendering
+  - professional MEP/system objects are demo overlays until real project IFC/Revit/MEP data is provided
+  - xeokit SDK repository license is AGPL-3.0; production/commercial licensing strategy must be confirmed
+  - repository-wide Validate Web Presentations currently fails earlier on airport-bird-heatmap screen-id configuration and is unrelated to this IBMS v0.6.0 dedicated smoke
