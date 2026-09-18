@@ -4,7 +4,7 @@ project:
   type: web-presentation
 
 current:
-  version: v0.3.0
+  version: v0.3.1
   stage: key-screens
 
 baseline:
@@ -19,7 +19,7 @@ latest_release:
   status: none
 
 pending:
-  - user review of Quaternius CC0 model visual quality
-  - localize GLB assets and Three.js dependencies after visual confirmation
+  - user review of local GLB model visual quality
   - refine landscape / road / landmark composition if required
+  - localize Three.js runtime if fully offline delivery is required
   - run browser visual QA and release QA before stable release
