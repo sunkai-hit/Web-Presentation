@@ -1,0 +1,75 @@
+name: Build IBMS V050 Optimized BIM
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ibms-v050-assets.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare v0.5.0 local runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="projects/ibms-smart-park/prototype/key-screen-v0.4.0"
+          DST="projects/ibms-smart-park/prototype/key-screen-v0.5.0"
+          mkdir -p "$DST/assets/models" "$DST/assets/bim" "$DST/vendor"
+          cp -R "$SRC/assets/models/." "$DST/assets/models/"
+          cp -R "$SRC/vendor/three" "$DST/vendor/"
+          cp "$SRC/assets/bim/Schependomlaan.json" "$DST/assets/bim/Schependomlaan.json"
+          cp "$SRC/assets/bim/LICENSE-Schependomlaan.md" "$DST/assets/bim/LICENSE-Schependomlaan.md"
+
+      - name: Convert embedded glTF to binary GLB
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install -g gltf-pipeline@4
+          SRC="projects/ibms-smart-park/prototype/key-screen-v0.4.0/assets/bim/Schependomlaan.gltf"
+          OUT="projects/ibms-smart-park/prototype/key-screen-v0.5.0/assets/bim/Schependomlaan.glb"
+          echo "Source:"
+          ls -lh "$SRC"
+          gltf-pipeline -i "$SRC" -o "$OUT" --stats
+          echo "Binary output:"
+          ls -lh "$OUT"
+
+      - name: Write build metrics
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="projects/ibms-smart-park/prototype/key-screen-v0.4.0/assets/bim/Schependomlaan.gltf"
+          OUT="projects/ibms-smart-park/prototype/key-screen-v0.5.0/assets/bim/Schependomlaan.glb"
+          SRC_BYTES=$(stat -c%s "$SRC")
+          OUT_BYTES=$(stat -c%s "$OUT")
+          cat > projects/ibms-smart-park/prototype/key-screen-v0.5.0/assets/bim/build-info.json <<EOF
+          {
+            "source": "Schependomlaan.gltf",
+            "output": "Schependomlaan.glb",
+            "sourceBytes": $SRC_BYTES,
+            "outputBytes": $OUT_BYTES,
+            "strategy": "binary-glb-no-draco",
+            "reason": "avoid base64 JSON parsing overhead while preserving IFC node identity"
+          }
+          EOF
+
+      - name: Commit optimized assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add projects/ibms-smart-park/prototype/key-screen-v0.5.0/assets
+          git add projects/ibms-smart-park/prototype/key-screen-v0.5.0/vendor
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git commit -m "assets: add binary GLB runtime for IBMS v0.5.0"
+          git push
