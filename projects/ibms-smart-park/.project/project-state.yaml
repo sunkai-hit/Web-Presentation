@@ -4,12 +4,12 @@ project:
   type: web-presentation
 
 current:
-  version: v0.2.0
+  version: v0.3.0
   stage: key-screens
 
 baseline:
   content: approved
-  visual: approved
+  visual: iterating
 
 locked_screens:
   - KS-01
@@ -19,7 +19,7 @@ latest_release:
   status: none
 
 pending:
-  - user review of Three.js interaction and visual fidelity
-  - refine building materials / landmark building after review
-  - localize Three.js dependencies for offline delivery if required
-  - run release QA before stable release
+  - user review of Quaternius CC0 model visual quality
+  - localize GLB assets and Three.js dependencies after visual confirmation
+  - refine landscape / road / landmark composition if required
+  - run browser visual QA and release QA before stable release
