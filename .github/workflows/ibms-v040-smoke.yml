@@ -117,4 +117,5 @@ jobs:
             /tmp/ibms-v040-http.log
           retention-days: 3
 
-# rerun after direct BIM smoke optimization
+
+# rerun after theme-tab NodeList fix
