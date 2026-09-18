@@ -1,0 +1,44 @@
+name: Localize IBMS 3D Models
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ibms-localize-models.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  download-models:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Quaternius CC0 GLB assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARGET="projects/ibms-smart-park/prototype/key-screen-v0.3.1/assets/models"
+          BASE="https://raw.githubusercontent.com/anshaneja5/skyline-run/0c41526d8d4130c37c15e219c2c3737fa8cb4ad8/public/assets/models"
+          mkdir -p "$TARGET"
+          for f in b_large.glb b_medium.glb b_small.glb tree1.glb tree2.glb tree3.glb bush.glb LICENSE-quaternius.txt; do
+            echo "Downloading $f"
+            curl -L --fail --retry 4 --retry-delay 2 "$BASE/$f" -o "$TARGET/$f"
+          done
+          ls -lh "$TARGET"
+
+      - name: Commit localized assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add projects/ibms-smart-park/prototype/key-screen-v0.3.1/assets/models
+          if git diff --cached --quiet; then
+            echo "No asset changes to commit."
+            exit 0
+          fi
+          git commit -m "assets: localize IBMS CC0 3D models"
+          git push
