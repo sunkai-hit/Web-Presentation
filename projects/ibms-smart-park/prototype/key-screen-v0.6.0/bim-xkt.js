@@ -107,8 +107,16 @@ export async function createBimTwin({
 
   const modelAabb=model.aabb||scene.getAABB(allObjectIds);
   const [sx,sy,sz]=sizeOf(modelAabb);
-  const scaleUnit=Math.max(0.09,Math.min(sx,sz)*0.012);
+  const scaleUnit=Math.min(0.28,Math.max(0.08,Math.min(sx,sz)*0.008));
 
+  window.__IBMS_XKT_METRICS={
+    modelAabb:Array.from(modelAabb),
+    modelSize:[sx,sy,sz],
+    scaleUnit,
+    floorAabbs:floors.map(f=>({name:f.name,aabb:Array.from(f.aabb),size:f.size,objectCount:f.objectIds.length})),
+    loadMs,
+    objectCount:model.numEntities||allObjectIds.length
+  };
   onProgress("XKT BIM 已就绪 · "+model.numEntities+" 构件 · "+(loadMs/1000).toFixed(2)+"s");
   viewer.cameraFlight.jumpTo({aabb:modelAabb,fitFOV:38});
 
