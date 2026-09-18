@@ -1,0 +1,8 @@
+{
+  "source": "Schependomlaan.gltf",
+  "output": "Schependomlaan.glb",
+  "sourceBytes": 23075654,
+  "outputBytes": 14055184,
+  "strategy": "binary-glb-no-draco",
+  "reason": "avoid base64 JSON parsing overhead while preserving IFC node identity"
+}
