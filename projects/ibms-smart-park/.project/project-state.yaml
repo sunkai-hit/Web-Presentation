@@ -4,7 +4,7 @@ project:
   type: web-presentation
 
 current:
-  version: v0.1.0
+  version: v0.2.0
   stage: key-screens
 
 baseline:
@@ -19,6 +19,7 @@ latest_release:
   status: none
 
 pending:
-  - user review of interactive prototype
-  - refine model detail and module drilldown after review
+  - user review of Three.js interaction and visual fidelity
+  - refine building materials / landmark building after review
+  - localize Three.js dependencies for offline delivery if required
   - run release QA before stable release
