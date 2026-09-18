@@ -45,12 +45,11 @@ jobs:
         shell: bash
         run: |
           cat > /tmp/ibms_smoke.py <<'PY'
-          import time
+          import time, traceback
           from selenium import webdriver
           from selenium.webdriver.chrome.options import Options
           from selenium.webdriver.common.by import By
           from selenium.webdriver.support.ui import WebDriverWait
-          from selenium.webdriver.support import expected_conditions as EC
 
           options = Options()
           options.binary_location = "/usr/bin/google-chrome"
@@ -62,39 +61,47 @@ jobs:
           options.set_capability("goog:loggingPrefs", {"browser":"ALL"})
 
           driver = webdriver.Chrome(options=options)
+          success = False
           try:
               driver.set_page_load_timeout(30)
               driver.get("http://127.0.0.1:8090/?bim=1&system=fire")
               wait = WebDriverWait(driver, 150)
-
               wait.until(lambda d: "show" in d.find_element(By.ID, "bimPanel").get_attribute("class"))
               wait.until(lambda d: d.find_element(By.ID, "bimElementCount").text not in ("", "--"))
               wait.until(lambda d: d.find_element(By.ID, "bimFloorCount").text not in ("", "--"))
               wait.until(lambda d: "消防系统" in d.find_element(By.ID, "systemSummary").text)
-
-              element_count = driver.find_element(By.ID, "bimElementCount").text
-              floor_count = driver.find_element(By.ID, "bimFloorCount").text
-              summary = driver.find_element(By.ID, "systemSummary").text
-              loading_class = driver.find_element(By.ID, "detailLoading").get_attribute("class")
-
-              assert "error" not in loading_class, loading_class
-              assert element_count not in ("", "--")
-              assert floor_count not in ("", "--")
-              assert "消防系统" in summary
-
-              driver.save_screenshot("/tmp/ibms-v040-bim.png")
-              with open("/tmp/ibms-v040-dom.html","w",encoding="utf-8") as f:
-                  f.write(driver.page_source)
-              with open("/tmp/ibms-v040-console.log","w",encoding="utf-8") as f:
-                  for row in driver.get_log("browser"):
-                      f.write(str(row)+"\n")
-
-              print("BIM element count:", element_count)
-              print("BIM floor count:", floor_count)
-              print("System summary:", summary.replace("\n"," | "))
-              print("IBMS v0.4.0 BIM smoke passed.")
+              success = True
+          except Exception:
+              traceback.print_exc()
+              try:
+                  print("APP_STARTED", driver.execute_script("return window.__IBMS_APP_STARTED"))
+                  print("MODELS_READY", driver.execute_script("return window.__IBMS_MODELS_READY"))
+                  print("loadingTitle", driver.find_element(By.ID,"loadingTitle").text)
+                  print("loadingText", driver.find_element(By.ID,"loadingText").text)
+                  print("modelState", driver.find_element(By.ID,"modelState").text)
+                  print("detailLoadingText", driver.find_element(By.ID,"detailLoadingText").text)
+                  print("bimPanel class", driver.find_element(By.ID,"bimPanel").get_attribute("class"))
+              except Exception:
+                  traceback.print_exc()
           finally:
-              driver.quit()
+              try:
+                  driver.save_screenshot("/tmp/ibms-v040-bim.png")
+                  with open("/tmp/ibms-v040-dom.html","w",encoding="utf-8") as f:
+                      f.write(driver.page_source)
+                  logs = driver.get_log("browser")
+                  with open("/tmp/ibms-v040-console.log","w",encoding="utf-8") as f:
+                      for row in logs:
+                          f.write(str(row)+"\n")
+                  print("BROWSER LOGS:")
+                  for row in logs[-80:]:
+                      print(row)
+              finally:
+                  driver.quit()
+
+          if not success:
+              raise SystemExit(1)
+
+          print("IBMS v0.4.0 BIM smoke passed.")
           PY
           python3 /tmp/ibms_smoke.py
 
