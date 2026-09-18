@@ -1,0 +1,81 @@
+name: Build IBMS V060 XKT Runtime
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ibms-v060-assets.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copy campus runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="projects/ibms-smart-park/prototype/key-screen-v0.5.0"
+          DST="projects/ibms-smart-park/prototype/key-screen-v0.6.0"
+          mkdir -p "$DST/assets/models" "$DST/assets/bim" "$DST/vendor"
+          cp -R "$SRC/assets/models/." "$DST/assets/models/"
+          cp -R "$SRC/vendor/three" "$DST/vendor/"
+
+      - name: Download xeokit XKT runtime and BIM asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          DST="projects/ibms-smart-park/prototype/key-screen-v0.6.0"
+          mkdir -p "$DST/vendor/xeokit" "$DST/assets/bim"
+
+          curl -L --fail --retry 4 --retry-delay 2 \
+            "https://raw.githubusercontent.com/xeokit/xeokit-sdk/master/dist/xeokit-sdk.min.es.js" \
+            -o "$DST/vendor/xeokit/xeokit-sdk.min.es.js"
+
+          curl -L --fail --retry 4 --retry-delay 2 \
+            "https://raw.githubusercontent.com/xeokit/xeokit-sdk/master/LICENSE" \
+            -o "$DST/vendor/xeokit/LICENSE-xeokit.txt"
+
+          curl -L --fail --retry 4 --retry-delay 2 \
+            "https://raw.githubusercontent.com/xeokit/examples/main/assets/models/xkt/v8/ifc/Schependomlaan.ifc.xkt" \
+            -o "$DST/assets/bim/Schependomlaan.ifc.xkt"
+
+          curl -L --fail --retry 4 --retry-delay 2 \
+            "https://raw.githubusercontent.com/openBIMstandards/Archive-DataSetSchependomlaan/master/LICENSE.MD" \
+            -o "$DST/assets/bim/LICENSE-Schependomlaan.md"
+
+          ls -lh "$DST/vendor/xeokit" "$DST/assets/bim"
+
+      - name: Write runtime metrics
+        shell: bash
+        run: |
+          set -euo pipefail
+          DST="projects/ibms-smart-park/prototype/key-screen-v0.6.0"
+          XKT=$(stat -c%s "$DST/assets/bim/Schependomlaan.ifc.xkt")
+          SDK=$(stat -c%s "$DST/vendor/xeokit/xeokit-sdk.min.es.js")
+          cat > "$DST/assets/bim/runtime-info.json" <<EOF
+          {
+            "format": "XKT v8",
+            "engine": "xeokit",
+            "xktBytes": $XKT,
+            "xeokitModuleBytes": $SDK,
+            "sourceGlbBytesV050": 14055184,
+            "reason": "BIM-specific compact format and data-texture rendering for faster load and large object counts"
+          }
+          EOF
+
+      - name: Commit runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add projects/ibms-smart-park/prototype/key-screen-v0.6.0/assets
+          git add projects/ibms-smart-park/prototype/key-screen-v0.6.0/vendor
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "assets: add xeokit XKT runtime for IBMS v0.6.0"
+          git push
