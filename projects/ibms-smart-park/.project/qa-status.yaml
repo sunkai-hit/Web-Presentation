@@ -1,10 +1,15 @@
-version: v0.3.1
+version: v0.3.2
 status: pending-browser-visual-qa
-summary: 已将 Quaternius CC0 GLB 模型下载并提交到项目 assets/models 目录，app.js 已改为本地模型路径；Three.js 交互逻辑保留。建议通过 start-local.bat 启动本地 HTTP 服务后进行最终视觉 QA。
+summary: Three.js 0.180.0、核心 Addons 和 7 个 GLB 模型均已本地化；页面增加启动 Watchdog 与模型加载超时提示；控件样式已按 Edge-Gateway 原型重新设计。
 checks:
   local_glb_assets: passed
+  local_three_runtime: passed
+  local_three_addons: passed
+  import_map: present
   model_license_file: passed
-  local_asset_path: passed
+  load_watchdog: present
+  model_timeout: present
+  edge_gateway_ui_tokens: present
   three_scene: present
   orbit_rotate: present
   wheel_zoom: present
@@ -13,5 +18,4 @@ checks:
   building_focus: present
   dashboard_drilldown: present
 issues:
-  - Three.js runtime is still loaded from jsDelivr
-  - final WebGL visual QA remains pending
+  - final browser visual QA pending
