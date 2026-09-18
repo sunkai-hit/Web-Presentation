@@ -4,7 +4,7 @@ project:
   type: web-presentation
 
 current:
-  version: v0.3.1
+  version: v0.3.2
   stage: key-screens
 
 baseline:
@@ -19,7 +19,7 @@ latest_release:
   status: none
 
 pending:
-  - user review of local GLB model visual quality
-  - refine landscape / road / landmark composition if required
-  - localize Three.js runtime if fully offline delivery is required
-  - run browser visual QA and release QA before stable release
+  - browser visual QA for fully local Three.js runtime
+  - user review of Edge-Gateway-style front-end controls
+  - refine campus landscape and landmark composition if required
+  - run release QA before stable release
