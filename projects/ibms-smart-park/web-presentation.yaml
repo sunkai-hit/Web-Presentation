@@ -1,11 +1,11 @@
 project_name: IBMS 智慧园区运营中心原型
 project_slug: ibms-smart-park
-release_version: V0.3.2
+release_version: V0.6.0
 
-source_dir: prototype/key-screen-v0.3.2
+source_dir: prototype/key-screen-v0.6.0
 entry_html: index.html
 qa_dir: qa
-release_dir: release/_staging/v0.3.2
+release_dir: release/_staging/v0.6.0
 
 viewport:
   width: 1920
@@ -26,7 +26,7 @@ qa:
 
 render:
   hash_navigation: false
-  virtual_time_budget_ms: 7000
+  virtual_time_budget_ms: 15000
   chrome_timeout_seconds: 60
 
 contact_sheet:
@@ -36,6 +36,6 @@ contact_sheet:
   gap: 12
 
 migration:
-  stable_release_dir: release/v0.3.2
+  stable_release_dir: release/v0.6.0
   staging_only: true
-  note: v0.3.2 已本地化 Three.js 与 GLB 模型，并按 Edge-Gateway 视觉语言重构控件，待浏览器视觉 QA 后正式 Release。
+  note: v0.6.0 已完成 Three.js 园区 LOD + xeokit XKT 楼宇 BIM 的五级数字孪生链路，专用浏览器 smoke test 已通过，待用户 Windows 视觉确认后正式 Release。
