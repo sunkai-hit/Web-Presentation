@@ -68,13 +68,13 @@ jobs:
               wait=WebDriverWait(driver,90)
 
               wait.until(lambda d:"show" in d.find_element(By.ID,"bimPanel").get_attribute("class"))
-              wait.until(lambda d:d.find_element(By.ID,"bimElementCount").text not in ("","--"))
+              wait.until(lambda d:d.find_element(By.ID,"bimElementCount").get_attribute("textContent").strip() not in ("","--"))
               wait.until(lambda d:len(d.find_elements(By.CSS_SELECTOR,"#systemDeviceList .system-device-item"))>0)
               ready=time.perf_counter()-t0
 
-              element_count=driver.find_element(By.ID,"bimElementCount").text
-              floor_count=driver.find_element(By.ID,"bimFloorCount").text
-              parse_text=driver.find_element(By.ID,"bimParseTime").text
+              element_count=driver.find_element(By.ID,"bimElementCount").get_attribute("textContent").strip()
+              floor_count=driver.find_element(By.ID,"bimFloorCount").get_attribute("textContent").strip()
+              parse_text=driver.find_element(By.ID,"bimParseTime").get_attribute("textContent").strip()
               crumb=driver.find_element(By.ID,"twinBreadcrumb").text
               system_summary=driver.find_element(By.ID,"systemSummary").text
               device_count=len(driver.find_elements(By.CSS_SELECTOR,"#systemDeviceList .system-device-item"))
