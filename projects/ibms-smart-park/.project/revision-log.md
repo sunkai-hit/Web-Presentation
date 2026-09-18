@@ -1,34 +1,32 @@
 # 修订记录
 
+## v0.3.2
+- 解决“加载本地模型一直转圈”问题；
+- 将 Three.js 0.180.0 核心运行库和所需 Addons 本地化到 `vendor/three/`；
+- 使用 import map 将 `three` 映射到本地运行库；
+- 保持 7 个 Quaternius CC0 GLB 模型全部本地加载；
+- 增加 12 秒页面启动 Watchdog；
+- 增加单模型 10 秒加载超时和失败数量提示；
+- 加载失败时显示明确错误，不再无限 Loading；
+- 本地启动端口从 8080 调整为 8088，降低旧服务占用造成的版本混淆；
+- 参考 Edge-Gateway V0.7 极简配置页重构前端控件；
+- 采用 Edge-Gateway 的深色工业控制台配色、细边框、小圆角、蓝色标题强调条、扁平按钮与状态色；
+- 减少原版大屏中过强的霓虹、玻璃和 HUD 装饰；
+- 保留中央 Three.js 园区场景与全部业务交互。
+
 ## v0.3.1
-- 将 v0.3.0 使用的 Quaternius CC0 GLB 模型正式下载到本项目；
-- 新增 `assets/models/`，保存 3 个建筑模型、3 个树木模型和 1 个灌木模型；
-- 保存 `LICENSE-quaternius.txt`，继续保留来源与授权追溯；
-- `app.js` 改为从本地 `./assets/models/` 加载，不再运行时访问远程模型地址；
-- 新增 `start-local.bat`，便于 Windows 本地一键启动 HTTP 服务；
-- 新增 `download-assets.ps1` 作为模型重新下载备用脚本；
-- 保持原 Three.js 场景、自由旋转、缩放、平移、建筑高亮/聚焦及业务看板联动。
+- 将 Quaternius CC0 GLB 模型正式下载到本项目；
+- 新增 `assets/models/`，保存建筑、树木和灌木模型；
+- `app.js` 改为从本地模型目录加载；
+- 新增 Windows 本地启动脚本。
 
 ## v0.3.0
-- 放弃“程序化自建建筑模型”作为中央园区主体的路线；
-- 引入 Quaternius Downtown City MegaKit 的 CC0 1.0 开源 GLB 建筑资产；
-- 使用大 / 中 / 小型建筑模型组合 6 栋园区楼宇；
-- 引入 Quaternius 树木、灌木模型构建园区绿化；
-- 保留 Three.js OrbitControls 旋转、缩放、平移及自动环绕；
-- 增加楼宇单击高亮、双击聚焦和运行信息卡；
-- 增加 EffectComposer + UnrealBloomPass，优化整体数字孪生视觉；
-- 保留道路、停车、广场、水景、路灯和安防/能耗/设施点位；
-- 增加模型来源及 CC0 授权追溯文件 CREDITS.md。
+- 引入 Quaternius Downtown City MegaKit 的 CC0 1.0 开源 GLB 资产；
+- 停止以程序化 BoxGeometry 作为主要楼宇资产；
+- 保留 Three.js 自由旋转、缩放、平移和业务点位。
 
 ## v0.2.0
-- 重构中央园区模型，放弃 V0.1.0 的 SVG 伪 2.5D 方案；
-- 引入 Three.js WebGL 真实三维场景；
-- 增加 OrbitControls 左键旋转、滚轮缩放、右键平移；
-- 增加自动旋转与园区视角复位；
-- 增加程序化低模建筑及园区环境。
+- 从 SVG 伪 2.5D 升级为 Three.js 三维场景。
 
 ## v0.1.0
-- 新建 IBMS 智慧园区运营中心项目工作区；
-- 完成深蓝科技大屏视觉框架；
-- 完成中央 2.5D SVG 园区示意模型；
-- 完成周边数据看板基础下钻。
+- 建立 IBMS 智慧园区大屏初始原型。
