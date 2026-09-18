@@ -160,7 +160,7 @@ function withTimeout(promise,ms,label){
 }
 async function loadAsset(file){
   try{
-    const gltf=await withTimeout(loader.loadAsync(ASSET_BASE+file),10000,file);
+    const gltf=await withTimeout(loader.loadAsync(ASSET_BASE+file),30000,file);
     loadedCount++;
     $("#loadingText").textContent=loadedCount+" / "+assetFiles.length+" 已加载";
     $("#modelState").textContent="本地 GLB 模型："+loadedCount+"/"+assetFiles.length;
