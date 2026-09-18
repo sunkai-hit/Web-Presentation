@@ -255,8 +255,8 @@ button{font:inherit;color:inherit}
 
 
 /* v0.6.0 xeokit XKT BIM runtime */
-.xeokit-canvas{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;display:none;z-index:2;background:radial-gradient(circle at 50% 45%,#0e2b3a 0,#071a29 52%,#04111f 100%);outline:0}
-#viewer.xkt-active .xeokit-canvas{display:block}
+.xeokit-canvas{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;display:block;visibility:hidden;pointer-events:none;z-index:2;background:radial-gradient(circle at 50% 45%,#0e2b3a 0,#071a29 52%,#04111f 100%);outline:0}
+#viewer.xkt-active .xeokit-canvas{visibility:visible;pointer-events:auto}
 #viewer.xkt-active>canvas:not(#xeokitCanvas){visibility:hidden!important;pointer-events:none!important}
 #viewer.xkt-active .labels{display:none}
 #viewer.xkt-active .asset-badge{z-index:8}
