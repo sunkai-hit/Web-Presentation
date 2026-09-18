@@ -1,0 +1,71 @@
+name: Build IBMS V032 Local Runtime
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ibms-v032-local-runtime.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  vendor-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Copy localized GLB assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="projects/ibms-smart-park/prototype/key-screen-v0.3.1/assets/models"
+          DST="projects/ibms-smart-park/prototype/key-screen-v0.3.2/assets/models"
+          mkdir -p "$DST"
+          cp -f "$SRC"/* "$DST"/
+          ls -lh "$DST"
+
+      - name: Vendor Three.js 0.180.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          TMP="$(mktemp -d)"
+          cd "$TMP"
+          npm pack three@0.180.0 >/dev/null
+          tar -xzf three-0.180.0.tgz
+
+          ROOT="$GITHUB_WORKSPACE/projects/ibms-smart-park/prototype/key-screen-v0.3.2/vendor/three"
+          mkdir -p "$ROOT/build"
+          mkdir -p "$ROOT/examples/jsm/controls"
+          mkdir -p "$ROOT/examples/jsm/loaders"
+          mkdir -p "$ROOT/examples/jsm/postprocessing"
+          mkdir -p "$ROOT/examples/jsm/shaders"
+          mkdir -p "$ROOT/examples/jsm/utils"
+
+          cp package/build/three.module.js "$ROOT/build/"
+          cp package/build/three.core.js "$ROOT/build/"
+          cp package/examples/jsm/controls/OrbitControls.js "$ROOT/examples/jsm/controls/"
+          cp package/examples/jsm/loaders/GLTFLoader.js "$ROOT/examples/jsm/loaders/"
+          cp package/examples/jsm/postprocessing/*.js "$ROOT/examples/jsm/postprocessing/"
+          cp package/examples/jsm/shaders/*.js "$ROOT/examples/jsm/shaders/"
+          cp package/examples/jsm/utils/BufferGeometryUtils.js "$ROOT/examples/jsm/utils/"
+          cp package/LICENSE "$ROOT/LICENSE-three.txt"
+
+          echo "Vendored Three.js files:"
+          find "$ROOT" -type f | sort
+
+      - name: Commit local runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add projects/ibms-smart-park/prototype/key-screen-v0.3.2/assets
+          git add projects/ibms-smart-park/prototype/key-screen-v0.3.2/vendor
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git commit -m "assets: localize IBMS v0.3.2 three runtime and models"
+          git push
