@@ -19,7 +19,6 @@ latest_release:
   status: none
 
 pending:
-  - browser visual QA for fully local Three.js runtime
-  - user review of Edge-Gateway-style front-end controls
+  - user Windows visual review of v0.3.2
   - refine campus landscape and landmark composition if required
-  - run release QA before stable release
+  - run final release QA before stable release
