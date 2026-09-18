@@ -1,0 +1,142 @@
+name: Smoke IBMS V060 XKT Twin
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ibms-v060-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify XKT runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="projects/ibms-smart-park/prototype/key-screen-v0.6.0"
+          test -s "$ROOT/assets/bim/Schependomlaan.ifc.xkt"
+          test -s "$ROOT/vendor/xeokit/xeokit-sdk.min.es.js"
+          test -s "$ROOT/vendor/three/build/three.module.js"
+          XKT_SIZE=$(stat -c%s "$ROOT/assets/bim/Schependomlaan.ifc.xkt")
+          echo "XKT bytes: $XKT_SIZE"
+          test "$XKT_SIZE" -lt 2500000
+          google-chrome --version
+
+      - name: Start local server
+        shell: bash
+        run: |
+          cd projects/ibms-smart-park/prototype/key-screen-v0.6.0
+          python3 -m http.server 8092 --bind 127.0.0.1 > /tmp/ibms-v060-http.log 2>&1 &
+          echo $! > /tmp/ibms-v060-http.pid
+          sleep 2
+          curl --fail http://127.0.0.1:8092/index.html >/dev/null
+          curl --fail --range 0-1023 http://127.0.0.1:8092/assets/bim/Schependomlaan.ifc.xkt >/dev/null
+          curl --fail --range 0-1023 http://127.0.0.1:8092/vendor/xeokit/xeokit-sdk.min.es.js >/dev/null
+
+      - name: Install Selenium
+        run: python3 -m pip install --quiet selenium
+
+      - name: Test full twin hierarchy and load time
+        shell: bash
+        run: |
+          cat > /tmp/ibms_v060_smoke.py <<'PY'
+          import json, time, traceback
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.support.ui import WebDriverWait
+
+          opts=Options()
+          opts.binary_location="/usr/bin/google-chrome"
+          opts.add_argument("--headless=new")
+          opts.add_argument("--no-sandbox")
+          opts.add_argument("--disable-dev-shm-usage")
+          opts.add_argument("--enable-unsafe-swiftshader")
+          opts.add_argument("--window-size=1920,1080")
+          opts.set_capability("goog:loggingPrefs",{"browser":"ALL"})
+          driver=webdriver.Chrome(options=opts)
+          try:
+              t0=time.perf_counter()
+              driver.get("http://127.0.0.1:8092/?bim=1&floor=2&system=fire")
+              wait=WebDriverWait(driver,45)
+              wait.until(lambda d:"show" in d.find_element(By.ID,"bimPanel").get_attribute("class"))
+              wait.until(lambda d:d.find_element(By.ID,"bimElementCount").get_attribute("textContent").strip() not in ("","--"))
+              wait.until(lambda d:len(d.find_elements(By.CSS_SELECTOR,"#systemDeviceList .system-device-item"))>0)
+              ready=time.perf_counter()-t0
+
+              count=driver.find_element(By.ID,"bimElementCount").get_attribute("textContent").strip()
+              floors=driver.find_element(By.ID,"bimFloorCount").get_attribute("textContent").strip()
+              load_ui=driver.find_element(By.ID,"bimParseTime").get_attribute("textContent").strip()
+              summary=driver.find_element(By.ID,"systemSummary").text
+              crumb=driver.find_element(By.ID,"twinBreadcrumb").text
+              devices=len(driver.find_elements(By.CSS_SELECTOR,"#systemDeviceList .system-device-item"))
+              assert int(count.replace(",",""))>3000, count
+              assert int(floors)>=5, floors
+              assert "消防" in summary
+              assert devices>0
+              assert ready<25, f"XKT hierarchy ready too slow: {ready:.2f}s"
+
+              driver.find_element(By.ID,"simulateAlarm").click()
+              wait.until(lambda d:"show" in d.find_element(By.ID,"deviceDrawer").get_attribute("class"))
+              status=driver.find_element(By.ID,"deviceStatus").text
+              device=driver.find_element(By.ID,"deviceName").text
+              assert "告警" in status
+
+              driver.find_element(By.ID,"ackDevice").click()
+              wait.until(lambda d:"已确认" in d.find_element(By.ID,"deviceStatus").text)
+              driver.find_element(By.ID,"createWorkOrder").click()
+              wait.until(lambda d:"WO-" in d.find_element(By.ID,"deviceEvents").text)
+
+              metrics={
+                "hierarchyReadySeconds":round(ready,3),
+                "objectCount":count,
+                "floorCount":floors,
+                "xktLoadUi":load_ui,
+                "visibleDeviceList":devices,
+                "alarmDevice":device,
+                "breadcrumb":crumb.replace("\n"," > ")
+              }
+              driver.save_screenshot("/tmp/ibms-v060-twin.png")
+              with open("/tmp/ibms-v060-metrics.json","w",encoding="utf-8") as f:json.dump(metrics,f,ensure_ascii=False,indent=2)
+              logs=driver.get_log("browser")
+              severe=[x for x in logs if x.get("level")=="SEVERE" and "favicon.ico" not in x.get("message","")]
+              with open("/tmp/ibms-v060-console.log","w",encoding="utf-8") as f:
+                  for row in logs:f.write(str(row)+"\n")
+              assert not severe,severe
+              print(json.dumps(metrics,ensure_ascii=False))
+              print("IBMS v0.6.0 XKT twin smoke passed.")
+          except Exception:
+              traceback.print_exc()
+              try:
+                  driver.save_screenshot("/tmp/ibms-v060-twin.png")
+                  with open("/tmp/ibms-v060-dom.html","w",encoding="utf-8") as f:f.write(driver.page_source)
+                  logs=driver.get_log("browser")
+                  with open("/tmp/ibms-v060-console.log","w",encoding="utf-8") as f:
+                      for row in logs:f.write(str(row)+"\n")
+                  print("BROWSER LOGS",logs[-40:])
+              except Exception:
+                  traceback.print_exc()
+              raise
+          finally:
+              driver.quit()
+          PY
+          python3 /tmp/ibms_v060_smoke.py
+
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ibms-v060-xkt-smoke
+          path: |
+            /tmp/ibms-v060-twin.png
+            /tmp/ibms-v060-dom.html
+            /tmp/ibms-v060-console.log
+            /tmp/ibms-v060-http.log
+            /tmp/ibms-v060-metrics.json
+          retention-days: 5
