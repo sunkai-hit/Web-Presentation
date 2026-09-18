@@ -1,0 +1,8 @@
+{
+  "format": "XKT v8",
+  "engine": "xeokit",
+  "xktBytes": 1595503,
+  "xeokitModuleBytes": 1592269,
+  "sourceGlbBytesV050": 14055184,
+  "reason": "BIM-specific compact format and data-texture rendering for faster load and large object counts"
+}
