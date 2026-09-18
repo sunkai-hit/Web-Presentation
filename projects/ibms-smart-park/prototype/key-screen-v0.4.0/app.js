@@ -968,3 +968,16 @@ document.addEventListener("keydown",e=>{
     else $("#buildingCard").classList.remove("show");
   }
 });
+
+const debugParams=new URLSearchParams(location.search);
+if(debugParams.get("bim")==="1"){
+  setTimeout(async()=>{
+    selectBuilding(buildings[0]);
+    await enterBimMode();
+    const sys=debugParams.get("system");
+    if(sys&&SYSTEM_CONFIG[sys]){
+      setBimTab("systems");
+      setSystemMode(sys);
+    }
+  },300);
+}
