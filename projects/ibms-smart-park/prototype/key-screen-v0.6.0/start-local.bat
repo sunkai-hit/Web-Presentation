@@ -1,7 +1,7 @@
 @echo off
 chcp 65001 >nul
 cd /d "%~dp0"
-set PORT=8090
+set PORT=8092
 echo.
 echo ========================================
 echo  IBMS Smart Park V0.6.0 BIM
