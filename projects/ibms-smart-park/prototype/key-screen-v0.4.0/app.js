@@ -666,7 +666,10 @@ function showBimElementInfo(obj){
   if(!obj)return;
   if(obj.userData.systemDevice){
     const d=obj.userData.systemDevice;
-    $("#elementInfo").innerHTML='<h5>'+d.label+'</h5><dl><dt>类型</dt><dd>'+d.type+'</dd><dt>楼层</dt><dd>'+d.floor+'</dd><dt>状态</dt><dd>'+d.status+'</dd><dt>对象</dt><dd>IBMS 系统设备</dd></dl>';
+    const html='<h5>'+d.label+'</h5><dl><dt>类型</dt><dd>'+d.type+'</dd><dt>楼层</dt><dd>'+d.floor+'</dd><dt>状态</dt><dd>'+d.status+'</dd><dt>对象</dt><dd>IBMS 系统设备</dd></dl>';
+    $("#elementInfo").innerHTML=html;
+    const systemInfo=$("#systemDeviceInfo");
+    if(systemInfo)systemInfo.innerHTML=html;
     return;
   }
   const mesh=obj.isMesh?obj:null;if(!mesh)return;
