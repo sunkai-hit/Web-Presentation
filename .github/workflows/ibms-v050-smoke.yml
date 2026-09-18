@@ -1,0 +1,147 @@
+name: Smoke IBMS V050 Digital Twin
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ibms-v050-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify optimized local assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="projects/ibms-smart-park/prototype/key-screen-v0.5.0"
+          test -s "$ROOT/assets/bim/Schependomlaan.glb"
+          test -s "$ROOT/assets/bim/Schependomlaan.json"
+          test -s "$ROOT/vendor/three/build/three.module.js"
+          GLB_SIZE=$(stat -c%s "$ROOT/assets/bim/Schependomlaan.glb")
+          test "$GLB_SIZE" -lt 18000000
+          echo "Optimized GLB bytes: $GLB_SIZE"
+          google-chrome --version
+
+      - name: Start local server
+        shell: bash
+        run: |
+          cd projects/ibms-smart-park/prototype/key-screen-v0.5.0
+          python3 -m http.server 8091 --bind 127.0.0.1 > /tmp/ibms-v050-http.log 2>&1 &
+          echo $! > /tmp/ibms-v050-http.pid
+          sleep 2
+          curl --fail http://127.0.0.1:8091/index.html >/dev/null
+          curl --fail --range 0-1023 http://127.0.0.1:8091/assets/bim/Schependomlaan.glb >/dev/null
+
+      - name: Install Selenium
+        run: python3 -m pip install --quiet selenium
+
+      - name: Run hierarchy and performance smoke test
+        shell: bash
+        run: |
+          cat > /tmp/ibms_v050_smoke.py <<'PY'
+          import json, time, traceback
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.support.ui import WebDriverWait
+
+          options = Options()
+          options.binary_location = "/usr/bin/google-chrome"
+          options.add_argument("--headless=new")
+          options.add_argument("--no-sandbox")
+          options.add_argument("--disable-dev-shm-usage")
+          options.add_argument("--enable-unsafe-swiftshader")
+          options.add_argument("--window-size=1920,1080")
+          options.set_capability("goog:loggingPrefs", {"browser":"ALL"})
+
+          driver = webdriver.Chrome(options=options)
+          metrics = {}
+          try:
+              t0=time.perf_counter()
+              driver.get("http://127.0.0.1:8091/?bim=1&floor=2&system=fire")
+              wait=WebDriverWait(driver,90)
+
+              wait.until(lambda d:"show" in d.find_element(By.ID,"bimPanel").get_attribute("class"))
+              wait.until(lambda d:d.find_element(By.ID,"bimElementCount").text not in ("","--"))
+              wait.until(lambda d:len(d.find_elements(By.CSS_SELECTOR,"#systemDeviceList .system-device-item"))>0)
+              ready=time.perf_counter()-t0
+
+              element_count=driver.find_element(By.ID,"bimElementCount").text
+              floor_count=driver.find_element(By.ID,"bimFloorCount").text
+              parse_text=driver.find_element(By.ID,"bimParseTime").text
+              crumb=driver.find_element(By.ID,"twinBreadcrumb").text
+              system_summary=driver.find_element(By.ID,"systemSummary").text
+              device_count=len(driver.find_elements(By.CSS_SELECTOR,"#systemDeviceList .system-device-item"))
+
+              assert int(element_count.replace(",","")) > 3000
+              assert int(floor_count) >= 5
+              assert "消防" in system_summary
+              assert device_count > 0
+              assert "园区" in crumb
+              assert ready < 55, f"BIM hierarchy ready too slow: {ready:.2f}s"
+
+              driver.find_element(By.ID,"simulateAlarm").click()
+              wait.until(lambda d:"show" in d.find_element(By.ID,"deviceDrawer").get_attribute("class"))
+              status=driver.find_element(By.ID,"deviceStatus").text
+              device_name=driver.find_element(By.ID,"deviceName").text
+              assert "告警" in status
+
+              driver.find_element(By.ID,"ackDevice").click()
+              wait.until(lambda d:"已确认" in d.find_element(By.ID,"deviceStatus").text)
+
+              metrics={
+                "hierarchyReadySeconds":round(ready,3),
+                "elementCount":element_count,
+                "floorCount":floor_count,
+                "parseTimeUi":parse_text,
+                "deviceListCount":device_count,
+                "alarmDevice":device_name,
+                "breadcrumb":crumb.replace("\n"," > ")
+              }
+
+              driver.save_screenshot("/tmp/ibms-v050-twin.png")
+              with open("/tmp/ibms-v050-dom.html","w",encoding="utf-8") as f:f.write(driver.page_source)
+              with open("/tmp/ibms-v050-metrics.json","w",encoding="utf-8") as f:json.dump(metrics,f,ensure_ascii=False,indent=2)
+
+              logs=driver.get_log("browser")
+              severe=[x for x in logs if x.get("level")=="SEVERE" and "favicon.ico" not in x.get("message","")]
+              with open("/tmp/ibms-v050-console.log","w",encoding="utf-8") as f:
+                  for row in logs:f.write(str(row)+"\n")
+              assert not severe, severe
+              print(json.dumps(metrics,ensure_ascii=False))
+              print("IBMS v0.5.0 hierarchy smoke passed.")
+          except Exception:
+              traceback.print_exc()
+              try:
+                  driver.save_screenshot("/tmp/ibms-v050-twin.png")
+                  with open("/tmp/ibms-v050-dom.html","w",encoding="utf-8") as f:f.write(driver.page_source)
+                  logs=driver.get_log("browser")
+                  with open("/tmp/ibms-v050-console.log","w",encoding="utf-8") as f:
+                      for row in logs:f.write(str(row)+"\n")
+                  print("BROWSER LOGS", logs[-30:])
+              except Exception:
+                  traceback.print_exc()
+              raise
+          finally:
+              driver.quit()
+          PY
+          python3 /tmp/ibms_v050_smoke.py
+
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ibms-v050-twin-smoke
+          path: |
+            /tmp/ibms-v050-twin.png
+            /tmp/ibms-v050-dom.html
+            /tmp/ibms-v050-console.log
+            /tmp/ibms-v050-http.log
+            /tmp/ibms-v050-metrics.json
+          retention-days: 5
