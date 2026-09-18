@@ -4,7 +4,7 @@ project:
   type: web-presentation
 
 current:
-  version: v0.3.2
+  version: v0.6.0
   stage: key-screens
 
 baseline:
@@ -19,6 +19,8 @@ latest_release:
   status: none
 
 pending:
-  - user Windows visual review of v0.3.2
-  - refine campus landscape and landmark composition if required
+  - user Windows visual review of v0.6.0
+  - replace demo professional-system overlays with real project MEP/IFC data when available
+  - confirm production BIM engine licensing strategy
+  - refine campus LOD visual quality if required
   - run final release QA before stable release
