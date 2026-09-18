@@ -1,11 +1,15 @@
-version: v0.1.0
-status: pending-user-review
-summary: 已完成关键屏源码、2.5D园区模型交互和周边数据看板下钻；JavaScript 语法检查通过，待用户在线体验后继续视觉与交互修订。
+version: v0.2.0
+status: pending-browser-visual-qa
+summary: 已完成 Three.js 真实3D园区、OrbitControls旋转缩放、建筑选择/聚焦、楼宇楼层定位、主题点位联动及数据看板下钻；本地 JavaScript 语法检查通过。当前运行时依赖 jsDelivr 加载 Three.js，需在可联网浏览器中进行最终视觉 QA。
 checks:
   js_syntax: passed
-  external_css: none
-  external_js: none
-  building_drilldown: present
-  floor_drilldown: present
+  three_scene: present
+  orbit_rotate: present
+  wheel_zoom: present
+  pan: present
+  building_pick: present
+  building_focus: present
+  floor_navigation: present
   dashboard_drilldown: present
-issues: []
+issues:
+  - final WebGL visual QA requires browser network access to jsDelivr
