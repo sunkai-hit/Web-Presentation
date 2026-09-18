@@ -248,7 +248,7 @@ window.__IBMS_BOOT_WATCHDOG=setTimeout(function(){
   if(title) title.textContent=window.__IBMS_APP_STARTED?"本地模型加载异常":"三维运行库启动失败";
   if(text) text.textContent=window.__IBMS_APP_STARTED?"请检查 assets/models 文件是否完整":"请确认通过 start-local.bat 启动，并重新同步 v0.3.2";
   if(error) error.textContent="页面不再无限转圈。按 F12 查看 Console 可获得具体错误。";
-},12000);
+},30000);
 </script>
 <script type="module" src="./app.js"></script>
 </body>
