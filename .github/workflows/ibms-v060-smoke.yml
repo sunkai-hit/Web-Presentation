@@ -93,8 +93,11 @@ jobs:
               driver.find_element(By.ID,"createWorkOrder").click()
               wait.until(lambda d:"WO-" in d.find_element(By.ID,"deviceEvents").text)
 
+              xkt_metrics=driver.execute_script("return window.__IBMS_XKT_METRICS || null")
+              print("XKT_METRICS",json.dumps(xkt_metrics,ensure_ascii=False))
               metrics={
                 "hierarchyReadySeconds":round(ready,3),
+                "xktMetrics":xkt_metrics,
                 "objectCount":count,
                 "floorCount":floors,
                 "xktLoadUi":load_ui,
@@ -140,3 +143,5 @@ jobs:
             /tmp/ibms-v060-http.log
             /tmp/ibms-v060-metrics.json
           retention-days: 5
+
+# rerun after XKT overlay scale calibration
