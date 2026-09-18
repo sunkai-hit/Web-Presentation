@@ -1,0 +1,83 @@
+name: Smoke IBMS V040 BIM
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ibms-v040-smoke.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify local assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="projects/ibms-smart-park/prototype/key-screen-v0.4.0"
+          test -s "$ROOT/assets/bim/Schependomlaan.gltf"
+          test -s "$ROOT/assets/bim/Schependomlaan.json"
+          test -s "$ROOT/vendor/three/build/three.module.js"
+          ls -lh "$ROOT/assets/bim"
+
+      - name: Start local server
+        shell: bash
+        run: |
+          cd projects/ibms-smart-park/prototype/key-screen-v0.4.0
+          python3 -m http.server 8090 --bind 127.0.0.1 > /tmp/ibms-v040-http.log 2>&1 &
+          echo $! > /tmp/ibms-v040-http.pid
+          sleep 2
+          curl --fail http://127.0.0.1:8090/index.html >/dev/null
+          curl --fail http://127.0.0.1:8090/assets/bim/Schependomlaan.json >/dev/null
+          curl --fail --range 0-1023 http://127.0.0.1:8090/assets/bim/Schependomlaan.gltf >/dev/null
+
+      - name: Run BIM browser smoke test
+        shell: bash
+        run: |
+          set +e
+          google-chrome \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --enable-unsafe-swiftshader \
+            --window-size=1920,1080 \
+            --virtual-time-budget=30000 \
+            --screenshot=/tmp/ibms-v040-bim.png \
+            --dump-dom \
+            "http://127.0.0.1:8090/?bim=1&system=fire" > /tmp/ibms-v040-dom.html 2>/tmp/ibms-v040-chrome.log
+          CHROME_EXIT=$?
+          set -e
+
+          test "$CHROME_EXIT" -eq 0
+          test -s /tmp/ibms-v040-bim.png
+          grep -q '<canvas' /tmp/ibms-v040-dom.html
+          grep -q 'class="bim-panel show"' /tmp/ibms-v040-dom.html
+          grep -q '消防系统' /tmp/ibms-v040-dom.html
+          if grep -q '>--</b>' /tmp/ibms-v040-dom.html; then
+            echo "BIM counts were not populated."
+            grep -n 'bimElementCount\|bimFloorCount' /tmp/ibms-v040-dom.html || true
+            exit 1
+          fi
+          if grep -q 'detail-loading show error' /tmp/ibms-v040-dom.html; then
+            echo "BIM detail loader reported an error."
+            grep -n 'detailLoadingText' /tmp/ibms-v040-dom.html || true
+            exit 1
+          fi
+          echo "IBMS v0.4.0 BIM interaction scene initialized."
+
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ibms-v040-bim-smoke
+          path: |
+            /tmp/ibms-v040-bim.png
+            /tmp/ibms-v040-dom.html
+            /tmp/ibms-v040-chrome.log
+            /tmp/ibms-v040-http.log
+          retention-days: 3
