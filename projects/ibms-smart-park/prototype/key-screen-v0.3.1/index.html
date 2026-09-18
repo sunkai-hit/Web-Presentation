@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>IBMS 智慧园区运营中心 · V0.3.1</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="screen">
+  <header class="topbar">
+    <div class="weather">☀ 18℃　空气质量 <b>优</b>　园区运行 <b>正常</b></div>
+    <div class="title">
+      <span>IBMS智慧园区运营中心</span>
+      <small>SMART CAMPUS DIGITAL OPERATIONS</small>
+    </div>
+    <div class="clock"><span id="dateText"></span><strong id="timeText"></strong></div>
+  </header>
+
+  <main class="dashboard">
+    <aside class="side left">
+      <section class="panel drill" data-module="device">
+        <header><span>设备运行</span><button>详情 ›</button></header>
+        <div class="device-wrap">
+          <div class="ring" style="--p:90"><div><small>设备总数</small><b>1,568</b></div></div>
+          <div class="legend">
+            <p><i class="cyan"></i><span>在线</span><b>1,412</b><em>90%</em></p>
+            <p><i class="green"></i><span>离线</span><b>98</b><em>6%</em></p>
+            <p><i class="orange"></i><span>故障</span><b>34</b><em>2%</em></p>
+            <p><i class="gray"></i><span>维护</span><b>24</b><em>2%</em></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel drill" data-module="security">
+        <header><span>安防监控</span><button>详情 ›</button></header>
+        <div class="triple">
+          <div><b>286</b><small>摄像头 · 98%</small></div>
+          <div><b>48</b><small>门禁点 · 100%</small></div>
+          <div><b>32</b><small>周界设备 · 97%</small></div>
+        </div>
+        <div class="cam-strip">
+          <div><span>1号楼东侧</span></div><div><span>园区主入口</span></div><div><span>3号楼周界</span></div>
+        </div>
+      </section>
+
+      <section class="panel drill" data-module="environment">
+        <header><span>环境监测</span><button>详情 ›</button></header>
+        <div class="env">
+          <div><b>24.6°</b><small>温度</small></div>
+          <div><b>56%</b><small>湿度</small></div>
+          <div><b>28</b><small>PM2.5</small></div>
+          <div><b>优</b><small>空气质量</small></div>
+        </div>
+      </section>
+
+      <section class="panel drill flex" data-module="access">
+        <header><span>人员通行</span><button>详情 ›</button></header>
+        <div class="statpair"><div><small>今日通行</small><b>1,284</b></div><div><small>访客人数</small><b>326</b></div></div>
+        <svg class="spark" viewBox="0 0 300 95" preserveAspectRatio="none"><path class="grid" d="M0 20H300M0 48H300M0 76H300"/><path class="area" d="M0 72L42 58L84 61L126 55L168 64L210 43L252 34L300 39L300 95L0 95Z"/><path class="line" d="M0 72L42 58L84 61L126 55L168 64L210 43L252 34L300 39"/></svg>
+      </section>
+    </aside>
+
+    <section class="center">
+      <div class="kpis">
+        <div class="kpi"><span>!</span><div><small>今日告警</small><b>12</b><i>↓25%</i></div></div>
+        <div class="kpi"><span>▤</span><div><small>在线设备</small><b>1,568</b><i>↑2%</i></div></div>
+        <div class="kpi"><span>ϟ</span><div><small>园区能耗</small><b>23,460</b><em>kWh</em></div></div>
+        <div class="kpi"><span>●●</span><div><small>访客人数</small><b>326</b><i>↑12%</i></div></div>
+      </div>
+
+      <section class="viewer-shell">
+        <div class="viewer-top">
+          <div class="scene-title">园区空间态势 <b>·</b> <span id="themeName">综合态势</span></div>
+          <div class="controls">
+            <button id="autoRotate" class="active" title="自动旋转">⟳ 自动旋转</button>
+            <button id="homeView" title="复位视角">⌂</button>
+            <button id="zoomIn" title="放大">＋</button>
+            <button id="zoomOut" title="缩小">−</button>
+          </div>
+        </div>
+
+        <div id="viewer">
+          <div class="loading" id="loading">
+            <div class="loader"></div>
+            <b>正在加载本地园区模型</b>
+            <span id="loadingText">0 / 7</span>
+          </div>
+          <div class="tip">左键旋转 · 滚轮缩放 · 右键平移 · 单击楼宇查看 · 双击聚焦</div>
+
+          <div class="labels" id="labels"></div>
+
+          <div class="building-card" id="buildingCard">
+            <div class="bc-head"><div><strong id="bcName">1号楼</strong><small id="bcType">综合办公楼</small></div><button id="closeCard">×</button></div>
+            <div class="bc-grid">
+              <div><small>在线设备</small><b id="bcDevices">326</b></div>
+              <div><small>当前人员</small><b id="bcPeople">218</b></div>
+              <div><small>今日能耗</small><b id="bcEnergy">5,820</b></div>
+              <div><small>活动告警</small><b id="bcAlarm" class="alarm">1</b></div>
+            </div>
+            <button class="enter" id="focusBuilding">聚焦楼宇</button>
+          </div>
+
+          <div class="asset-badge">Local CC0 assets · Quaternius Downtown City MegaKit</div>
+        </div>
+      </section>
+
+      <nav class="tabs" id="tabs">
+        <button class="active" data-theme="general">▦ 综合态势</button>
+        <button data-theme="security">⬟ 安防消防</button>
+        <button data-theme="energy">◒ 能耗环境</button>
+        <button data-theme="facility">⚙ 设备设施</button>
+      </nav>
+    </section>
+
+    <aside class="side right">
+      <section class="panel drill" data-module="energy">
+        <header><span>能耗分析</span><button>详情 ›</button></header>
+        <div class="bars"><i style="height:52%"></i><i style="height:58%"></i><i style="height:55%"></i><i style="height:63%"></i><i style="height:82%"></i><i style="height:75%"></i><i style="height:69%"></i></div>
+      </section>
+
+      <section class="panel drill" data-module="alarm">
+        <header><span>告警事件</span><button>详情 ›</button></header>
+        <div class="alarms">
+          <p><i class="high">重大</i><span>1号楼 消防烟感报警</span><time>14:32</time></p>
+          <p><i class="mid">一般</i><span>3号楼 门禁异常开门</span><time>11:03</time></p>
+          <p><i class="mid">一般</i><span>园区东侧 周界入侵</span><time>09:27</time></p>
+          <p><i class="low">提示</i><span>4号楼 设备离线</span><time>昨日</time></p>
+          <p><i class="low">提示</i><span>5号楼 电梯维保到期</span><time>昨日</time></p>
+        </div>
+      </section>
+
+      <section class="panel drill" data-module="parking">
+        <header><span>停车管理</span><button>详情 ›</button></header>
+        <div class="device-wrap">
+          <div class="ring parking" style="--p:69"><div><small>车位总数</small><b>620</b></div></div>
+          <div class="legend">
+            <p><i class="cyan"></i><span>已使用</span><b>428</b><em>69%</em></p>
+            <p><i class="green"></i><span>空闲</span><b>172</b><em>28%</em></p>
+            <p><i class="orange"></i><span>异常</span><b>20</b><em>3%</em></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel drill flex" data-module="space">
+        <header><span>空间利用</span><button>详情 ›</button></header>
+        <div class="progress-list">
+          <p><span>办公区</span><i><b style="width:78%"></b></i><em>78%</em></p>
+          <p><span>会议室</span><i><b style="width:62%"></b></i><em>62%</em></p>
+          <p><span>公共区域</span><i><b style="width:54%"></b></i><em>54%</em></p>
+          <p><span>园区整体</span><i><b style="width:68%"></b></i><em>68%</em></p>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="modal-head"><h2 id="modalTitle">详情</h2><button id="closeModal">×</button></div>
+      <div class="modal-body">
+        <section><h4 id="trendTitle">趋势分析</h4><div class="modal-kpis" id="modalKpis"></div><svg id="modalChart" viewBox="0 0 520 220" preserveAspectRatio="none"></svg></section>
+        <section><h4>明细数据</h4><table><thead><tr><th>对象</th><th>状态</th><th>当前值</th></tr></thead><tbody id="modalTable"></tbody></table></section>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
