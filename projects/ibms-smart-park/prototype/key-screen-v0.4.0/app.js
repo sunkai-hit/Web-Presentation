@@ -908,9 +908,9 @@ $("#zoomOut").addEventListener("click",()=>{const d=camera.position.clone().sub(
 $("#autoRotate").addEventListener("click",e=>{controls.autoRotate=!controls.autoRotate;e.currentTarget.classList.toggle("active",controls.autoRotate)});
 
 const themeNames={general:"综合态势",security:"安防消防",energy:"能耗环境",facility:"设备设施"};
-$("#tabs button").forEach(btn=>btn.addEventListener("click",()=>{
+$$("#tabs button").forEach(btn=>btn.addEventListener("click",()=>{
   if(viewMode!=="campus")return;
-  $("#tabs button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
+  $$("#tabs button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
   const theme=btn.dataset.theme;$("#themeName").textContent=themeNames[theme];
   Object.entries(markerGroups).forEach(([k,g])=>{g.visible=theme==="general"||k===theme});
 }));
