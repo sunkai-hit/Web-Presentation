@@ -257,7 +257,7 @@ export async function createBimTwin({
   }
   function setSystem(system,newScope="building",floorIndex=null){
     activeSystem=system;scope=newScope;scopeFloorIndex=floorIndex;
-    buildSystem(system);resetBimEmphasis();hideSystems();
+    ensureSystem(system);resetBimEmphasis();hideSystems();
     scene.setObjectsXRayed(allObjectIds,true);
     scene.setObjectsPickable(allObjectIds,false);
     if(scope==="floor"&&Number.isInteger(floorIndex)&&floors[floorIndex]){
@@ -329,6 +329,15 @@ export async function createBimTwin({
     resetBimEmphasis();hideSystems();clearDeviceSelection();
     viewer.cameraFlight.flyTo({aabb:modelAabb,duration:.45,fitFOV:40});
   }
+  function zoom(factor){
+    const eye=viewer.scene.camera.eye.slice();
+    const look=viewer.scene.camera.look.slice();
+    viewer.scene.camera.eye=[
+      look[0]+(eye[0]-look[0])*factor,
+      look[1]+(eye[1]-look[1])*factor,
+      look[2]+(eye[2]-look[2])*factor
+    ];
+  }
 
   viewer.cameraControl.on("picked",(pick)=>{
     const entity=pick?.entity;if(!entity)return;
@@ -356,10 +365,10 @@ export async function createBimTwin({
 
   return {
     viewer,model,floors,objectCount:model.numEntities||allObjectIds.length,loadMs,modelAabb,
-    resetView,resetBimEmphasis,setFloorDrawer,explodeFloors,setSystem,getDevices,
+    resetView,zoom,resetBimEmphasis,setFloorDrawer,explodeFloors,setSystem,getDevices,
     setDeviceStatus,selectDevice,clearDeviceSelection,focusObject,hideSystems,
     ensureSystem,
-    show(){viewer.scene.canvas.canvas.style.display="block"},
-    hide(){viewer.scene.canvas.canvas.style.display="none"}
+    show(){viewer.scene.canvas.canvas.style.visibility="visible";viewer.scene.canvas.canvas.style.pointerEvents="auto"},
+    hide(){viewer.scene.canvas.canvas.style.visibility="hidden";viewer.scene.canvas.canvas.style.pointerEvents="none"}
   };
 }
