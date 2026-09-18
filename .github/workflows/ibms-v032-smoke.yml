@@ -27,34 +27,54 @@ jobs:
           sleep 2
           curl --fail http://127.0.0.1:8088/index.html >/dev/null
           curl --fail http://127.0.0.1:8088/vendor/three/build/three.module.js >/dev/null
+          curl --fail http://127.0.0.1:8088/vendor/three/examples/jsm/loaders/GLTFLoader.js >/dev/null
           curl --fail http://127.0.0.1:8088/assets/models/b_large.glb >/dev/null
 
       - name: Run browser smoke test
         shell: bash
         run: |
-          set -euo pipefail
+          set +e
           google-chrome \
             --headless=new \
             --no-sandbox \
             --disable-dev-shm-usage \
+            --enable-unsafe-swiftshader \
+            --enable-logging=stderr \
             --window-size=1920,1080 \
             --virtual-time-budget=15000 \
             --screenshot=/tmp/ibms-v032.png \
             --dump-dom \
-            http://127.0.0.1:8088/ > /tmp/ibms-dom.html
+            http://127.0.0.1:8088/ > /tmp/ibms-dom.html 2>/tmp/chrome.log
+          CHROME_EXIT=$?
+          set -e
 
+          echo "---- loading block ----"
+          grep -A14 -B2 'id="loading"' /tmp/ibms-dom.html || true
+          echo "---- runtime markers ----"
+          grep -o 'id="runtimeState"[^<]*>[^<]*' /tmp/ibms-dom.html || true
+          grep -o 'id="modelState"[^<]*>[^<]*' /tmp/ibms-dom.html || true
+          grep -o 'id="loadingTitle"[^<]*>[^<]*' /tmp/ibms-dom.html || true
+          grep -o 'id="loadingText"[^<]*>[^<]*' /tmp/ibms-dom.html || true
+          echo "---- chrome errors ----"
+          grep -Ei 'error|failed|uncaught|module|import|404' /tmp/chrome.log | tail -80 || true
+
+          test "$CHROME_EXIT" -eq 0
           test -s /tmp/ibms-v032.png
           grep -q '<canvas' /tmp/ibms-dom.html
           if grep -q 'id="loading"' /tmp/ibms-dom.html; then
             echo "Loading overlay still exists after virtual time budget."
-            grep -n 'id="loading"' /tmp/ibms-dom.html | head
             exit 1
           fi
           echo "IBMS v0.3.2 scene initialized successfully."
 
-      - name: Upload screenshot
+      - name: Upload diagnostics
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ibms-v032-smoke
-          path: /tmp/ibms-v032.png
+          path: |
+            /tmp/ibms-v032.png
+            /tmp/ibms-dom.html
+            /tmp/chrome.log
+            /tmp/ibms-http.log
           retention-days: 3
