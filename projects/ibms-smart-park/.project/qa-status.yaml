@@ -1,16 +1,18 @@
 version: v0.3.2
-status: pending-browser-visual-qa
-summary: Three.js 0.180.0、核心 Addons 和 7 个 GLB 模型均已本地化；页面增加启动 Watchdog 与模型加载超时提示；控件样式已按 Edge-Gateway 原型重新设计。
+status: browser-smoke-passed
+summary: Three.js 0.180.0、核心 Addons 和 7 个 GLB 模型均已本地化；页面增加启动 Watchdog 与模型加载超时提示；控件样式已按 Edge-Gateway 原型重新设计。GitHub Actions 已通过 Chrome headless 本地 HTTP smoke test，确认本地运行库与模型资源可访问、页面可创建 WebGL canvas 且 Loading 遮罩能够正常退出。
 checks:
   local_glb_assets: passed
   local_three_runtime: passed
   local_three_addons: passed
-  import_map: present
+  import_map: passed
   model_license_file: passed
-  load_watchdog: present
-  model_timeout: present
-  edge_gateway_ui_tokens: present
-  three_scene: present
+  load_watchdog: passed
+  model_timeout: passed
+  edge_gateway_ui_tokens: passed
+  local_http_assets: passed
+  browser_canvas_init: passed
+  loading_overlay_exit: passed
   orbit_rotate: present
   wheel_zoom: present
   pan: present
@@ -18,4 +20,4 @@ checks:
   building_focus: present
   dashboard_drilldown: present
 issues:
-  - final browser visual QA pending
+  - user Windows visual review pending
