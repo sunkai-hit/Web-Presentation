@@ -24,6 +24,8 @@ jobs:
           test -s "$ROOT/assets/bim/Schependomlaan.json"
           test -s "$ROOT/vendor/three/build/three.module.js"
           ls -lh "$ROOT/assets/bim"
+          google-chrome --version
+          command -v chromedriver || true
 
       - name: Start local server
         shell: bash
@@ -36,39 +38,65 @@ jobs:
           curl --fail http://127.0.0.1:8090/assets/bim/Schependomlaan.json >/dev/null
           curl --fail --range 0-1023 http://127.0.0.1:8090/assets/bim/Schependomlaan.gltf >/dev/null
 
+      - name: Install Selenium
+        run: python3 -m pip install --quiet selenium
+
       - name: Run BIM browser smoke test
         shell: bash
         run: |
-          set +e
-          google-chrome \
-            --headless=new \
-            --no-sandbox \
-            --disable-dev-shm-usage \
-            --enable-unsafe-swiftshader \
-            --window-size=1920,1080 \
-            --virtual-time-budget=30000 \
-            --screenshot=/tmp/ibms-v040-bim.png \
-            --dump-dom \
-            "http://127.0.0.1:8090/?bim=1&system=fire" > /tmp/ibms-v040-dom.html 2>/tmp/ibms-v040-chrome.log
-          CHROME_EXIT=$?
-          set -e
+          cat > /tmp/ibms_smoke.py <<'PY'
+          import time
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.support.ui import WebDriverWait
+          from selenium.webdriver.support import expected_conditions as EC
 
-          test "$CHROME_EXIT" -eq 0
-          test -s /tmp/ibms-v040-bim.png
-          grep -q '<canvas' /tmp/ibms-v040-dom.html
-          grep -q 'class="bim-panel show"' /tmp/ibms-v040-dom.html
-          grep -q '消防系统' /tmp/ibms-v040-dom.html
-          if grep -q '>--</b>' /tmp/ibms-v040-dom.html; then
-            echo "BIM counts were not populated."
-            grep -n 'bimElementCount\|bimFloorCount' /tmp/ibms-v040-dom.html || true
-            exit 1
-          fi
-          if grep -q 'detail-loading show error' /tmp/ibms-v040-dom.html; then
-            echo "BIM detail loader reported an error."
-            grep -n 'detailLoadingText' /tmp/ibms-v040-dom.html || true
-            exit 1
-          fi
-          echo "IBMS v0.4.0 BIM interaction scene initialized."
+          options = Options()
+          options.binary_location = "/usr/bin/google-chrome"
+          options.add_argument("--headless=new")
+          options.add_argument("--no-sandbox")
+          options.add_argument("--disable-dev-shm-usage")
+          options.add_argument("--enable-unsafe-swiftshader")
+          options.add_argument("--window-size=1920,1080")
+          options.set_capability("goog:loggingPrefs", {"browser":"ALL"})
+
+          driver = webdriver.Chrome(options=options)
+          try:
+              driver.set_page_load_timeout(30)
+              driver.get("http://127.0.0.1:8090/?bim=1&system=fire")
+              wait = WebDriverWait(driver, 150)
+
+              wait.until(lambda d: "show" in d.find_element(By.ID, "bimPanel").get_attribute("class"))
+              wait.until(lambda d: d.find_element(By.ID, "bimElementCount").text not in ("", "--"))
+              wait.until(lambda d: d.find_element(By.ID, "bimFloorCount").text not in ("", "--"))
+              wait.until(lambda d: "消防系统" in d.find_element(By.ID, "systemSummary").text)
+
+              element_count = driver.find_element(By.ID, "bimElementCount").text
+              floor_count = driver.find_element(By.ID, "bimFloorCount").text
+              summary = driver.find_element(By.ID, "systemSummary").text
+              loading_class = driver.find_element(By.ID, "detailLoading").get_attribute("class")
+
+              assert "error" not in loading_class, loading_class
+              assert element_count not in ("", "--")
+              assert floor_count not in ("", "--")
+              assert "消防系统" in summary
+
+              driver.save_screenshot("/tmp/ibms-v040-bim.png")
+              with open("/tmp/ibms-v040-dom.html","w",encoding="utf-8") as f:
+                  f.write(driver.page_source)
+              with open("/tmp/ibms-v040-console.log","w",encoding="utf-8") as f:
+                  for row in driver.get_log("browser"):
+                      f.write(str(row)+"\n")
+
+              print("BIM element count:", element_count)
+              print("BIM floor count:", floor_count)
+              print("System summary:", summary.replace("\n"," | "))
+              print("IBMS v0.4.0 BIM smoke passed.")
+          finally:
+              driver.quit()
+          PY
+          python3 /tmp/ibms_smoke.py
 
       - name: Upload diagnostics
         if: always()
@@ -78,6 +106,6 @@ jobs:
           path: |
             /tmp/ibms-v040-bim.png
             /tmp/ibms-v040-dom.html
-            /tmp/ibms-v040-chrome.log
+            /tmp/ibms-v040-console.log
             /tmp/ibms-v040-http.log
           retention-days: 3
