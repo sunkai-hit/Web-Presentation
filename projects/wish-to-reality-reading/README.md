@@ -4,17 +4,17 @@
 
 ## 当前版本
 
-- 当前版本：`v0.7.0`
-- 当前入口：[`prototype/v0.7.0/index.html`](./prototype/v0.7.0/index.html)
-- 当前内容稿：[`spec/v0.7.0-full-page-content.md`](./spec/v0.7.0-full-page-content.md)
+- 当前版本：`v0.8.0`
+- 当前入口：[`prototype/v0.8.0/index.html`](./prototype/v0.8.0/index.html)
+- 当前内容稿：[`spec/v0.8.0-full-page-content.md`](./spec/v0.8.0-full-page-content.md)
 - 项目规则：[`./.project/content-production-rules.md`](./.project/content-production-rules.md)
 
-## v0.7.0 升级重点
+## v0.8.0 升级重点
 
-- 推倒并重写 `full-page-content`，不再使用摘要式页面提示。
-- 每页按“问题 → 背景/故事/实验 → 作者解释 → 现代解释 → 页底收束”的标准展开。
-- 重写爆米花实验页、Shinn 故事页、WOOP 案例页、习惯机制页、McAdams 叙事身份页等主体内容。
-- 增加内容驱动型原型：页面从 `spec/v0.7.0-full-page-content.md` 渲染，防止后续制作再次把内容稿压缩成空卡片。
+- 将内容生产规则升级为 v2，明确“已确认内容不可降级”。
+- 提交新的 v0.8.0 完整逐页内容稿，冻结前 1–6 页标准并继续按同等颗粒度展开。
+- 制作单文件 HTML 原型，内容、CSS、JS 均内嵌，下载后可离线打开。
+- 避免 v0.7.0 的外部 Markdown 依赖问题。
 
 ## 内容来源
 
@@ -25,6 +25,7 @@
 
 ## 历史版本
 
+- [`prototype/v0.7.0/index.html`](./prototype/v0.7.0/index.html)
 - [`prototype/v0.6.0/index.html`](./prototype/v0.6.0/index.html)
 - [`prototype/v0.5.0/index.html`](./prototype/v0.5.0/index.html)
 - [`prototype/v0.4.0/index.html`](./prototype/v0.4.0/index.html)
