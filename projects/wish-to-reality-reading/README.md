@@ -1,38 +1,37 @@
 # 从“显化”到习惯：愿望是怎么影响现实的？
 
-以四本书为主线的 Web Presentation：从 20 世纪早期的“显化”思想出发，逐步进入动机心理学、习惯科学与叙事身份，讨论一个共同问题——人的愿望，究竟怎样一步步影响现实中的选择、行动与长期结果。
+本项目以四本书为主线，讨论愿望如何经过未来图景、现实障碍、行为、习惯与叙事身份，最终影响现实中的选择和长期结果。
 
-## 当前版本
+## 当前状态
 
-- 当前版本：`v0.11.0`
-- 当前入口：[`prototype/v0.11.0/index.html`](./prototype/v0.11.0/index.html)
-- 当前内容稿：[`spec/v0.9.0-full-page-content.md`](./spec/v0.9.0-full-page-content.md)
-- 项目规则：[`./.project/content-production-rules.md`](./.project/content-production-rules.md)
+- 状态：`Planning / Rebuild`
+- 下一版本：`v1.0.0`
+- 当前不指定正式入口；先完成页面设计样板组，再进入整套制作。
+- 项目规则：[`.project/content-production-rules.md`](./.project/content-production-rules.md)
+- 视觉基线：[`.project/visual-baseline.md`](./.project/visual-baseline.md)
 
-## v0.11.0 修复重点
+## v1.0 重构原则
 
-- 针对 v0.10.0 中爆米花实验页仍然退化为“栏目齐但内容稀”的问题，重新按 demo 级别实现该页。
-- 爆米花页恢复为：实验场景图、四步实验过程、强/弱习惯结果对照、作者真正想说明、迁移到日常。
-- 已用 1600×900 渲染检查该页：无溢出、无越界、无大面积空容器。
-- 当前版本仍为可下载离线打开的单文件 Web PPT。
+这次不再使用“统一卡片模板 + 批量填充内容”的方式。生产顺序固定为：
 
-## 内容来源
+1. 完整内容稿；
+2. 逐页页面设计稿（内容关系、主视觉、阅读顺序、结论位置）；
+3. 6 页代表性样板组；
+4. 样板组通过后，再逐页制作整套；
+5. 内容实现检查全部通过后，才进行最终视觉 QA。
 
-1. Florence Scovel Shinn，《The Game of Life and How to Play It》：显化传统、愿望、语言、信念、潜意识与直觉。
-2. Gabriele Oettingen，《Rethinking Positive Thinking》：积极幻想的边界、心理对照、WOOP 与 If–Then 计划。
-3. Wendy Wood，《Good Habits, Bad Habits》：习惯科学、情境线索、摩擦力、奖励、重复与自动化。
-4. Dan P. McAdams，《The Stories We Live By》：叙事身份、关键场景、主体性 / 联结、救赎 / 污染叙事。
+“电影院陈爆米花实验”demo 是主体知识页的最低复杂度基准：页面必须有核心视觉、完整解释过程、具体案例/实验、机制或对照关系、结论/迁移。
 
-## 历史版本
+## 清理说明
 
-- [`prototype/v0.11.0/index.html`](./prototype/v0.11.0/index.html)
-- [`prototype/v0.10.0/index.html`](./prototype/v0.10.0/index.html)
-- [`prototype/v0.9.0/index.html`](./prototype/v0.9.0/index.html)
-- [`prototype/v0.8.0/index.html`](./prototype/v0.8.0/index.html)
-- [`prototype/v0.7.0/index.html`](./prototype/v0.7.0/index.html)
-- [`prototype/v0.6.0/index.html`](./prototype/v0.6.0/index.html)
-- [`prototype/v0.5.0/index.html`](./prototype/v0.5.0/index.html)
-- [`prototype/v0.4.0/index.html`](./prototype/v0.4.0/index.html)
-- [`prototype/v0.3.0/index.html`](./prototype/v0.3.0/index.html)
-- [`prototype/v0.2.0/index.html`](./prototype/v0.2.0/index.html)
-- [`prototype/v0.1.0/index.html`](./prototype/v0.1.0/index.html)
+v0.6.0–v0.11.0 为连续试错版本，因生产方式未达到上述标准，已从项目工作区清理，不再作为后续实现基线。
+
+## 保留历史参考
+
+- `prototype/v0.1.0/`
+- `prototype/v0.2.0/`
+- `prototype/v0.3.0/`
+- `prototype/v0.4.0/`
+- `prototype/v0.5.0/`
+
+这些仅作为历史参考，不代表 v1.0 的实现方式。
