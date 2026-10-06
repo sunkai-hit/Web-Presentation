@@ -1,14 +1,15 @@
 slug: wish-to-reality-reading
 name: 从“显化”到习惯：愿望是怎么影响现实的？
 status: Building
-current_version: v0.2.0
+current_version: v0.3.0
 created_at: 2026-10-06
 updated_at: 2026-10-06
 owner: sunkai-hit
 phase: prototype
-entry: prototype/v0.2.0/index.html
+entry: prototype/v0.3.0/index.html
 notes:
-  - v0.1.0 完成四本书的基础结构与总模型。
-  - v0.2.0 针对首次接触主题的观看者补充作者背景、书籍目的、经典故事、实验、概念解释与过渡叙事。
-  - 已删除封面和页脚中的场景化、时长化分享标签。
-  - 后续重点可转向视觉 QA、内容校对和发布版本。
+  - v0.1.0 完成四本书基础结构与总模型。
+  - v0.2.0 补充作者背景、书籍目的、经典故事、实验、概念解释与过渡叙事。
+  - v0.3.0 继续完善内容密度与页面布局，重点增强流程图/章节图节点说明，使页面可直接支撑讲解。
+  - v0.3.0 将原型拆分为 index.html、styles.css、app.js，便于后续排版优化。
+  - 后续重点可转向视觉 QA、移动端适配与发布版本。
