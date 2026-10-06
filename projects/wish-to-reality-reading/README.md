@@ -4,10 +4,11 @@
 
 ## 当前状态
 
-- 状态：`Planning / Content Draft Complete`
+- 状态：`Planning / Page Design Complete`
 - 下一版本：`v1.0.0`
 - 当前内容稿：[`spec/v1.0-full-page-content.md`](./spec/v1.0-full-page-content.md)
-- 当前不指定正式入口；下一步进入整套页面设计稿。
+- 当前页面设计稿：[`spec/v1.0-page-design.md`](./spec/v1.0-page-design.md)
+- 当前不指定正式入口；下一步进入整套单文件 HTML 制作。
 - 项目规则：[`.project/content-production-rules.md`](./.project/content-production-rules.md)
 - 视觉基线：[`.project/visual-baseline.md`](./.project/visual-baseline.md)
 
@@ -17,11 +18,11 @@
 
 1. 完整内容稿；
 2. 逐页页面设计稿（内容关系、主视觉、阅读顺序、结论位置）；
-3. 6 页代表性样板组；
-4. 样板组通过后，再逐页制作整套；
-5. 内容实现检查全部通过后，才进行最终视觉 QA。
+3. 依据设计稿分批制作整套单文件 HTML；
+4. 每批做内容覆盖检查、页面实现检查和浏览器截图检查；
+5. 全量视觉 QA 通过后，才指定正式入口。
 
-当前已完成第 1 步：34 页完整逐页内容稿。后续页面设计必须以该内容稿为源，不得再次压缩成“几个框里几句话”。
+当前已完成第 1、2 步：34 页完整逐页内容稿与整套页面设计稿。后续页面制作必须以这两份文件为源，不得再次压缩成“几个框里几句话”。
 
 “电影院陈爆米花实验”demo 是主体知识页的最低复杂度基准：页面必须有核心视觉、完整解释过程、具体案例/实验、机制或对照关系、结论/迁移。
 
