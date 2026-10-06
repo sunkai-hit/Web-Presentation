@@ -1,0 +1,36 @@
+project:
+  slug: wish-to-reality-reading
+  name: 从“显化”到习惯：愿望是怎么影响现实的？
+  type: web-presentation
+  status: Building
+  current_version: v0.1.0
+  audience: 初中生及家庭读书分享
+  duration: 25-35 minutes
+
+prototype:
+  version: v0.1.0
+  entry: prototype/v0.1.0/index.html
+  format: standalone-html
+  viewport: 16:9
+
+style:
+  tone: 轻量大学选修课 / 通识读书分享
+  keywords:
+    - 知识型
+    - 故事化
+    - 不说教
+    - 结构图驱动
+  palette:
+    background: 米白
+    primary: 深蓝
+    accent_1: 墨绿
+    accent_2: 暗红
+    accent_3: 暗金
+
+content:
+  books:
+    - The Game of Life and How to Play It
+    - Rethinking Positive Thinking
+    - Good Habits, Bad Habits
+    - The Stories We Live By
+  core_model: 未来图景 → 现实障碍 → 行为设计 → 环境习惯 → 真实证据 → 自我故事
