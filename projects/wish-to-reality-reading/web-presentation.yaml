@@ -31,8 +31,12 @@ content:
     - Good Habits, Bad Habits
     - The Stories We Live By
   core_model: 未来图景 → 现实障碍 → 行为设计 → 环境习惯 → 真实证据 → 自我故事
+  current_draft: spec/v1.0-full-page-content.md
+  pages: 34
 
 rebuild:
   target: v1.0.0
-  method: 先内容稿，再逐页设计，再做6页样板组，样板通过后才制作整套
+  method: 先内容稿，再逐页设计，再做样板组，样板通过后才制作整套
   baseline: 电影院陈爆米花实验 demo
+  current_step: content_draft_complete
+  next_step: full_page_design_spec
