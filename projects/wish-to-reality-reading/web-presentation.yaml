@@ -1,28 +1,21 @@
 project:
   slug: wish-to-reality-reading
-  name: 从“显化”到习惯：愿望是怎么影响现实的？
-  type: web-presentation
-  status: Prototype
-  current_version: v1.0.0
-  next_version: null
-  audience: general-reading
+  name: 从“显化”到习惯：愿望怎样进入现实
+  type: ppt-presentation
+  status: PPT Draft Complete
+  current_version: ppt-v1.0
+  audience: family-reading-share
 
-prototype:
-  version: v1.0.0
-  entry: prototype/v1.0.0/index.html
-  format: standalone-html
-  viewport: 16:9
-
-style:
-  tone: 人文社科读书分享 / 公开课式知识讲解
-  keywords:
-    - 知识型
-    - 故事化
-    - 编辑设计
-    - 信息图驱动
-    - 案例支撑
-    - 非Dashboard
-    - 非统一卡片模板
+workflow:
+  mode: formal-ppt
+  stopped: webppt
+  sequence:
+    - 内容框架
+    - 内容大纲
+    - 内容详细稿
+    - PPT稿
+    - PPT页面详情稿
+    - PPT
 
 content:
   books:
@@ -30,7 +23,13 @@ content:
     - Rethinking Positive Thinking
     - Good Habits, Bad Habits
     - The Stories We Live By
-  core_model: 未来图景 → 现实障碍 → 行为设计 → 环境习惯 → 真实证据 → 自我故事
-  draft: spec/v1.0-full-page-content.md
-  page_design: spec/v1.0-page-design.md
-  qa: .project/qa-v1.0.0.md
+  core_model: 未来图景 → 现实障碍 → 行动计划 → 环境习惯 → 真实证据 → 自我故事
+
+repository_assets:
+  framework: drafts/01-内容框架.md
+  outline: drafts/02-内容大纲.md
+  detailed_content_note: drafts/03-内容详细稿.md
+  ppt_script_note: drafts/04-PPT稿.md
+  page_detail_note: drafts/05-PPT页面详情稿.md
+
+note: 当前 GitHub 连接器只支持 UTF-8 文本写入，最终 pptx 二进制在会话交付包中提供。
