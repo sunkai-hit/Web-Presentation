@@ -1,18 +1,14 @@
 slug: wish-to-reality-reading
 name: 从“显化”到习惯：愿望是怎么影响现实的？
-status: Building
-current_version: v0.6.0
+status: Planning
+current_version: null
+next_version: v1.0.0
 created_at: 2026-10-06
 updated_at: 2026-10-06
 owner: sunkai-hit
-phase: prototype
-entry: prototype/v0.6.0/index.html
+phase: redesign
+entry: null
 notes:
-  - v0.1.0 完成四本书基础结构与总模型。
-  - v0.2.0 补充作者背景、书籍目的、经典故事、实验、概念解释与过渡叙事。
-  - v0.3.0 增强流程图/章节图节点说明，改善布局。
-  - v0.4.0 转为单文件 HTML 并加入初步图标化视觉。
-  - v0.5.0 重新加强内容密度、icon视觉辅助、案例承载和页面讲义感。
-  - v0.6.0 写入本项目专属内容生产规则，提交 34 页完整逐页内容稿，并按规则生成单文件 Web PPT 原型。
-  - v0.6.0 已记录 QA 到 .project/qa-v0.6.0.md。
-  - 后续重点可转向真实图片资产、逐页视觉精修和移动端适配。
+  - v0.6.0–v0.11.0 已清理，不再作为实现基线。
+  - v1.0 改用“逐页编辑设计”方法，不使用统一卡片模板批量生成。
+  - 先制作 6 页代表性样板组，通过后再扩展整套。
