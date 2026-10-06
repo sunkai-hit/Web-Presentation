@@ -1,34 +1,46 @@
-version: v0.1.0
+version: v0.2.0
 slides:
   - no: 1
     title: 从“显化”到习惯
   - no: 2
-    title: 光靠想，事情会变好吗？
+    title: “显化”到底在说什么？
   - no: 3
-    title: 今天的知识从哪里来？
+    title: 四位作者，刚好站在四个不同位置
   - no: 4
-    title: “显化”这个词，为什么吸引人？
+    title: 一百年前的“显化”
   - no: 5
-    title: 人生不是战场，而是一场“游戏”
+    title: 《The Game of Life》十章主线
   - no: 6
-    title: 新公寓与新地毯
+    title: Shinn 的内在到外在机制图
   - no: 7
-    title: 积极想象，真的总有用吗？
+    title: 新公寓、新地毯与 3000 美元
   - no: 8
-    title: 愿望要和现实“碰一下”
+    title: 第一本书的启发与边界
   - no: 9
-    title: 人很多时候并不是“重新决定”
+    title: 幻想成功，会不会让人更懒？
   - no: 10
-    title: 一个习惯是怎样形成的？
+    title: 积极思考停在哪一步？
   - no: 11
-    title: 很多改变，不是靠“更自律”
+    title: WOOP 四步
   - no: 12
-    title: 人还活在自己讲给自己的故事里
+    title: WOOP 真正的目的
   - no: 13
-    title: “我就是这样”一定是真的吗？
+    title: 很多行为不是每次重新决定
   - no: 14
-    title: 四本书，其实在解释同一条路径
+    title: 电影院里的陈爆米花
   - no: 15
-    title: 去唯心化后的“显化公式”
+    title: 习惯如何形成
   - no: 16
-    title: 结尾
+    title: 摩擦力与环境
+  - no: 17
+    title: 你觉得自己是谁？
+  - no: 18
+    title: 叙事身份的关键词
+  - no: 19
+    title: “我就是这样的人”走了哪三步？
+  - no: 20
+    title: 四本书完整架构
+  - no: 21
+    title: 去唯心化后的完整模型
+  - no: 22
+    title: 最后留下什么？
