@@ -7,12 +7,13 @@
 | 数智健康 OPC 国际人才社区 | `opc-talent-community` | `v0.4.1` | Released / Migrated | `projects/opc-talent-community/` |
 | 威海机场鸟情动态热力图原型 | `airport-bird-heatmap` | `v0.1.1` | Building | `projects/airport-bird-heatmap/` |
 | IBMS 智慧园区运营中心原型 | `ibms-smart-park` | `v0.6.0` | Building | `projects/ibms-smart-park/` |
-| 从“显化”到习惯：愿望是怎么影响现实的？ | `wish-to-reality-reading` | — | Planning / v1.0 Rebuild | `projects/wish-to-reality-reading/` |
+| 从“显化”到习惯：愿望是怎么影响现实的？ | `wish-to-reality-reading` | `v1.0.0` | Prototype | `projects/wish-to-reality-reading/` |
 
 ## 状态约定
 
 - `Planning`：内容架构或视觉方案阶段
 - `Building`：页面制作中
+- `Prototype`：已有可浏览原型，待精修或发布
 - `QA`：质量检查与修订中
 - `Released`：已有稳定发布版本
 - `Released / Migrated`：稳定版本已发布，且已完成多项目仓库迁移、参数化自动化验证与旧根目录清理
