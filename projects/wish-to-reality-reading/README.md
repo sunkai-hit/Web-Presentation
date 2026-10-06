@@ -4,12 +4,17 @@
 
 ## 当前版本
 
-- 当前版本：`v0.6.0`
-- 当前入口：[`prototype/v0.6.0/index.html`](./prototype/v0.6.0/index.html)
-- 版本形态：单文件 HTML，CSS/JS 内嵌。
-- 内容稿：[`spec/v0.6.0-full-page-content.md`](./spec/v0.6.0-full-page-content.md)
+- 当前版本：`v0.7.0`
+- 当前入口：[`prototype/v0.7.0/index.html`](./prototype/v0.7.0/index.html)
+- 当前内容稿：[`spec/v0.7.0-full-page-content.md`](./spec/v0.7.0-full-page-content.md)
 - 项目规则：[`./.project/content-production-rules.md`](./.project/content-production-rules.md)
-- QA 记录：[`./.project/qa-v0.6.0.md`](./.project/qa-v0.6.0.md)
+
+## v0.7.0 升级重点
+
+- 推倒并重写 `full-page-content`，不再使用摘要式页面提示。
+- 每页按“问题 → 背景/故事/实验 → 作者解释 → 现代解释 → 页底收束”的标准展开。
+- 重写爆米花实验页、Shinn 故事页、WOOP 案例页、习惯机制页、McAdams 叙事身份页等主体内容。
+- 增加内容驱动型原型：页面从 `spec/v0.7.0-full-page-content.md` 渲染，防止后续制作再次把内容稿压缩成空卡片。
 
 ## 内容来源
 
@@ -18,20 +23,9 @@
 3. Wendy Wood，《Good Habits, Bad Habits》：习惯科学、情境线索、摩擦力、奖励、重复与自动化。
 4. Dan P. McAdams，《The Stories We Live By》：叙事身份、关键场景、主体性 / 联结、救赎 / 污染叙事。
 
-## v0.6.0 升级重点
-
-- 将项目规则写入 `.project/content-production-rules.md`，只约束本项目。
-- 先提交 34 页完整逐页内容稿，再制作 Web PPT。
-- 按“爆米花实验页”信息密度基准，将每页改成完整知识单元。
-- 页面扩展到 34 屏，补充 Shinn 更多原书故事、WOOP 研究说明、Habit Discontinuity、Generativity、完整成人/学生案例等内容。
-- 继续保持单文件 HTML，CSS/JS 内嵌。
-
-## v0.6.0 页面结构
-
-共 34 屏：封面、显化概念、四书知识地图、Shinn 背景与十章、Shinn 机制与故事、Oettingen 与 WOOP、Wood 与习惯科学、McAdams 与叙事身份、四书整合模型、成人案例、学生案例、最终区分与结尾。
-
 ## 历史版本
 
+- [`prototype/v0.6.0/index.html`](./prototype/v0.6.0/index.html)
 - [`prototype/v0.5.0/index.html`](./prototype/v0.5.0/index.html)
 - [`prototype/v0.4.0/index.html`](./prototype/v0.4.0/index.html)
 - [`prototype/v0.3.0/index.html`](./prototype/v0.3.0/index.html)
