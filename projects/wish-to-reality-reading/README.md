@@ -4,17 +4,17 @@
 
 ## 当前版本
 
-- 当前版本：`v0.8.0`
-- 当前入口：[`prototype/v0.8.0/index.html`](./prototype/v0.8.0/index.html)
-- 当前内容稿：[`spec/v0.8.0-full-page-content.md`](./spec/v0.8.0-full-page-content.md)
+- 当前版本：`v0.10.0`
+- 当前入口：[`prototype/v0.10.0/index.html`](./prototype/v0.10.0/index.html)
+- 当前内容稿：[`spec/v0.9.0-full-page-content.md`](./spec/v0.9.0-full-page-content.md)
 - 项目规则：[`./.project/content-production-rules.md`](./.project/content-production-rules.md)
 
-## v0.8.0 升级重点
+## v0.10.0 升级重点
 
-- 将内容生产规则升级为 v2，明确“已确认内容不可降级”。
-- 提交新的 v0.8.0 完整逐页内容稿，冻结前 1–6 页标准并继续按同等颗粒度展开。
-- 制作单文件 HTML 原型，内容、CSS、JS 均内嵌，下载后可离线打开。
-- 避免 v0.7.0 的外部 Markdown 依赖问题。
+- 继续保留 v0.9.0 的完整内容稿基线。
+- 重新实现单文件 HTML，避免大面积空白侧栏和内容只集中在上部的问题。
+- 爆米花页改为实验场景 + 过程说明 + 结果解释 + 日常迁移的完整页面实现。
+- 当前版本为可下载离线打开的单文件 Web PPT。
 
 ## 内容来源
 
@@ -25,6 +25,9 @@
 
 ## 历史版本
 
+- [`prototype/v0.10.0/index.html`](./prototype/v0.10.0/index.html)
+- [`prototype/v0.9.0/index.html`](./prototype/v0.9.0/index.html)
+- [`prototype/v0.8.0/index.html`](./prototype/v0.8.0/index.html)
 - [`prototype/v0.7.0/index.html`](./prototype/v0.7.0/index.html)
 - [`prototype/v0.6.0/index.html`](./prototype/v0.6.0/index.html)
 - [`prototype/v0.5.0/index.html`](./prototype/v0.5.0/index.html)
