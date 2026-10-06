@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>从“显化”到习惯：愿望是怎么影响现实的？ v0.4.0</title>
+<style>
+:root{
+  --bg:#f4ede2; --paper:#fffaf2; --ink:#1a2337; --muted:#5d6779;
+  --blue:#263f6d; --green:#4e6f5a; --red:#8d4944; --gold:#b88b48;
+  --line:#dbcab1; --soft:#fcf7ef; --soft-blue:#eaf0fb; --soft-green:#eaf2ed; --soft-red:#f5e9e8; --soft-gold:#f8edd8;
+  --shadow:0 20px 60px rgba(49,44,34,.16);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:radial-gradient(circle at 10% 0,#fff8ee 0,#f4ede2 45%,#e7dbc8 100%);color:var(--ink);overflow:hidden}
+#deck{height:100%;display:flex;align-items:center;justify-content:center;padding:2vh 1.6vw}
+.slide{display:none;position:relative;width:min(96vw,152vh);height:min(54vw,86vh);aspect-ratio:16/9;background:linear-gradient(160deg,#fffdf8,#faf2e5);border:1px solid rgba(184,139,72,.22);border-radius:32px;box-shadow:var(--shadow);overflow:hidden;padding:34px 44px 48px 44px}
+.slide.active{display:block}
+.slide:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 10% 8%,rgba(184,139,72,.12),transparent 20%),radial-gradient(circle at 92% 6%,rgba(38,63,109,.08),transparent 22%),radial-gradient(circle at 90% 92%,rgba(78,111,90,.07),transparent 20%);pointer-events:none}
+.inner{position:relative;z-index:1;height:100%;display:flex;flex-direction:column}
+.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:10px}
+.kicker{font-size:14px;color:var(--gold);font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.page{font-size:13px;color:#9b8a73;font-weight:700}
+h1,h2,h3,h4,p{margin:0}
+.title{font-size:38px;line-height:1.13;color:var(--blue);font-weight:850;letter-spacing:-.02em}
+.subtitle{margin-top:10px;font-size:18px;line-height:1.52;color:var(--muted);max-width:1120px}
+.lead{font-size:24px;line-height:1.5;color:#2e384d}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:22px;padding:16px 18px;box-shadow:0 8px 24px rgba(54,47,33,.05)}
+.card.soft-blue{background:var(--soft-blue)} .card.soft-green{background:var(--soft-green)} .card.soft-red{background:var(--soft-red)} .card.soft-gold{background:var(--soft-gold)}
+.card h3{font-size:21px;color:var(--blue);margin-bottom:8px}
+.card h4{font-size:17px;color:var(--blue);margin-bottom:6px}
+.card p{font-size:15px;line-height:1.56;color:#3d4656}
+.card ul{margin:6px 0 0;padding-left:18px;font-size:15px;line-height:1.56;color:#3d4656}
+.tagrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:13px;color:#42506a;font-weight:700}
+.columns{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;flex:1;min-height:0}
+.flowwrap{margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.node{background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:6px;min-height:174px;position:relative}
+.node .icon{font-size:24px}
+.node b{font-size:17px;color:var(--blue)}
+.node small{font-size:12px;color:#8c7a61;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.node p{font-size:14px;line-height:1.48;color:#465162}
+.node .ex{margin-top:auto;padding-top:7px;border-top:1px dashed rgba(184,139,72,.45);font-size:13px;color:#596274}
+.arrowrow{display:grid;grid-template-columns:1fr 44px 1fr 44px 1fr 44px 1fr;gap:8px;align-items:stretch;margin-top:14px}
+.arrow{display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:28px;font-weight:900}
+.iconbox{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:white;border:1px solid var(--line);font-size:22px;flex:0 0 auto}
+.story{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:start}
+.story .emoji{font-size:30px;width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:var(--soft-gold)}
+.story h4{font-size:18px;color:var(--red);margin-bottom:4px}
+.story p{font-size:14px;line-height:1.55;color:#3d4656}
+.kv{display:grid;grid-template-columns:100px 1fr;gap:10px 12px;font-size:14px;line-height:1.5;color:#42506a}
+.kv b{color:var(--blue)}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.timecard{background:rgba(255,255,255,.76);border:1px solid var(--line);border-top:5px solid var(--gold);border-radius:18px;padding:14px;min-height:190px}
+.timecard h3{font-size:17px;color:var(--blue);margin-bottom:8px}
+.timecard p{font-size:14px;line-height:1.47;color:#465162}
+.chaptergrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}
+.chapter{background:rgba(255,255,255,.76);border:1px solid var(--line);border-radius:16px;padding:12px;min-height:126px}
+.chapter b{display:block;color:var(--blue);font-size:14px;margin-bottom:4px}
+.chapter p{font-size:12.5px;line-height:1.42;color:#4e596b}
+.note{margin-top:16px;background:rgba(255,255,255,.55);border-left:5px solid var(--gold);border-radius:14px;padding:12px 14px;font-size:16px;line-height:1.56;color:#3a4454}
+.matrix{display:grid;grid-template-columns:120px 1fr 1fr 1fr;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+.matrix div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 12px;font-size:13px;line-height:1.42;color:#42506a}.matrix div:nth-child(4n){border-right:none}.matrix .head{background:var(--blue);color:#fff;font-weight:800}.matrix .row{background:#f8f2e7;color:var(--blue);font-weight:800}
+.formula{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:28px}.chip{padding:12px 16px;border-radius:18px;background:#fff;border:1px solid var(--line);font-weight:800;color:var(--blue);font-size:16px}.op{font-size:24px;color:var(--gold);font-weight:900}
+.footer{position:absolute;left:44px;right:44px;bottom:15px;display:flex;justify-content:space-between;color:#8c7c66;font-size:12px}
+.progress{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:min(920px,72vw);height:4px;border-radius:999px;background:rgba(23,32,56,.12);overflow:hidden}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--blue));transition:.25s}
+.nav{position:fixed;right:16px;bottom:18px;display:flex;gap:8px}.nav button{background:rgba(26,35,55,.9);color:#fff;border:none;border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer}
+.center{justify-content:center;text-align:center}
+.bigquote{font-size:28px;line-height:1.48;color:var(--ink);font-weight:780;max-width:1050px;margin:0 auto}
+.hfill{flex:1;display:flex;flex-direction:column;justify-content:center}
+@media (max-width:1100px){.slide{padding:24px 28px 40px}.title{font-size:32px}.subtitle{font-size:16px}.g4,.g3{grid-template-columns:1fr 1fr}.timeline{grid-template-columns:1fr 1fr}.chaptergrid{grid-template-columns:repeat(2,1fr)}.columns{grid-template-columns:1fr}.flowwrap{grid-template-columns:1fr 1fr}.arrowrow{grid-template-columns:1fr}.matrix{grid-template-columns:100px 1fr 1fr 1fr}.footer{left:28px;right:28px}}
+</style>
+</head>
+<body>
+<div id="deck">
+
+<section class="slide active"><div class="inner center hfill">
+  <div class="topbar"><div class="kicker">四本书，四种解释</div><div class="page">01 / 18</div></div>
+  <h1 class="title" style="font-size:54px">从“显化”到习惯</h1>
+  <p class="subtitle" style="font-size:24px;margin-left:auto;margin-right:auto">愿望是怎么影响现实的？</p>
+  <div class="tagrow" style="justify-content:center;margin-top:22px">
+    <span class="tag">✨ Manifestation</span><span class="tag">🧭 WOOP</span><span class="tag">🔁 Habit</span><span class="tag">📖 Narrative Identity</span>
+  </div>
+  <div class="note" style="max-width:960px;margin:28px auto 0">这不是一套“成功学秘籍”，而是沿着四本书，看看一个愿望怎样从脑中的想法，逐步进入行动、习惯和“我是谁”的故事。</div>
+</div><div class="footer"><span>v0.4.0 standalone draft</span><span>← → 翻页</span></div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">从一个流行词开始</div><div class="page">02 / 18</div></div>
+  <h2 class="title">“显化”到底在说什么？</h2>
+  <p class="subtitle">它常被理解为：通过想象、信念、肯定语和情绪状态，让想要的结果进入现实。问题是——这种说法到底哪里有启发，哪里又过于理想化？</p>
+  <div class="grid g3" style="margin-top:18px;flex:1;align-content:start">
+    <div class="card soft-gold"><h3>✨ 流行版本</h3><p><b>核心直觉：</b>“你持续想什么，就更容易得到什么。”这也是今天“显化”在社交媒体上最常见的样子。</p><ul><li>想象理想未来</li><li>使用肯定语</li><li>假设愿望已经实现</li></ul></div>
+    <div class="card soft-blue"><h3>🧠 心理学版本</h3><p><b>更稳妥的理解：</b>未来图景会改变注意力、期待、情绪和解释方式，因此也会影响一个人的选择和行动。</p><ul><li>你开始更留意相关机会</li><li>更少被“我不行”限制</li><li>更愿意为某种未来准备</li></ul></div>
+    <div class="card soft-green"><h3>🛠 行为科学版本</h3><p><b>关键补充：</b>心理变化必须进一步变成计划、行动、环境和习惯，才更有可能稳定地影响结果。</p><ul><li>愿望不是结果本身</li><li>还需要面对障碍</li><li>还需要反复练成自动化</li></ul></div>
+  </div>
+  <div class="note">也就是说，“显化”最值得保留的部分，不是“思想直接创造现实”，而是：<b>一个人先在心里允许某种未来出现，再逐步把这种未来变成现实中的行为系统。</b></div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">知识地图</div><div class="page">03 / 18</div></div>
+  <h2 class="title">四位作者，刚好站在四个不同位置</h2>
+  <div class="timeline" style="flex:1;align-content:start">
+    <div class="timecard"><h3>📘 Florence Scovel Shinn</h3><p><b>书：</b>《The Game of Life and How to Play It》</p><p><b>关键词：</b>愿望、语言、潜意识、直觉。</p><p><b>在解决：</b>为什么有些人明明想要改变，却总被旧的内在图景拉回去？</p></div>
+    <div class="timecard" style="border-top-color:var(--blue)"><h3>📗 Gabriele Oettingen</h3><p><b>书：</b>《Rethinking Positive Thinking》</p><p><b>关键词：</b>幻想、现实障碍、WOOP。</p><p><b>在解决：</b>为什么“想成功”有时反而不行动？</p></div>
+    <div class="timecard" style="border-top-color:var(--green)"><h3>📙 Wendy Wood</h3><p><b>书：</b>《Good Habits, Bad Habits》</p><p><b>关键词：</b>习惯、环境线索、奖励、重复。</p><p><b>在解决：</b>为什么明明知道该做什么，还是常常回到旧行为？</p></div>
+    <div class="timecard" style="border-top-color:var(--red)"><h3>📕 Dan P. McAdams</h3><p><b>书：</b>《The Stories We Live By》</p><p><b>关键词：</b>叙事身份、人生故事、意义。</p><p><b>在解决：</b>人为什么会把经历组织成“我就是这样的人”？</p></div>
+  </div>
+  <div class="note">如果把它们连起来，可以得到一条越来越完整的链：<b>未来图景 → 现实障碍 → 自动行为 → 自我身份。</b></div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">第一本书</div><div class="page">04 / 18</div></div>
+  <h2 class="title">Shinn：一百年前的“显化”，其实在讲内在图景的力量</h2>
+  <div class="columns" style="margin-top:14px">
+    <div class="card soft-gold">
+      <h3>👤 作者与背景</h3>
+      <div class="kv">
+        <b>时代</b><span>1925 年，处于美国“新思想运动”影响下，自助、宗教与潜意识观念彼此交织。</span>
+        <b>关注</b><span>人不断重复的语言、想象和信念，会不会塑造他对世界的预期？</span>
+        <b>风格</b><span>不是学术心理学，而是通过大量故事、案例和宗教化语言来解释人生问题。</span>
+      </div>
+      <div class="tagrow"><span class="tag">🗣 语言</span><span class="tag">🖼 想象</span><span class="tag">🔮 直觉</span><span class="tag">🧭 放下控制</span></div>
+    </div>
+    <div class="card soft-blue">
+      <h3>🎯 她真正想说明什么？</h3>
+      <p>很多人嘴上想要一件事，心里却一直在说：<b>“我大概没机会”“我肯定不行”“好事轮不到我。”</b></p>
+      <p style="margin-top:10px">Shinn 认为，一个人长期生活在怎样的内在语言里，最终就更容易活在怎样的期待里；而期待又会影响他看见什么、忽略什么、敢不敢行动。</p>
+      <div class="note" style="margin-top:14px">所以，Shinn 不只是教人“许愿”，而是在试图改变：<b>人和未来之间的心理关系。</b></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">章节主线</div><div class="page">05 / 18</div></div>
+  <h2 class="title">《The Game of Life》十章，最终讲的是同一件事</h2>
+  <div class="chaptergrid" style="flex:1;align-content:start">
+    <div class="chapter"><b>01 游戏</b><p>人生不是战场，而是一场有规则的游戏。规则之一是：你持续发出的态度和语言，会回到你身上。</p></div>
+    <div class="chapter"><b>02 丰盛法则</b><p>匮乏感会让人先假设“不会有”，于是机会还没来就先退缩；丰盛感则让人开始为可能性留位置，并愿意做准备。</p></div>
+    <div class="chapter"><b>03 语言的力量</b><p>“我总会搞砸”“我每次都赶不上”这类话，说久了会变成默认预期，也会悄悄影响一个人对自己的判断。</p></div>
+    <div class="chapter"><b>04 不抗拒</b><p>过度与“不想要的东西”纠缠，会让它反而占据全部注意力。Shinn 要人把视线从“抗拒什么”转回“真正想创造什么”。</p></div>
+    <div class="chapter"><b>05 宽恕</b><p>宽恕不是替对方开脱，而是停止让旧冲突持续占据自己的心理空间。被过去绑住的人，很难把精力投向新的生活。</p></div>
+    <div class="chapter"><b>06 卸下重担</b><p>做完能做的部分以后，不再强迫性地控制结果和路径。这一章其实在讲：行动以后，还要学会放下过度紧绷。</p></div>
+    <div class="chapter"><b>07 爱</b><p>把“想占有对方”“害怕失去对方”与真正的爱区分开。对 Shinn 来说，爱也意味着不再用恐惧驱动关系。</p></div>
+    <div class="chapter"><b>08 直觉与指引</b><p>不一定知道全过程，但要学会识别“下一步该去哪里”。她反复强调：真实的指引往往只给你下一步，而不是整张地图。</p></div>
+    <div class="chapter"><b>09 神圣设计</b><p>真正适合自己的人生位置，常常不是靠强行争夺，而是靠逐渐发现。这一章把“适合自己”放在“只是想赢”前面。</p></div>
+    <div class="chapter"><b>10 否定与肯定</b><p>先松动旧信念，再建立新的语言和期待。这也是全书收尾：改变要从你每天默认说的话开始。</p></div>
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">机制图</div><div class="page">06 / 18</div></div>
+  <h2 class="title">Shinn 的核心链条：从内在图景到外在结果</h2>
+  <div class="flowwrap" style="flex:1;align-content:start">
+    <div class="node"><div class="icon">🎯</div><small>Step 01</small><b>愿望｜确定方向</b><p>先知道自己真正要什么，而不是只说“我想变好”。方向不清，语言和行动都无从着力。</p><div class="ex"><b>例：</b>“我要数学变好”→“我希望遇到难题时不立刻放弃。”</div></div>
+    <div class="node"><div class="icon">🖼</div><small>Step 02</small><b>想象｜建立终点画面</b><p>让脑中出现“这件事已经解决”的场景，减少持续盯着“现在还没有”的焦虑。</p><div class="ex"><b>例：</b>不是一直想“我还不会”，而是想象自己稳定做完一整页题。</div></div>
+    <div class="node"><div class="icon">🗣</div><small>Step 03</small><b>语言｜停止自我拆台</b><p>反复说出口的话，会慢慢变成默认期待。Shinn 特别反对把一时状态说成永久命运。</p><div class="ex"><b>例：</b>“我最近总粗心”与“我就是粗心的人”差别很大。</div></div>
+    <div class="node"><div class="icon">🌱</div><small>Step 04</small><b>期待｜潜意识形成预设</b><p>当人长期在某种语言和画面中生活，会更自然地预期某些结果，并据此反应。</p><div class="ex"><b>例：</b>总预设“会失败”的人，往往更早退缩。</div></div>
+    <div class="node"><div class="icon">🧘</div><small>Step 05</small><b>放下抗拒｜减少内耗</b><p>不是假装问题不存在，而是不把全部精力都用在“为什么还没发生”上。</p><div class="ex"><b>例：</b>做完准备后，停止一遍遍检查“为什么还不来”。</div></div>
+    <div class="node"><div class="icon">🔎</div><small>Step 06</small><b>直觉｜留意下一步</b><p>Shinn 常说“要求一个明确指引”。更现代地说，就是提高对线索和机会的敏感度。</p><div class="ex"><b>例：</b>突然想到应该联系某个人，或尝试某条新路径。</div></div>
+    <div class="node"><div class="icon">🚶</div><small>Step 07</small><b>行动｜机会出现时接住</b><p>她并不主张躺着等。相反，机会来了要真正行动，否则一切仍停在想法层。</p><div class="ex"><b>例：</b>写简历、联系资源、报名、尝试、开始。</div></div>
+    <div class="node"><div class="icon">🌍</div><small>Step 08</small><b>结果｜现实开始不同</b><p>Shinn 说这是“显现”。今天更稳妥的理解是：内在图景经由行为系统，逐渐改变现实反馈。</p><div class="ex"><b>例：</b>不是宇宙送来答案，而是你终于以新的方式接近问题。</div></div>
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">故事与边界</div><div class="page">07 / 18</div></div>
+  <h2 class="title">这本书为什么好读？因为它总用故事把抽象观念变成画面</h2>
+  <div class="columns" style="margin-top:14px">
+    <div class="card soft-gold">
+      <div class="story"><div class="emoji">🏠</div><div><h4>新公寓与新地毯</h4><p>一位女士特别想搬到新公寓。Shinn 鼓励她不要一直盯着“现在没有”，而是先进入“新生活正在到来”的状态。她于是先买了合适的新地毯。</p><p style="margin-top:8px">Shinn 把这解释成“为结果提前腾出空间”。今天可以把它理解成：<b>当一个人开始准备，他与机会的关系就发生了变化。</b></p></div></div>
+    </div>
+    <div class="card soft-blue">
+      <div class="story"><div class="emoji" style="background:var(--soft-blue)">💵</div><div><h4 style="color:var(--blue)">急需 3000 美元</h4><p>有人遇到财务难题，只盯着“没有钱”时越来越绝望。Shinn 让她把注意力从“资源缺失”转向“结果会通过合适路径出现”。后来她确实从原先没想到的渠道得到帮助。</p><p style="margin-top:8px">故事的重点不是神奇到账，而是：<b>不要把结果死死绑在唯一渠道上。</b></p></div></div>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card soft-green"><h3>值得保留的部分</h3><ul><li>愿望要清楚，语言要准确</li><li>不要天天重复“我做不到”</li><li>做完可控部分后，减少强迫性控制</li><li>机会出现时仍需要行动</li></ul></div>
+    <div class="card soft-red"><h3>需要保持判断的部分</h3><ul><li>思想不能被简单理解为直接改变外部世界</li><li>疾病与不幸不能归因于“你想错了”</li><li>不能用“显化”代替证据、行动或医学</li></ul></div>
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">第二本书</div><div class="page">08 / 18</div></div>
+  <h2 class="title">Oettingen：问题不在“积极思考”，而在你停在哪一步</h2>
+  <div class="columns" style="margin-top:14px">
+    <div class="card soft-blue"><h3>🧪 她为什么研究这个？</h3><p>现实中有很多人喜欢幻想成功后的样子：考好了、瘦下来了、项目做成了、关系改善了。短时间里，这样想确实会让人心情更好。</p><p style="margin-top:10px">但 Oettingen 发现：有时候，<b>只是反复想象美好未来</b>，反而会让人提前获得满足感，降低真正行动的张力。</p><div class="note" style="margin-top:12px">她不是反对愿景，而是反对“把愿景当作行动的替代品”。</div></div>
+    <div class="card soft-gold"><h3>🔍 她提出的关键转折</h3><p>愿景仍然重要，因为它回答“我想去哪”。但下一步必须立刻回到现实，问：<b>现在真正挡住我的是什么？</b></p><p style="margin-top:10px">这个把“未来”和“现实障碍”放在一起的动作，就是 <b>Mental Contrasting（心理对照）</b>。</p><div class="tagrow"><span class="tag">未来图景</span><span class="tag">现实障碍</span><span class="tag">心理张力</span></div></div>
+  </div>
+  <div class="note">她真正想解决的是：<b>让一个愿望从“我希望……”变成“我知道现在卡在哪里”。</b></div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">WOOP 流程图</div><div class="page">09 / 18</div></div>
+  <h2 class="title">WOOP：四个问题，把愿望变成具体行动</h2>
+  <div class="flowwrap" style="grid-template-columns:repeat(4,1fr);margin-top:14px;flex:1;align-content:start">
+    <div class="node"><div class="icon">🎯</div><small>W · Wish</small><b>愿望</b><p>先说清楚你真正想实现什么。Oettingen 强调，目标要有意义，也要基本可行。</p><div class="ex"><b>例：</b>“我想英语更好”不够清楚；“我想每周稳定读三次英文短文”更具体。</div></div>
+    <div class="node"><div class="icon">🌟</div><small>O · Outcome</small><b>结果</b><p>想象它实现以后最好的结果。不是为了沉迷幻想，而是为了确认：这件事为什么值得。</p><div class="ex"><b>例：</b>读英文时不再一看见生词就害怕，开始真正有一点掌控感。</div></div>
+    <div class="node"><div class="icon">🧱</div><small>O · Obstacle</small><b>障碍</b><p>最关键的一步：找的不是泛泛的困难，而是最可能在你自己身上出现的阻碍模式。</p><div class="ex"><b>例：</b>表面上是“没时间”，深一层其实是“只要一难我就会先躲开”。</div></div>
+    <div class="node"><div class="icon">🪜</div><small>P · Plan</small><b>计划</b><p>把障碍和应对行为预先绑在一起，形成 “If X, then Y” 的执行意图。</p><div class="ex"><b>例：</b>如果我一看到生词多就想关掉文章，那么我先只读第一段并标出 3 个关键词。</div></div>
+  </div>
+  <div class="note">WOOP 的真正价值，是把“我要更努力”换成：<b>障碍出现时，我下一步具体做什么。</b></div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">第二本书的边界</div><div class="page">10 / 18</div></div>
+  <h2 class="title">WOOP 不是“万能坚持术”，而是一种更聪明的投入方式</h2>
+  <div class="grid g2" style="margin-top:16px;flex:1;align-content:start">
+    <div class="card soft-green"><h3>✅ 当目标可行时</h3><p>心理对照会让人把“未来”和“障碍”更紧地连起来，于是更容易采取行动，也更容易在困难时不随便放弃。</p><ul><li>知道自己为什么想要</li><li>知道自己会被什么绊住</li><li>知道下一步怎样应对</li></ul></div>
+    <div class="card soft-red"><h3>⚠ 当目标明显不可行时</h3><p>WOOP 也可能帮助人判断：现在继续投入不划算，应该降低目标、调整方法，甚至把精力转向更值得的事情。</p><ul><li>不是每个愿望都要死磕</li><li>成熟也包括放下</li><li>调整不等于失败</li></ul></div>
+  </div>
+  <div class="note">也就是说，第二本书把“显化”从“相信未来”推进到：<b>面对现实，设计下一步。</b> 可第三本书又继续追问：为什么下一步明明设计好了，人还是经常不做？</div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">第三本书</div><div class="page">11 / 18</div></div>
+  <h2 class="title">Wendy Wood：真正接管很多日常行为的，不是目标，而是习惯</h2>
+  <div class="columns" style="margin-top:14px">
+    <div class="card soft-green"><h3>🔁 两套系统</h3><p><b>目标系统：</b>“我今天想做什么？”——需要意识、判断、选择。</p><p style="margin-top:10px"><b>习惯系统：</b>“我以前在这种场景下做什么？”——更快、更省力，也更自动。</p><div class="note" style="margin-top:12px">这解释了一个常见体验：<b>目标已经换了，行为还在运行旧版本。</b></div></div>
+    <div class="card soft-gold"><h3>📊 她想强调什么？</h3><p>很多人以为改变行为主要靠“更有意志力”。Wood 会说：意志力当然重要，但长期行为更常被<b>情境线索</b>、<b>重复</b>和<b>奖励</b>塑造。</p><div class="tagrow"><span class="tag">情境</span><span class="tag">重复</span><span class="tag">奖励</span><span class="tag">自动化</span></div></div>
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">经典实验</div><div class="page">12 / 18</div></div>
+  <h2 class="title">电影院里的“陈爆米花”实验：情境有时比口味更强</h2>
+  <div class="grid g2" style="margin-top:14px;flex:1;align-content:start">
+    <div class="card soft-gold">
+      <h3>🍿 实验怎么做？</h3>
+      <ul>
+        <li>在电影院里给观众发爆米花，其中一些并不新鲜。</li>
+        <li>平时没有“电影院吃爆米花”强习惯的人，会因为难吃而吃得更少。</li>
+        <li>但习惯很强的人，即使爆米花不新鲜，也仍然会继续吃。</li>
+      </ul>
+      <p style="margin-top:8px">因为对他们来说，“电影院 + 坐下 + 手里有爆米花”本身就已经足够触发吃的动作。</p>
+    </div>
+    <div class="card soft-blue">
+      <h3>🧠 这个实验真正说明什么？</h3>
+      <p>很多行为并不是每次都先经过“我现在真的想不想？”这种理性判断。相反，是某个熟悉情境一出现，过去被重复过的行为就自己启动了。</p>
+      <div class="grid g2" style="margin-top:12px">
+        <div class="card"><h4>没有强习惯</h4><p>味道 → 决定吃不吃。判断主要发生在当下：如果不好吃，就很容易停下来。</p></div>
+        <div class="card"><h4>有强习惯</h4><p>情境 → 自动开始吃。熟悉场景本身就像开关，即使口味变差也可能继续。</p></div>
+      </div>
+      <div class="note" style="margin-top:12px">迁移到日常：<b>上床就拿手机、工作卡住就刷消息、路过某店就买饮料，常常都是同一个逻辑。</b></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">习惯机制图</div><div class="page">13 / 18</div></div>
+  <h2 class="title">一个行为怎样从“我要做”，变成“我自然就做了”？</h2>
+  <div class="flowwrap" style="grid-template-columns:repeat(5,1fr);margin-top:14px;flex:1;align-content:start">
+    <div class="node"><div class="icon">📍</div><small>01 情境</small><b>线索出现</b><p>固定时间、地点、前一个动作，都会慢慢成为“这里该做什么”的提示。</p><div class="ex"><b>例：</b>下课回家、坐到桌前、洗完澡上床。</div></div>
+    <div class="node"><div class="icon">⚙️</div><small>02 行为</small><b>采取反应</b><p>在这个场景里做了某个动作；第一次是努力，重复多了以后越来越熟。</p><div class="ex"><b>例：</b>拿起手机、摊开练习册、换上跑鞋。</div></div>
+    <div class="node"><div class="icon">🎁</div><small>03 奖励</small><b>得到回报</b><p>这个回报可以是快乐、放松、完成感，也可以只是“没那么难受了”。</p><div class="ex"><b>例：</b>刷视频带来即时新鲜感；完成小任务带来推进感。</div></div>
+    <div class="node"><div class="icon">🔁</div><small>04 重复</small><b>在相似情境中反复发生</b><p>一次行为不会自动变成习惯，关键是相同线索下的反复出现。</p><div class="ex"><b>例：</b>每天同一时间开始，远比“有空再说”更容易固定。</div></div>
+    <div class="node"><div class="icon">🚀</div><small>05 自动化</small><b>行为自己启动</b><p>这时厉害的人未必更痛苦地自律，而可能只是更少需要做决定。</p><div class="ex"><b>例：</b>到点就开始写，到点就出门跑，而不是每天重新斗争。</div></div>
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">环境设计</div><div class="page">14 / 18</div></div>
+  <h2 class="title">Wood 最重要的建议：不要只改意志力，也要改摩擦力</h2>
+  <div class="grid g2" style="margin-top:14px;flex:1;align-content:start">
+    <div class="card soft-green"><h3>🟢 让好行为更容易发生</h3><ul><li><b>降低启动成本：</b>第一步越小，越不容易拖延。</li><li><b>固定情境：</b>同一时间、地点和顺序，帮助大脑学习。</li><li><b>看得见进度：</b>打勾、计数、完成标记都能形成即时反馈。</li><li><b>让工具可见：</b>书在桌上、鞋在门口、练习提前翻开。</li></ul></div>
+    <div class="card soft-red"><h3>🔴 让坏行为更难自动发生</h3><ul><li><b>增加步骤：</b>退出账号、关闭通知、放远一点。</li><li><b>改变场景：</b>工作区不放手机，卧室不放零食。</li><li><b>打断自动链条：</b>在“手快要去拿”的地方插入一个停顿。</li><li><b>别只靠忍：</b>环境如果一直在提示旧行为，意志力会消耗很快。</li></ul></div>
+  </div>
+  <div class="note">所以第三本书把前两本的“愿景—行动”继续推进到：<b>怎样让正确行为最终不用每天重新说服自己。</b></div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">第四本书</div><div class="page">15 / 18</div></div>
+  <h2 class="title">McAdams：最后决定“我会不会继续”的，常常是我怎么理解自己</h2>
+  <div class="columns" style="margin-top:14px">
+    <div class="card soft-red"><h3>📖 什么是“叙事身份”？</h3><p>成年人会把过去的经历、现在的状态和想象中的未来，组织成一个关于“我是谁”的故事。</p><p style="margin-top:10px">这个故事不是流水账，而是一种解释：<b>这些事情为什么发生在我身上？它们说明我是怎样的人？</b></p></div>
+    <div class="card soft-blue"><h3>🧩 他真正补上了什么？</h3><p>前三本书在谈“目标、障碍、行为和习惯”，McAdams 则提醒：这些经历最终会进入一个更深层的问题——<b>我会不会把它们当作新的证据，更新对自己的理解？</b></p><div class="note" style="margin-top:12px">同一件失败，可以进入“我果然不行”的故事，也可以进入“我终于知道自己缺什么”的故事。</div></div>
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">身份的结构</div><div class="page">16 / 18</div></div>
+  <h2 class="title">叙事身份不是自我欺骗，而是把“事实”和“解释”分开</h2>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card soft-green"><h3>两个重要主题</h3><ul><li><b>Agency（主体性）</b>：我能不能影响生活、做出选择、完成事情？</li><li><b>Communion（联结）</b>：我和他人的关系是什么？我属于哪里？</li><li><b>Redemption（救赎叙事）</b>：坏事后来发展出新的能力和意义。</li><li><b>Contamination（污染叙事）</b>：一个挫折被解释成“毁掉了一切”。</li></ul></div>
+    <div class="card soft-gold"><h3>一条常见的错误链</h3><p><b>事件：</b>这次考试有 4 道计算题错了。</p><p style="margin-top:8px"><b>解释：</b>“我就是粗心的人。”</p><p style="margin-top:8px"><b>身份：</b>“我不是那种稳定、可靠的人。”</p><p style="margin-top:8px"><b>后果：</b>下次还没开始，就先假设自己会重复同样的问题。</p></div>
+  </div>
+  <div class="matrix" style="margin-top:16px;flex:1;align-content:start">
+    <div class="head">场景</div><div class="head">摄像机拍到的事实</div><div class="head">过度化解释</div><div class="head">更完整的解释</div>
+    <div class="row">项目中断</div><div>做到一半停止了</div><div>我就是没执行力</div><div>目标太大，缺少阶段反馈，也没有固定情境支持</div>
+    <div class="row">表达失误</div><div>一次说到中途卡壳</div><div>我不适合表达</div><div>这次准备与练习不足，不等于没有表达能力</div>
+    <div class="row">考试失分</div><div>4 道计算题出错</div><div>我就是粗心</div><div>检查流程还没有自动化，需要把“看一遍”变成具体步骤</div>
+  </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+  <div class="topbar"><div class="kicker">四本书合起来</div><div class="page">17 / 18</div></div>
+  <h2 class="title">现在，完整路径终于出现了</h2>
+  <div class="flowwrap" style="grid-template-columns:repeat(4,1fr);margin-top:14px;flex:1;align-content:start">
+    <div class="node"><div class="icon">✨</div><small>Shinn</small><b>未来图景</b><p>先允许某种未来出现，修正每天的语言与内在图景，让愿望真正有方向。</p><div class="ex">关键词：愿望、想象、语言、期待、直觉。</div></div>
+    <div class="node"><div class="icon">🧱</div><small>Oettingen</small><b>现实障碍</b><p>把未来和现实放在一起，找到真正卡住自己的内部障碍，并提前设计应对。</p><div class="ex">关键词：心理对照、WOOP、If–Then。</div></div>
+    <div class="node"><div class="icon">🔁</div><small>Wood</small><b>自动行为</b><p>把正确行动放进稳定情境，通过降低摩擦、即时反馈和重复，形成习惯。</p><div class="ex">关键词：环境线索、奖励、重复、自动化。</div></div>
+    <div class="node"><div class="icon">📖</div><small>McAdams</small><b>自我故事</b><p>新的真实证据慢慢进入“我是谁”的叙事，让身份不再只由旧经验定义。</p><div class="ex">关键词：叙事身份、关键场景、解释、意义。</div></div>
+  </div>
+  <div class="formula"><span class="chip">未来图景</span><span class="op">→</span><span class="chip">现实障碍</span><span class="op">→</span><span class="chip">行动与环境</span><span class="op">→</span><span class="chip">习惯</span><span class="op">→</span><span class="chip">真实证据</span><span class="op">→</span><span class="chip">新身份</span></div>
+</div></section>
+
+<section class="slide"><div class="inner center hfill">
+  <div class="topbar"><div class="kicker">结语</div><div class="page">18 / 18</div></div>
+  <p class="bigquote">也许愿望不会直接改变世界，<br/>但它会改变你看见什么、怎样解释、愿意尝试什么，以及重复什么。<br/>而当这些变化持续足够久，现实就可能真的开始不同。</p>
+  <div class="grid g4" style="margin-top:28px;text-align:left">
+    <div class="card soft-gold"><h4>Shinn 留下的</h4><p>未来图景与语言的力量。它提醒我们：很多改变，先从一个人怎样想象自己与未来开始。</p></div>
+    <div class="card soft-blue"><h4>Oettingen 留下的</h4><p>愿景必须与现实障碍相遇。真正推动行动的，不是空想，而是看清自己会在哪里卡住。</p></div>
+    <div class="card soft-green"><h4>Wood 留下的</h4><p>环境与重复，最终决定自动化。稳定的情境与低摩擦设计，会让正确行为越来越自然。</p></div>
+    <div class="card soft-red"><h4>McAdams 留下的</h4><p>这些经历最后会进入“我是谁”的故事。一个人如何解释经历，最终会影响他敢不敢继续走下去。</p></div>
+  </div>
+  <div class="footer"><span>Wish to Reality · v0.4.0</span><span>END</span></div>
+</div></section>
+
+</div>
+<div class="progress"><span id="bar"></span></div>
+<div class="nav"><button id="prev">← 上一页</button><button id="next">下一页 →</button></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let current=0;
+function show(i){current=Math.max(0,Math.min(slides.length-1,i));slides.forEach((s,idx)=>s.classList.toggle('active',idx===current));document.getElementById('bar').style.width=((current+1)/slides.length*100)+'%';location.hash='s'+(current+1)}
+function fromHash(){const m=location.hash.match(/s(\d+)/);if(m)show(parseInt(m[1])-1);else show(0)}
+document.getElementById('prev').onclick=()=>show(current-1);document.getElementById('next').onclick=()=>show(current+1);
+document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(current+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(current-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1)});
+window.addEventListener('hashchange',fromHash);fromHash();
+</script>
+</body></html>
