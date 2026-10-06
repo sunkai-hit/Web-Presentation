@@ -1,10 +1,10 @@
 slug: wish-to-reality-reading
 name: 从“显化”到习惯：愿望怎样进入现实
-status: PPT Draft Complete
-current_version: ppt-v1.0
+status: PPT Detailed Draft Complete
+current_version: ppt-v1.1-detailed
 updated_at: 2026-10-06
 owner: sunkai-hit
-phase: ppt-delivery
+phase: ppt-detailed-delivery
 entry: null
 assets:
   framework: drafts/01-内容框架.md
@@ -12,7 +12,9 @@ assets:
   detailed_content_note: drafts/03-内容详细稿.md
   ppt_script_note: drafts/04-PPT稿.md
   page_detail_note: drafts/05-PPT页面详情稿.md
+  detailed_update_note: drafts/06-细化版更新说明.md
 notes:
   - 已停止 WebPPT 方向并清理旧 prototype/spec 内容。
   - 本轮改为正式 PPT 制作流程：内容框架 → 内容大纲 → 内容详细稿 → PPT稿 → PPT页面详情稿 → PPT。
-  - 最终 PPT 二进制和完整长稿在会话交付压缩包中提供；GitHub 连接器当前只能写入 UTF-8 文本。
+  - ppt-v1.1-detailed 进一步加厚了内容、故事、实验和道理讲解。
+  - 最终 PPT 二进制、PDF 和完整交付包在会话下载链接中提供；GitHub 连接器当前只能写入 UTF-8 文本。
