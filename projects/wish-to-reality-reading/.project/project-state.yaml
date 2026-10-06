@@ -6,9 +6,12 @@ next_version: v1.0.0
 created_at: 2026-10-06
 updated_at: 2026-10-06
 owner: sunkai-hit
-phase: redesign
+phase: content-draft-complete
 entry: null
+artifacts:
+  content_draft: spec/v1.0-full-page-content.md
 notes:
   - v0.6.0–v0.11.0 已清理，不再作为实现基线。
   - v1.0 改用“逐页编辑设计”方法，不使用统一卡片模板批量生成。
-  - 先制作 6 页代表性样板组，通过后再扩展整套。
+  - 34 页完整逐页内容稿已完成并提交。
+  - 下一步：基于内容稿编写整套页面设计稿，再制作样板/整套 HTML。
