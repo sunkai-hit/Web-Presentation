@@ -4,17 +4,17 @@
 
 ## 当前版本
 
-- 当前版本：`v0.10.0`
-- 当前入口：[`prototype/v0.10.0/index.html`](./prototype/v0.10.0/index.html)
+- 当前版本：`v0.11.0`
+- 当前入口：[`prototype/v0.11.0/index.html`](./prototype/v0.11.0/index.html)
 - 当前内容稿：[`spec/v0.9.0-full-page-content.md`](./spec/v0.9.0-full-page-content.md)
 - 项目规则：[`./.project/content-production-rules.md`](./.project/content-production-rules.md)
 
-## v0.10.0 升级重点
+## v0.11.0 修复重点
 
-- 继续保留 v0.9.0 的完整内容稿基线。
-- 重新实现单文件 HTML，避免大面积空白侧栏和内容只集中在上部的问题。
-- 爆米花页改为实验场景 + 过程说明 + 结果解释 + 日常迁移的完整页面实现。
-- 当前版本为可下载离线打开的单文件 Web PPT。
+- 针对 v0.10.0 中爆米花实验页仍然退化为“栏目齐但内容稀”的问题，重新按 demo 级别实现该页。
+- 爆米花页恢复为：实验场景图、四步实验过程、强/弱习惯结果对照、作者真正想说明、迁移到日常。
+- 已用 1600×900 渲染检查该页：无溢出、无越界、无大面积空容器。
+- 当前版本仍为可下载离线打开的单文件 Web PPT。
 
 ## 内容来源
 
@@ -25,6 +25,7 @@
 
 ## 历史版本
 
+- [`prototype/v0.11.0/index.html`](./prototype/v0.11.0/index.html)
 - [`prototype/v0.10.0/index.html`](./prototype/v0.10.0/index.html)
 - [`prototype/v0.9.0/index.html`](./prototype/v0.9.0/index.html)
 - [`prototype/v0.8.0/index.html`](./prototype/v0.8.0/index.html)
