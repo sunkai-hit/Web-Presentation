@@ -3,13 +3,13 @@ project:
   name: 从“显化”到习惯：愿望是怎么影响现实的？
   type: web-presentation
   status: Building
-  current_version: v0.3.0
+  current_version: v0.4.0
   audience: general-reading
 
 prototype:
-  version: v0.3.0
-  entry: prototype/v0.3.0/index.html
-  format: html-css-js
+  version: v0.4.0
+  entry: prototype/v0.4.0/index.html
+  format: standalone-html
   viewport: 16:9
 
 style:
@@ -21,6 +21,8 @@ style:
     - 结构图驱动
     - 案例支撑
     - 节点解释充分
+    - 单文件
+    - 轻量图标
   palette:
     background: 米白
     primary: 深蓝
@@ -37,5 +39,7 @@ content:
   narrative: 作者背景 → 问题 → 故事/实验 → 作者目的 → 方法 → 整合
   core_model: 未来图景 → 现实障碍 → 行为设计 → 环境习惯 → 真实证据 → 自我故事
   latest_changes:
-    - v0.3.0 将关键流程图节点补充为可直接讲解的完整内容
-    - v0.3.0 调整布局，使页面上中下区域都有内容承载，避免过空或挤在中部
+    - v0.4.0 重新生成单文件版，CSS 和 JS 全部内嵌
+    - v0.4.0 增加轻量 icon / emoji 视觉元素，降低空盒子感
+    - v0.4.0 将流程节点和卡片补充为更完整的信息单元
+    - v0.4.0 调整为 18 屏，节奏更集中
