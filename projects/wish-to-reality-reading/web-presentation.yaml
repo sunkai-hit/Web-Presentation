@@ -3,12 +3,12 @@ project:
   name: 从“显化”到习惯：愿望是怎么影响现实的？
   type: web-presentation
   status: Building
-  current_version: v0.4.0
+  current_version: v0.5.0
   audience: general-reading
 
 prototype:
-  version: v0.4.0
-  entry: prototype/v0.4.0/index.html
+  version: v0.5.0
+  entry: prototype/v0.5.0/index.html
   format: standalone-html
   viewport: 16:9
 
@@ -21,8 +21,7 @@ style:
     - 结构图驱动
     - 案例支撑
     - 节点解释充分
-    - 单文件
-    - 轻量图标
+    - icon视觉辅助
   palette:
     background: 米白
     primary: 深蓝
@@ -36,10 +35,10 @@ content:
     - Rethinking Positive Thinking
     - Good Habits, Bad Habits
     - The Stories We Live By
-  narrative: 作者背景 → 问题 → 故事/实验 → 作者目的 → 方法 → 整合
+  narrative: 作者背景 → 问题 → 故事/实验 → 作者目的 → 方法 → 案例 → 整合
   core_model: 未来图景 → 现实障碍 → 行为设计 → 环境习惯 → 真实证据 → 自我故事
   latest_changes:
-    - v0.4.0 重新生成单文件版，CSS 和 JS 全部内嵌
-    - v0.4.0 增加轻量 icon / emoji 视觉元素，降低空盒子感
-    - v0.4.0 将流程节点和卡片补充为更完整的信息单元
-    - v0.4.0 调整为 18 屏，节奏更集中
+    - v0.5.0 增加 icon / emoji 视觉元素，降低空白感
+    - v0.5.0 强化每页内容密度，使其更接近视觉讲义而非提纲页
+    - v0.5.0 加入阅读习惯与学习稳定性两个完整案例
+    - v0.5.0 使用单文件 HTML，CSS/JS 内嵌
