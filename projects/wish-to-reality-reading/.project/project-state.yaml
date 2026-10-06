@@ -1,18 +1,18 @@
 slug: wish-to-reality-reading
-name: 从“显化”到习惯：愿望是怎么影响现实的？
-status: Visual Rebuild
-current_version: v1.1.0
-next_version: null
-created_at: 2026-10-06
+name: 从“显化”到习惯：愿望怎样进入现实
+status: PPT Draft Complete
+current_version: ppt-v1.0
 updated_at: 2026-10-06
 owner: sunkai-hit
-phase: visual-rebuild-executed
-entry: prototype/v1.1.0/index.html
+phase: ppt-delivery
+entry: null
 assets:
-  content_draft: spec/v1.0-full-page-content.md
-  page_design: spec/v1.0-page-design.md
-  prototype: prototype/v1.1.0/index.html
+  framework: drafts/01-内容框架.md
+  outline: drafts/02-内容大纲.md
+  detailed_content_note: drafts/03-内容详细稿.md
+  ppt_script_note: drafts/04-PPT稿.md
+  page_detail_note: drafts/05-PPT页面详情稿.md
 notes:
-  - v1.1.0 改用“视觉场景 / 信息图骨架 + HTML 信息层”的方式，不再以文字框为主。
-  - v1.1.0 已拆分 index.html、css/backgrounds.css、css/base.css、js/app.js。
-  - 后续可继续把图像资产独立打包到 assets 目录。
+  - 已停止 WebPPT 方向并清理旧 prototype/spec 内容。
+  - 本轮改为正式 PPT 制作流程：内容框架 → 内容大纲 → 内容详细稿 → PPT稿 → PPT页面详情稿 → PPT。
+  - 最终 PPT 二进制和完整长稿在会话交付压缩包中提供；GitHub 连接器当前只能写入 UTF-8 文本。
