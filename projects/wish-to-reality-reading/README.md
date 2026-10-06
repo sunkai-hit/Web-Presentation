@@ -1,38 +1,40 @@
-# 从“显化”到习惯：愿望是怎么影响现实的？
+# 从“显化”到习惯：愿望怎样进入现实
 
-本项目以四本书为主线，讨论愿望如何经过未来图景、现实障碍、行为、习惯与叙事身份，最终影响现实中的选择和长期结果。
+本项目已从 WebPPT 方案切换为正式 PPT 方案。
 
 ## 当前状态
 
-- 状态：`Visual Rebuild / v1.1.0`
-- 当前版本：`v1.1.0`
-- 当前入口：[`prototype/v1.1.0/index.html`](./prototype/v1.1.0/index.html)
-- 当前内容稿：[`spec/v1.0-full-page-content.md`](./spec/v1.0-full-page-content.md)
-- 当前页面设计稿：[`spec/v1.0-page-design.md`](./spec/v1.0-page-design.md)
+- 状态：`PPT Draft Complete`
+- 交付形式：PowerPoint `.pptx` + PDF 预览 + 5 份中间稿
+- 本仓库已清理旧 WebPPT 原型与旧 spec，仅保留本次 PPT 方案相关稿件。
 
-## v1.1.0 方向
+## 本次中间稿件
 
-本版放弃 v1.0.0 的“文字框为主”的实现方式，改为：
+- [`drafts/01-内容框架.md`](./drafts/01-%E5%86%85%E5%AE%B9%E6%A1%86%E6%9E%B6.md)
+- [`drafts/02-内容大纲.md`](./drafts/02-%E5%86%85%E5%AE%B9%E5%A4%A7%E7%BA%B2.md)
+- [`drafts/03-内容详细稿.md`](./drafts/03-%E5%86%85%E5%AE%B9%E8%AF%A6%E7%BB%86%E7%A8%BF.md)
+- [`drafts/04-PPT稿.md`](./drafts/04-PPT%E7%A8%BF.md)
+- [`drafts/05-PPT页面详情稿.md`](./drafts/05-PPT%E9%A1%B5%E9%9D%A2%E8%AF%A6%E6%83%85%E7%A8%BF.md)
 
-1. 视觉场景 / 信息图先作为页面骨架；
-2. HTML 叠加标题、说明、机制、故事和结论；
-3. CSS、JS 拆分；
-4. 页面不再以统一卡片模板批量生成；
-5. 继续保持更详细的讲解内容，不只依赖背景图。
+> 注：由于当前 GitHub 连接器只支持 UTF-8 文本写入，不能直接上传 `.pptx` 二进制文件；最终 PPT、PDF、完整版长稿和素材已放入会话交付压缩包。
 
-当前版本是视觉重构执行版，后续如果需要打包，可把图像资产、CSS、JS 与 HTML 一起整理为压缩包。
+## 内容范围
 
-## 清理说明
+这份 PPT 覆盖四本书：
 
-v0.6.0–v0.11.0 为连续试错版本，因生产方式未达到标准，已从项目工作区清理，不再作为后续实现基线。
+1. Florence Scovel Shinn, *The Game of Life and How to Play It*
+2. Gabriele Oettingen, *Rethinking Positive Thinking*
+3. Wendy Wood, *Good Habits, Bad Habits*
+4. Dan P. McAdams, *The Stories We Live By*
 
-## 保留历史参考
+整体叙事链路：
 
-- `prototype/v0.1.0/`
-- `prototype/v0.2.0/`
-- `prototype/v0.3.0/`
-- `prototype/v0.4.0/`
-- `prototype/v0.5.0/`
-- `prototype/v1.0.0/`
+**未来图景 → 现实障碍 → 行动计划 → 环境习惯 → 真实证据 → 自我故事**
 
-这些仅作为历史参考，不代表 v1.1.0 的实现方式。
+## 本轮原则
+
+- 不再尝试 WebPPT；
+- 不再使用“几个框里几句话”的页面逻辑；
+- 每本书进入前先介绍作者、书和核心问题；
+- 故事/实验页先讲故事或实验本身，再分析；
+- PPT 中保留演讲者备注，支持完整讲解。
