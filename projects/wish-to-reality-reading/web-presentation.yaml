@@ -3,13 +3,13 @@ project:
   name: 从“显化”到习惯：愿望是怎么影响现实的？
   type: web-presentation
   status: Building
-  current_version: v0.6.0
+  current_version: v0.7.0
   audience: general-reading
 
 prototype:
-  version: v0.6.0
-  entry: prototype/v0.6.0/index.html
-  format: standalone-html
+  version: v0.7.0
+  entry: prototype/v0.7.0/index.html
+  format: content-driven-html
   viewport: 16:9
 
 style:
@@ -21,14 +21,7 @@ style:
     - 结构图驱动
     - 案例支撑
     - 节点解释充分
-    - icon视觉辅助
     - 页面内容完整
-  palette:
-    background: 米白
-    primary: 深蓝
-    accent_1: 墨绿
-    accent_2: 暗红
-    accent_3: 暗金
 
 content:
   books:
@@ -40,10 +33,9 @@ content:
   core_model: 未来图景 → 现实障碍 → 行为设计 → 环境习惯 → 真实证据 → 自我故事
   current_assets:
     rules: .project/content-production-rules.md
-    content_script: spec/v0.6.0-full-page-content.md
-    qa: .project/qa-v0.6.0.md
+    content_script: spec/v0.7.0-full-page-content.md
+    prototype: prototype/v0.7.0/index.html
   latest_changes:
-    - v0.6.0 增加项目专属内容生产规则
-    - v0.6.0 提交 34 页完整逐页内容稿
-    - v0.6.0 按高信息密度基准制作单文件 Web PPT 原型
-    - v0.6.0 完成基础 DOM 边界与视觉抽检记录
+    - v0.7.0 推倒并重写逐页完整内容稿
+    - v0.7.0 改为内容驱动型原型，避免内容再次被压缩成摘要
+    - v0.7.0 保留 v0.6.0 作为历史版本
